@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="estilos.css?v=7">
+<link rel="stylesheet" href="estilos.css?v=9">
 </head>
 <body>
 
@@ -52,6 +52,18 @@
 
 <main>
 
+  <!-- ===== AROMAS DESTACADOS: fila de frascos =====
+       Los perfumes se eligen en productos.js (CONFIG.portada) -->
+  <section class="vitrina" aria-labelledby="vitrinaTit">
+    <div class="vitrina-in">
+      <div class="vitrina-txt">
+        <h2 id="vitrinaTit" class="vitrina-tit">Aromas destacados</h2>
+        <a class="vitrina-link" href="#catalogo">Ver los 63</a>
+      </div>
+      <ul class="vitrina-fila" id="vitrina"></ul>
+    </div>
+  </section>
+
   <!-- ===== CATÁLOGO ===== -->
   <section class="catalogo" id="catalogo">
     <div class="sec-in">
@@ -76,18 +88,6 @@
     </div>
   </section>
 
-  <!-- ===== CÓMO PEDIR ===== -->
-  <section class="pasos" id="como-pedir">
-    <div class="sec-in">
-      <h2>Cómo pedir</h2>
-      <ol class="pasos-lista">
-        <li><strong>Elige tu aroma</strong><span>Busca en el catálogo y anota el número de tu perfume (por ejemplo, N.º 23).</span></li>
-        <li><strong>Escríbenos</strong><span>Toca “Pedir por WhatsApp” dentro del perfume y el mensaje se arma solo.</span></li>
-        <li><strong>Recíbelo</strong><span>Te confirmamos precio, forma de pago y entrega o envío.</span></li>
-      </ol>
-    </div>
-  </section>
-
   <!-- ===== CALIDAD ===== -->
   <section class="calidad">
     <div class="sec-in calidad-in">
@@ -97,8 +97,20 @@
         <p>Así puedes tener varios aromas para distintos momentos del día, sin gastar lo de uno solo.</p>
       </div>
       <figure class="calidad-img">
-        <img src="img/botella.webp" alt="" width="333" height="1000" loading="lazy">
+        <img src="img/detalle.webp" alt="Frasco de Bruma Scent en la mano" width="540" height="717" loading="lazy">
       </figure>
+    </div>
+  </section>
+
+  <!-- ===== CÓMO PEDIR ===== -->
+  <section class="pasos" id="como-pedir">
+    <div class="sec-in">
+      <h2>Cómo pedir</h2>
+      <ol class="pasos-lista">
+        <li><strong>Elige tu aroma</strong><span>Busca en el catálogo y anota el número de tu perfume (por ejemplo, N.º 23).</span></li>
+        <li><strong>Escríbenos</strong><span>Toca “Pedir por WhatsApp” dentro del perfume y el mensaje se arma solo.</span></li>
+        <li><strong>Recíbelo</strong><span>Te confirmamos precio, forma de pago y entrega o envío.</span></li>
+      </ol>
     </div>
   </section>
 
@@ -148,8 +160,8 @@
   </div>
 </dialog>
 
-<script src="productos.js?v=4"></script>
+<script src="productos.js?v=5"></script>
 <script src="notas.js?v=3"></script>
-<script src="app.js?v=4"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

@@ -92,6 +92,18 @@
   /* ---------- portada ---------- */
   function pintarPortada() {
     var t = $("#totalAromas"); if (t) t.textContent = PERFUMES.length;
+    var lv = $(".vitrina-link"); if (lv) lv.textContent = "Ver los " + PERFUMES.length;
+    var fila = $("#vitrina"); if (!fila) return;
+    var elegidos = (CONFIG.portada || []).map(function (n) { return PERFUMES.find(function (p) { return p.num === Number(n); }); }).filter(Boolean);
+    if (!elegidos.length) elegidos = PERFUMES.slice(0, 10);
+    fila.innerHTML = elegidos.map(function (p) {
+      return '<li><button type="button" data-num="' + p.num + '" aria-label="Ver ' + esc(p.nombre) + '">' +
+        '<span class="apoyo"><span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" width="173" height="520" loading="lazy"><i></i></span></span>' +
+        '<span class="vitrina-nom">' + esc(p.nombre) + '</span></button></li>';
+    }).join("");
+    fila.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-num]"); if (b) abrir(b.dataset.num);
+    });
   }
 
   /* ---------- catálogo ---------- */

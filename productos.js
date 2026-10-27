@@ -18,6 +18,9 @@ window.CONFIG = {
   // Mensaje que se arma al tocar "Pedir por WhatsApp". {num}, {nombre} y {marca} se reemplazan solos.
   mensaje: "Hola Bruma Scent, me interesa el N.º {num}, {nombre} (inspirado en {marca}). ¿Me das informes?",
 
+  // Perfumes de la fila "Aromas destacados" (por número de catálogo)
+  portada: [35, 40, 7, 11, 60, 26, 48, 41, 55, 33],
+
   // Precio general que se muestra en todos los perfumes que no tengan precio propio. Ejemplo: "$350 · 100 ml". Vacío = no se muestra.
   precioGeneral: ""
 };

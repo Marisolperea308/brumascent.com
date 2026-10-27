@@ -15,6 +15,11 @@
   --rosa-suave: #ead3cb; /* chips y bordes activos */
   --linea: #e4d1ca;      /* líneas de la rejilla */
   --sobre-rosa: #fff8f5; /* texto sobre botones */
+  --cafe: #2a211c;       /* bandas oscuras (como la sombra de la foto) */
+  --cafe-2: #3b2f27;
+  --crema: #f4eadf;      /* texto sobre café */
+  --dorado: #d8b27a;     /* acento dorado de la luz de la foto */
+  --gris-centro: #f3f1ee; --gris-medio: #dfdbd6; --gris-orilla: #bdb7b1;
 
   --f-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
   --f-texto: "Jost", "Futura", "Avenir Next", system-ui, sans-serif;
@@ -107,6 +112,39 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .btn-claro { background: transparent; border-color: var(--tinta); }
 }
 
+/* ---------- Aromas destacados: fila de frascos sobre gris de estudio ---------- */
+.vitrina { background: radial-gradient(ellipse 75% 80% at 50% 70%, var(--gris-centro) 0%, var(--gris-medio) 50%, var(--gris-orilla) 100%); }
+.vitrina-in {
+  max-width: 1440px; margin: 0 auto;
+  display: grid; grid-template-columns: 170px minmax(0, 1fr); align-items: end; gap: clamp(24px, 4vw, 64px);
+  padding-block: clamp(64px, 8vw, 110px) clamp(56px, 7vw, 96px);
+  padding-left: max(28px, env(safe-area-inset-left, 0px)); padding-right: max(28px, env(safe-area-inset-right, 0px));
+}
+.vitrina-txt { display: grid; gap: 8px; align-self: center; padding-bottom: 40px; }
+.vitrina-tit { font: 400 .82rem/1.3 var(--f-texto); letter-spacing: .16em; text-transform: uppercase; }
+.vitrina-link { font-size: .88rem; color: var(--tinta); text-underline-offset: 3px; }
+.vitrina-fila {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); align-items: end; gap: 8px;
+  overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory;
+}
+.vitrina-fila::-webkit-scrollbar { display: none; }
+.vitrina-fila li { scroll-snap-align: start; min-width: 0; display: grid; justify-items: center; }
+.vitrina-fila button { all: unset; cursor: pointer; box-sizing: border-box; max-width: 100%; display: grid; justify-items: center; gap: 14px; padding: 8px 4px 0; border-radius: 12px; }
+.vitrina-fila button:focus-visible { outline: 2px solid var(--tinta); outline-offset: 2px; }
+.vitrina-fila .apoyo { display: block; line-height: 0; transition: transform .35s ease; }
+.vitrina-fila button:hover .apoyo { transform: translateY(-8px); }
+.vitrina-fila .frasco { height: clamp(150px, 14vw, 200px); }
+.vitrina-fila .frasco img { filter: drop-shadow(0 14px 10px rgba(50, 40, 35, .25)); }
+.vitrina-nom { font-size: .8rem; color: var(--tinta-2); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 1180px) { .vitrina-fila { grid-auto-columns: 108px; gap: 14px; } }
+@media (max-width: 760px) {
+  .vitrina-in { grid-template-columns: 1fr; gap: 18px; padding-block: 48px 44px; }
+  .vitrina-txt { padding-bottom: 0; grid-auto-flow: column; justify-content: space-between; align-items: baseline; }
+  .vitrina-fila { margin-right: calc(-1 * max(28px, env(safe-area-inset-right, 0px))); padding-right: 28px; }
+  .vitrina-fila .frasco { height: 160px; }
+}
+
 /* ---------- Frasco teñido ----------
    La botella base tiene el líquido en gris; encima va una capa del
    color del perfume (campo "tono" en productos.js) recortada con la
@@ -121,7 +159,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 
 /* ---------- Catálogo ---------- */
-.catalogo { padding-block: 72px 24px; border-top: 1px solid var(--linea); }
+.catalogo { padding-block: 88px 40px; }
 .cat-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
 .cat-sub { color: var(--tinta-2); }
 .cat-filtros { display: grid; gap: 16px; margin-top: 28px; }
@@ -156,12 +194,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   display: grid; grid-template-rows: auto 1fr auto; gap: 12px; padding: 18px 18px 20px;
   transition: background .2s;
 }
-.carta:hover { background: var(--papel-2); }
+.carta { transition: background .25s, box-shadow .25s; }
+.carta:hover { background: #fffaf7; box-shadow: 0 18px 40px rgba(60, 35, 25, .12); position: relative; z-index: 1; }
 .carta:focus-visible { outline: 2px solid var(--rosa); outline-offset: -4px; }
 .carta-top { display: flex; justify-content: space-between; align-items: center; font-size: .8rem; color: var(--tinta-2); }
 .carta-num { font: 400 .95rem var(--f-display); color: var(--rosa); font-variant-numeric: tabular-nums; }
 .carta-tag { font-size: .72rem; letter-spacing: .06em; padding: 3px 10px; border-radius: var(--radio); background: var(--rosa-suave); color: var(--tinta); }
-.carta-img { height: 190px; display: flex; justify-content: center; align-items: center; }
+.carta-img { height: 210px; display: flex; justify-content: center; align-items: center; background: radial-gradient(ellipse 46% 52% at 50% 58%, #ffffff 0%, rgba(255, 255, 255, .55) 45%, rgba(255, 255, 255, 0) 75%); }
+.carta-img .frasco img { filter: drop-shadow(0 12px 9px rgba(60, 40, 30, .2)); }
 .carta-img .frasco { height: 190px; transition: transform .35s ease; }
 .carta:hover .carta-img .frasco { transform: translateY(-6px); }
 .carta-txt { display: grid; gap: 2px; text-align: center; }
@@ -171,7 +211,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .carta-notas { display: flex; justify-content: center; gap: 0; margin-top: 10px; }
 .carta-notas img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 2px solid var(--papel); margin-left: -6px; background: var(--papel-2); }
 .carta-notas img:first-child { margin-left: 0; }
-.carta:hover .carta-notas img { border-color: var(--papel-2); }
+.carta:hover .carta-notas img { border-color: #fffaf7; }
 @media (max-width: 680px) {
   .carta { padding: 14px 10px 16px; }
   .carta-img, .carta-img .frasco { height: 150px; }
@@ -184,22 +224,22 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .vacio-sub { color: var(--tinta-2); max-width: 40ch; margin-bottom: 10px; }
 
 /* ---------- Cómo pedir ---------- */
-.pasos { padding-block: 88px; }
+.pasos { padding-block: 96px; background: radial-gradient(ellipse 80% 120% at 85% 0%, var(--cafe-2), var(--cafe) 70%); color: var(--crema); }
 .pasos-lista { list-style: none; padding: 0; margin: 36px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; counter-reset: paso; }
-.pasos-lista li { counter-increment: paso; display: grid; gap: 8px; padding-top: 20px; border-top: 1px solid var(--tinta); }
-.pasos-lista li::before { content: counter(paso); font: 400 2.6rem/1 var(--f-display); color: var(--rosa); }
+.pasos-lista li { counter-increment: paso; display: grid; gap: 8px; padding-top: 20px; border-top: 1px solid rgba(216, 178, 122, .45); }
+.pasos-lista li::before { content: counter(paso); font: 400 2.8rem/1 var(--f-display); color: var(--dorado); }
 .pasos-lista strong { font-weight: 500; font-size: 1.1rem; }
-.pasos-lista span { color: var(--tinta-2); }
+.pasos-lista span { color: rgba(244, 234, 223, .72); }
 @media (max-width: 760px) { .pasos-lista { grid-template-columns: 1fr; gap: 28px; } }
 
 /* ---------- Calidad ---------- */
-.calidad { background: var(--papel-2); }
-.calidad-in { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; gap: 40px; padding-block: 80px; }
+.calidad { background: var(--papel-2); overflow: hidden; }
+.calidad-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 6vw, 88px); padding-block: 96px; }
 .calidad-txt { display: grid; gap: 18px; max-width: 54ch; }
 .calidad-txt p { color: var(--tinta-2); }
-.calidad-img { margin: 0; justify-self: center; }
-.calidad-img img { height: 320px; width: auto; transform: rotate(-8deg); filter: drop-shadow(0 24px 24px rgba(80, 40, 30, .18)); }
-@media (max-width: 760px) { .calidad-in { grid-template-columns: 1fr; } .calidad-img img { height: 240px; } }
+.calidad-img { margin: 0; justify-self: center; width: min(100%, 320px); }
+.calidad-img img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 50%; border-radius: 999px 999px 18px 18px; box-shadow: 0 30px 60px rgba(60, 35, 25, .22); }
+@media (max-width: 760px) { .calidad-in { grid-template-columns: 1fr; padding-block: 72px; } .calidad-img { width: min(80%, 320px); } }
 
 /* ---------- Preguntas ---------- */
 .faq { padding-block: 88px; }
@@ -212,12 +252,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .faq details p { padding: 0 0 22px; color: var(--tinta-2); max-width: 62ch; }
 
 /* ---------- Pie ---------- */
-.pie { border-top: 1px solid var(--linea); }
+.pie { background: var(--cafe); color: var(--crema); }
 .pie-in { display: grid; justify-items: center; text-align: center; gap: 14px; padding-block: 64px 48px; }
-.pie .logo { width: 150px; height: auto; }
-.pie-lema { font: italic 400 1.3rem var(--f-display); color: var(--tinta-2); }
+.pie .logo { width: 150px; height: auto; filter: invert(1) sepia(.25) brightness(1.05); }
+.pie-lema { font: italic 400 1.3rem var(--f-display); color: var(--dorado); }
 .pie-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 10px 0 18px; }
-.pie-legal { font-size: .78rem; color: var(--tinta-2); max-width: 60ch; opacity: .85; }
+.pie-legal { font-size: .78rem; color: rgba(244, 234, 223, .6); max-width: 60ch; }
+.pie .btn { background: var(--crema); color: var(--cafe); border-color: var(--crema); }
+.pie .btn-linea { background: transparent; color: var(--crema); border-color: rgba(244, 234, 223, .5); }
+.pie .btn:hover { background: var(--dorado); border-color: var(--dorado); color: var(--cafe); }
 
 /* ---------- Ficha (detalle del perfume) ---------- */
 .ficha {
