@@ -7,7 +7,7 @@
 window.CONFIG = {
   // Número de WhatsApp con lada de país, solo números. Ejemplo México: "5214421234567"
   // Mientras esté vacío, los botones de "Pedir" llevan al Instagram.
-  whatsapp: "",
+  whatsapp: "528115888283",
 
   // Usuario de Instagram sin @
   instagram: "brumascent",
