@@ -25,7 +25,8 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 **Precios:** `precioGeneral` en `CONFIG` se muestra en todos los perfumes (ej. `"$350 · 100 ml"`). Para un precio distinto en un perfume, llena su campo `precio`.
 
 **Agregar un perfume:** copia un bloque `{ ... }` completo dentro de `window.PERFUMES`, ponlo al final, cambia `num` al siguiente número libre y llena todos los campos. Reglas:
-- `familia` debe ser exactamente una de: `Floral`, `Floral frutal`, `Dulce`, `Oriental`, `Amaderado`, `Fresco`, `Chipre`.
+- `familia` debe ser exactamente una de: `Floral`, `Floral frutal`, `Dulce`, `Oriental`, `Amaderado`, `Fresco`, `Acuático`, `Aromático`, `Chipre`.
+- `genero`: `"mujer"`, `"hombre"` o `"unisex"` (unisex aparece en las dos secciones). Números: mujer del 1 al 100, hombre del 101 en adelante.
 - `destacadas`: 4 notas tomadas de su pirámide.
 - `tono`: color del perfume original (ver "Color del frasco").
 - `salida`, `corazon`, `fondo`: listas de notas en español con mayúscula inicial, usando los mismos nombres que ya existen cuando sea la misma nota (revisa `notas.js`).
@@ -38,6 +39,8 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 **Color del frasco:** cada perfume tiene `tono` con el color del perfume original en formato `#rrggbb` (ej. `"#f0a7b8"` para un rosa). La página lo aclara sola para que el líquido siempre se vea pastel, así que se puede poner el color real aunque sea oscuro.
 
 **Fotos de notas:** en `notas.js`, cada nota es `"Nombre": { url: "https://images.unsplash.com/photo-...", encuadre: "centro" }`. Para una nota nueva, busca una foto con licencia gratuita "Unsplash License" (no Unsplash+), copia la dirección de la imagen que empieza con `https://images.unsplash.com/photo-` sin lo que va después del `?`, y agrégala con el nombre exacto de la nota. `encuadre` puede ser `centro`, `arriba`, `abajo`, `izquierda` o `derecha` (hacia dónde está el objeto en la foto). Si una nota no tiene foto, se muestra la foto `_generica`.
+
+**Sección Mujer / Hombre:** la página muestra dos pestañas ("Para ella" y "Para él") según el campo `genero` de cada perfume. Los enlaces `brumascent.com/#mujer` y `brumascent.com/#hombre` abren directo cada sección.
 
 **Etiquetas:** `nuevo: true` muestra "Nuevo" y `masPedido: true` muestra "Más pedido" en su tarjeta.
 

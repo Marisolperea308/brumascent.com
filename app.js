@@ -8,10 +8,18 @@
 
   var PERFUMES = (window.PERFUMES || []).slice().sort(function (a, b) { return a.num - b.num; });
   var CONFIG = window.CONFIG || {};
-  var FAMILIAS = ["Floral", "Floral frutal", "Dulce", "Oriental", "Amaderado", "Fresco", "Chipre"];
+  var FAMILIAS = ["Floral", "Floral frutal", "Dulce", "Oriental", "Amaderado", "Fresco", "Acuático", "Aromático", "Chipre"];
 
   var $ = function (s, el) { return (el || document).querySelector(s); };
-  var estado = { familia: "Todos", texto: "" };
+  var estado = { genero: "mujer", familia: "Todos", texto: "" };
+  /* Género: "mujer", "hombre" o "unisex" (aparece en las dos secciones). Sin dato = mujer. */
+  function generoDe(p) { return p.genero || "mujer"; }
+  function enGenero(p, g) { var x = generoDe(p); return x === g || x === "unisex"; }
+  function deEsteGenero() {
+    var l = PERFUMES.filter(function (p) { return enGenero(p, estado.genero); });
+    var propios = l.filter(function (p) { return generoDe(p) !== "unisex"; }), uni = l.filter(function (p) { return generoDe(p) === "unisex"; });
+    return propios.concat(uni);  // los unisex van al final de cada sección
+  }
 
   /* ---------- utilidades ---------- */
   function slug(s) {
@@ -107,12 +115,25 @@
   }
 
   /* ---------- catálogo ---------- */
+  function pintarGeneros() {
+    ["mujer", "hombre"].forEach(function (g) {
+      var b = document.querySelector('.genero-tab[data-g="' + g + '"]'); if (!b) return;
+      b.setAttribute("aria-pressed", String(estado.genero === g));
+      var c = b.querySelector("small"); if (c) c.textContent = PERFUMES.filter(function (p) { return enGenero(p, g); }).length + " aromas";
+    });
+  }
+  function cambiarGenero(g) {
+    if (g !== "mujer" && g !== "hombre") return;
+    estado.genero = g; estado.familia = "Todos";
+    pintarGeneros(); pintarChips(); pintarRejilla();
+  }
   function pintarChips() {
-    var presentes = FAMILIAS.filter(function (f) { return PERFUMES.some(function (p) { return p.familia === f; }); });
-    PERFUMES.forEach(function (p) { if (p.familia && presentes.indexOf(p.familia) < 0) presentes.push(p.familia); });
+    var base = deEsteGenero();
+    var presentes = FAMILIAS.filter(function (f) { return base.some(function (p) { return p.familia === f; }); });
+    base.forEach(function (p) { if (p.familia && presentes.indexOf(p.familia) < 0) presentes.push(p.familia); });
     var lista = ["Todos"].concat(presentes);
     $("#chips").innerHTML = lista.map(function (f) {
-      var n = f === "Todos" ? PERFUMES.length : PERFUMES.filter(function (p) { return p.familia === f; }).length;
+      var n = f === "Todos" ? base.length : base.filter(function (p) { return p.familia === f; }).length;
       return '<button type="button" class="chip" data-f="' + esc(f) + '" aria-pressed="' + (estado.familia === f) + '">' + esc(f) + '<span>' + n + '</span></button>';
     }).join("");
   }
@@ -124,7 +145,7 @@
   }
   function filtrados() {
     var t = slug(estado.texto);
-    return PERFUMES.filter(function (p) {
+    return deEsteGenero().filter(function (p) {
       return (estado.familia === "Todos" || p.familia === estado.familia) && (!t || p._busca.indexOf(t) >= 0);
     });
   }
@@ -140,7 +161,8 @@
         '</button></li>';
     }).join("");
     var total = lista.length;
-    $("#cuenta").textContent = total === PERFUMES.length ? total + " aromas" : total + (total === 1 ? " aroma" : " aromas") + " de " + PERFUMES.length;
+    var deG = deEsteGenero().length, quien = estado.genero === "hombre" ? " para él" : " para ella";
+    $("#cuenta").textContent = total === deG ? total + " aromas" + quien : total + (total === 1 ? " aroma" : " aromas") + " de " + deG + quien;
     $("#vacio").hidden = total > 0;
   }
 
@@ -148,7 +170,8 @@
   var ficha = $("#ficha");
   function similares(p) {
     var mias = [].concat(p.salida || [], p.corazon || [], p.fondo || []);
-    return PERFUMES.filter(function (o) { return o.num !== p.num; }).map(function (o) {
+    var g = generoDe(p) === "hombre" ? "hombre" : "mujer";
+    return PERFUMES.filter(function (o) { return o.num !== p.num && enGenero(o, g); }).map(function (o) {
       var suyas = [].concat(o.salida || [], o.corazon || [], o.fondo || []);
       var comun = suyas.filter(function (n) { return mias.indexOf(n) >= 0; }).length;
       return { o: o, s: comun + (o.familia === p.familia ? 2 : 0) };
@@ -201,10 +224,18 @@
   });
   function desdeHash() {
     var m = location.hash.match(/^#perfume-(\d+)/);
-    if (m) abrir(m[1], true);
+    if (m) { abrir(m[1], true); return; }
+    var g = location.hash.match(/^#(mujer|hombre)$/);
+    if (g) { cambiarGenero(g[1]); var cat = $("#catalogo"); if (cat) cat.scrollIntoView(); }
   }
 
   /* ---------- eventos del catálogo ---------- */
+  document.querySelectorAll(".genero-tab").forEach(function (b) {
+    b.addEventListener("click", function () {
+      cambiarGenero(b.dataset.g);
+      try { history.replaceState(null, "", "#" + b.dataset.g); } catch (e) {}
+    });
+  });
   $("#chips").addEventListener("click", function (e) {
     var b = e.target.closest(".chip"); if (!b) return;
     estado.familia = b.dataset.f; pintarChips(); pintarRejilla();
@@ -227,6 +258,7 @@
   /* ---------- arranque ---------- */
   pintarContacto();
   pintarPortada();
+  pintarGeneros();
   pintarChips();
   pintarRejilla();
   pintarPreguntas();

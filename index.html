@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="estilos.css?v=17">
+<link rel="stylesheet" href="estilos.css?v=18">
 </head>
 <body>
 
@@ -24,7 +24,8 @@
       <img src="img/logo.png" alt="Bruma Scent" class="logo" width="190" height="108">
     </a>
     <nav class="nav" aria-label="Secciones">
-      <a href="#catalogo">Catálogo</a>
+      <a href="#mujer">Mujer</a>
+      <a href="#hombre">Hombre</a>
       <a href="#como-pedir">Cómo pedir</a>
       <a href="#preguntas">Preguntas</a>
     </nav>
@@ -43,8 +44,8 @@
       <h1 id="portadaTit">Tu esencia,<br>tu estilo.</h1>
       <p class="portada-sub"><span id="totalAromas">63</span> aromas inspirados en los perfumes que más amas.</p>
       <div class="portada-cta">
-        <a class="btn" href="#catalogo">Ver catálogo</a>
-        <a class="btn btn-claro js-contacto" href="#contacto">Pedir</a>
+        <a class="btn" href="#mujer">Para ella</a>
+        <a class="btn btn-claro" href="#hombre">Para él</a>
       </div>
     </div>
   </section>
@@ -70,6 +71,10 @@
       <div class="cat-cab">
         <h2>La colección</h2>
         <p class="cat-sub">Toca un perfume para ver sus notas.</p>
+      </div>
+      <div class="generos" role="group" aria-label="Elige la sección">
+        <button type="button" class="genero-tab" data-g="mujer" aria-pressed="true"><span>Para ella</span><small></small></button>
+        <button type="button" class="genero-tab" data-g="hombre" aria-pressed="false"><span>Para él</span><small></small></button>
       </div>
       <div class="cat-filtros">
         <label class="buscar" for="buscar">
@@ -160,8 +165,8 @@
   </div>
 </dialog>
 
-<script src="productos.js?v=5"></script>
-<script src="notas.js?v=3"></script>
-<script src="app.js?v=7"></script>
+<script src="productos.js?v=6"></script>
+<script src="notas.js?v=4"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>

@@ -197,6 +197,22 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .catalogo { padding-block: 88px 40px; }
 .cat-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
 .cat-sub { color: var(--tinta-2); }
+.generos {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 28px;
+  border: 1px solid var(--tinta); border-radius: 999px; padding: 5px; max-width: 560px;
+}
+.genero-tab {
+  all: unset; box-sizing: border-box; cursor: pointer; text-align: center;
+  display: grid; justify-items: center; gap: 2px; padding: 12px 18px; border-radius: 999px;
+  transition: background .25s, color .25s;
+}
+.genero-tab span { font: 400 1.5rem/1.1 var(--f-display); }
+.genero-tab small { font-size: .78rem; color: var(--tinta-2); letter-spacing: .02em; }
+.genero-tab[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
+.genero-tab[aria-pressed="true"] small { color: rgba(251, 244, 241, .7); }
+.genero-tab:not([aria-pressed="true"]):hover { background: var(--papel-2); }
+.genero-tab:focus-visible { outline: 2px solid var(--rosa); outline-offset: 2px; }
+@media (max-width: 520px) { .genero-tab span { font-size: 1.25rem; } .genero-tab { padding: 10px 12px; } }
 .cat-filtros { display: grid; gap: 16px; margin-top: 28px; }
 .buscar {
   display: flex; align-items: center; gap: 10px; max-width: 560px;
