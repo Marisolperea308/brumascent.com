@@ -10,7 +10,7 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 |---|---|
 | `productos.js` | **Casi todos los cambios van aquí.** Contacto, precios, preguntas frecuentes y la lista de perfumes. |
 | `index.html` | Página de inicio: portada, cuadros "Para ella / Para él", aromas destacados, calidad, "Cómo pedir", preguntas y pie. |
-| `mujer.html`, `hombre.html` | Catálogo completo de cada colección. Son iguales salvo `data-genero` y los textos de arriba: si cambias algo en una, cámbialo también en la otra. |
+| `mujer.html`, `hombre.html`, `unisex.html`, `hogar.html` | Catálogo de cada colección. Son iguales salvo `data-genero` y los textos de arriba: si cambias algo en una, cámbialo en las cuatro. |
 | `estilos.css` | Colores, tipografías y diseño. Los colores están al inicio como variables (`--papel`, `--tinta`, `--rosa`...). |
 | `app.js` | Funcionamiento (filtros, buscador, ventana de cada perfume). Normalmente no se toca. |
 | `img/botella.webp` | Foto de la botella original (portada). |
@@ -41,7 +41,9 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 
 **Fotos de notas:** en `notas.js`, cada nota es `"Nombre": { url: "https://images.unsplash.com/photo-...", encuadre: "centro" }`. Para una nota nueva, busca una foto con licencia gratuita "Unsplash License" (no Unsplash+), copia la dirección de la imagen que empieza con `https://images.unsplash.com/photo-` sin lo que va después del `?`, y agrégala con el nombre exacto de la nota. `encuadre` puede ser `centro`, `arriba`, `abajo`, `izquierda` o `derecha` (hacia dónde está el objeto en la foto). Si una nota no tiene foto, se muestra la foto `_generica`.
 
-**Colecciones Mujer / Hombre:** el inicio muestra dos cuadros (rosa muy clarito para mujer, azul marino para hombre) que llevan a `mujer.html` y `hombre.html`. Cada página muestra solo los perfumes de su `genero`. Los colores están en `estilos.css` como `--ella` y `--el`.
+**Colecciones:** el inicio muestra 4 cuadros que llevan a `mujer.html` (rosa clarito), `hombre.html` (azul marino), `unisex.html` (café) y `hogar.html` (aromas ambientales). Qué aparece en cada una depende del campo `genero`: `mujer`, `hombre`, `unisex` (sale en Unisex, Mujer y Hombre), `ambos` (Mujer y Hombre) u `hogar`. Los colores están en `estilos.css` (`--ella`, `--el`, `--uni`, `--hogar`). El cuadro de hogar usa `img/hogar-spray.webp`, una imagen sin temporada.
+
+**Aromas para el hogar:** se agregan igual que un perfume, con `genero: "hogar"`, `tipo: "ambiental"`, `presentacion` (ej. "Home spray · 250 ml"), `foto` (archivo en `img/`), `inspiradoEn: ""` y números del 201 en adelante. Sus notas van en `destacadas` y `corazon`.
 
 **Etiquetas:** `nuevo: true` muestra "Nuevo" y `masPedido: true` muestra "Más pedido" en su tarjeta.
 
@@ -54,4 +56,4 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 3. No borres `CNAME`.
 4. Para la marca original usa siempre la frase "Inspirado en". No agregues logos, fotos de botellas ni imágenes de otras marcas.
 5. La página no usa ningún sistema de compilación: los archivos se publican tal cual.
-6. Cada vez que cambies `estilos.css`, `app.js`, `productos.js` o `notas.js`, sube en 1 el número `?v=` de ese archivo en `index.html`, `mujer.html` y `hombre.html` (ej. `productos.js?v=3` → `productos.js?v=4`). Así los visitantes ven el cambio de inmediato y no una versión guardada.
+6. Cada vez que cambies `estilos.css`, `app.js`, `productos.js` o `notas.js`, sube en 1 el número `?v=` de ese archivo en `index.html`, `mujer.html`, `hombre.html`, `unisex.html` y `hogar.html` (ej. `productos.js?v=3` → `productos.js?v=4`). Así los visitantes ven el cambio de inmediato y no una versión guardada.

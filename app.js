@@ -11,14 +11,27 @@
   var FAMILIAS = ["Floral", "Floral frutal", "Dulce", "Oriental", "Amaderado", "Fresco", "Acuático", "Aromático", "Chipre"];
 
   var $ = function (s, el) { return (el || document).querySelector(s); };
-  var estado = { genero: (document.body.dataset.genero === "hombre" ? "hombre" : "mujer"), familia: "Todos", texto: "" };
+  var GENEROS = ["mujer", "hombre", "unisex", "hogar"];
+  var estado = { genero: (GENEROS.indexOf(document.body.dataset.genero) >= 0 ? document.body.dataset.genero : "mujer"), familia: "Todos", texto: "" };
+  var QUIEN = { mujer: " para ella", hombre: " para él", unisex: " unisex", hogar: " para tu hogar" };
   var ES_CATALOGO = !!document.getElementById("rejilla");
   /* Género: "mujer", "hombre" o "unisex" (aparece en las dos secciones). Sin dato = mujer. */
   function generoDe(p) { return p.genero || "mujer"; }
-  function enGenero(p, g) { var x = generoDe(p); return x === g || x === "unisex"; }
+  function esAmbiental(p) { return p.tipo === "ambiental" || generoDe(p) === "hogar"; }
+  /* En qué colección aparece cada aroma:
+     mujer/hombre: los suyos + "unisex" + "ambos" · unisex: solo "unisex" · hogar: aromas ambientales */
+  function enGenero(p, g) {
+    if (g === "hogar") return esAmbiental(p);
+    if (esAmbiental(p)) return false;
+    var x = generoDe(p);
+    if (g === "unisex") return x === "unisex";
+    return x === g || x === "unisex" || x === "ambos";
+  }
   function deEsteGenero() {
     var l = PERFUMES.filter(function (p) { return enGenero(p, estado.genero); });
-    var propios = l.filter(function (p) { return generoDe(p) !== "unisex"; }), uni = l.filter(function (p) { return generoDe(p) === "unisex"; });
+    var compartido = function (p) { var x = generoDe(p); return x === "unisex" || x === "ambos"; };
+    if (estado.genero === "unisex" || estado.genero === "hogar") return l;
+    var propios = l.filter(function (p) { return !compartido(p); }), uni = l.filter(compartido);
     return propios.concat(uni);  // los unisex van al final de cada sección
   }
 
@@ -71,9 +84,9 @@
   function linkPedido(p) {
     var wa = String(CONFIG.whatsapp || "").replace(/\D/g, "");
     if (wa) {
-      var msg = p ? (CONFIG.mensaje || "Hola, me interesa el N.º {num}")
-        .replace("{num}", num2(p.num)).replace("{nombre}", p.nombre).replace("{marca}", p.marca)
-        : "Hola Bruma Scent, quiero información sobre sus perfumes.";
+      var msg = !p ? "Hola Bruma Scent, quiero información sobre sus perfumes."
+        : esAmbiental(p) ? "Hola Bruma Scent, me interesa el aroma para hogar N.º " + num2(p.num) + ", " + p.nombre + " (" + (p.presentacion || "") + "). ¿Me das informes?"
+        : (CONFIG.mensaje || "Hola, me interesa el N.º {num}").replace("{num}", num2(p.num)).replace("{nombre}", p.nombre).replace("{marca}", p.marca);
       return "https://wa.me/" + wa + "?text=" + encodeURIComponent(msg);
     }
     return CONFIG.instagram ? "https://ig.me/m/" + CONFIG.instagram : "#contacto";
@@ -100,7 +113,6 @@
 
   /* ---------- portada ---------- */
   function pintarPortada() {
-    var t = $("#totalAromas"); if (t) t.textContent = PERFUMES.length;
     var fila = $("#vitrina"); if (!fila) return;
     var elegidos = (CONFIG.portada || []).map(function (n) { return PERFUMES.find(function (p) { return p.num === Number(n); }); }).filter(Boolean);
     if (!elegidos.length) elegidos = PERFUMES.slice(0, 10);
@@ -120,8 +132,14 @@
     document.querySelectorAll("[data-cuenta]").forEach(function (el) {
       el.textContent = PERFUMES.filter(function (p) { return enGenero(p, el.dataset.cuenta); }).length + " aromas";
     });
-    /* Una sola botella por colección; su color está en estilos.css (--frasco-ella / --frasco-el) */
+    var t = $("#totalAromas"); if (t) t.textContent = PERFUMES.filter(function (p) { return !esAmbiental(p); }).length;
+    /* Una sola botella por colección; su color está en estilos.css (--frasco-ella / --frasco-el / --frasco-uni).
+       En "hogar" se muestra img/hogar-spray.webp. */
     document.querySelectorAll("[data-frascos]").forEach(function (el) {
+      if (el.dataset.frascos === "hogar") {  // imagen neutral (sin temporada) del atomizador
+        el.innerHTML = '<img class="foto-hogar" src="img/hogar-spray.webp" alt="" loading="lazy">';
+        return;
+      }
       el.innerHTML = '<span class="frasco"><img src="img/botella-neutra.webp" alt="" width="333" height="1000" loading="lazy"><i></i></span>';
     });
   }
@@ -152,14 +170,15 @@
     $("#rejilla").innerHTML = lista.map(function (p) {
       return '<li><button type="button" class="carta" data-num="' + p.num + '" aria-label="Ver notas de ' + esc(p.nombre) + '">' +
         '<span class="carta-top"><span class="carta-num">N.º ' + num2(p.num) + '</span><span class="carta-tag">' + esc(etiqueta(p)) + '</span></span>' +
-        '<span class="carta-img"><span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" loading="lazy" width="173" height="520"><i></i></span></span>' +
-        '<span class="carta-txt"><span class="carta-insp">Inspirado en</span><span class="carta-nombre">' + esc(p.nombre) + '</span>' +
-        '<span class="carta-marca">' + esc(p.marca) + '</span>' +
+        '<span class="carta-img">' + (p.foto ? '<img class="foto-producto" src="' + esc(p.foto) + '" alt="" loading="lazy">'
+          : '<span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" loading="lazy" width="173" height="520"><i></i></span>') + '</span>' +
+        '<span class="carta-txt"><span class="carta-insp">' + (esAmbiental(p) ? "Aroma para tu hogar" : "Inspirado en") + '</span><span class="carta-nombre">' + esc(p.nombre) + '</span>' +
+        '<span class="carta-marca">' + esc(esAmbiental(p) ? (p.presentacion || "") : p.marca) + '</span>' +
         '<span class="carta-notas">' + (p.destacadas || []).slice(0, 4).map(function (n) { return imgNota(n); }).join("") + '</span></span>' +
         '</button></li>';
     }).join("");
     var total = lista.length;
-    var deG = deEsteGenero().length, quien = estado.genero === "hombre" ? " para él" : " para ella";
+    var deG = deEsteGenero().length, quien = QUIEN[estado.genero] || "";
     $("#cuenta").textContent = total === deG ? total + " aromas" + quien : total + (total === 1 ? " aroma" : " aromas") + " de " + deG + quien;
     $("#vacio").hidden = total > 0;
   }
@@ -168,7 +187,7 @@
   var ficha = $("#ficha");
   function similares(p) {
     var mias = [].concat(p.salida || [], p.corazon || [], p.fondo || []);
-    var g = generoDe(p) === "hombre" ? "hombre" : "mujer";
+    var g = esAmbiental(p) ? "hogar" : (ES_CATALOGO ? estado.genero : (generoDe(p) === "hombre" ? "hombre" : "mujer"));
     return PERFUMES.filter(function (o) { return o.num !== p.num && enGenero(o, g); }).map(function (o) {
       var suyas = [].concat(o.salida || [], o.corazon || [], o.fondo || []);
       var comun = suyas.filter(function (n) { return mias.indexOf(n) >= 0; }).length;
@@ -179,7 +198,10 @@
     var p = PERFUMES.find(function (x) { return x.num === Number(num); });
     if (!p) return;
     $("#fichaNum").textContent = "N.º " + num2(p.num);
-    $("#fichaMarca").textContent = "Inspirado en " + p.inspiradoEn + " · " + p.marca;
+    $("#fichaMarca").textContent = esAmbiental(p) ? (p.presentacion || "Aroma para tu hogar") : "Inspirado en " + p.inspiradoEn + " · " + p.marca;
+    var foto = $("#fichaFoto");
+    if (foto) { foto.hidden = !p.foto; if (p.foto) foto.src = p.foto; }
+    $("#fichaFrasco").hidden = !!p.foto;
     $("#fichaNombre").textContent = p.nombre;
     $("#fichaFrasco").style.setProperty("--tono", tono(p));
     $("#fichaFamilia").textContent = p.familia;
@@ -189,7 +211,7 @@
       return '<li><span class="nota-img">' + imgNota(n, 180) + '</span>' + esc(n) + '</li>';
     }).join("");
     $("#fichaDesc").textContent = p.descripcion || "";
-    var pisos = [["Salida", p.salida], ["Corazón", p.corazon], ["Fondo", p.fondo]].filter(function (x) { return x[1] && x[1].length; });
+    var pisos = (esAmbiental(p) ? [["Notas", [].concat(p.salida || [], p.corazon || [], p.fondo || [])]] : [["Salida", p.salida], ["Corazón", p.corazon], ["Fondo", p.fondo]]).filter(function (x) { return x[1] && x[1].length; });
     $("#fichaPiramide").innerHTML = pisos.map(function (x) {
       return '<div class="piso"><span class="piso-tit">' + x[0] + '</span><span class="piso-notas">' +
         x[1].map(function (n) { return '<span>' + imgNota(n) + esc(n) + '</span>'; }).join("") + '</span></div>';

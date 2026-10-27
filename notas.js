@@ -196,5 +196,7 @@ window.FOTOS_NOTAS = {
   "Romero": { url: "https://images.unsplash.com/photo-1761464644390-3e8615093ce7", encuadre: "centro" },
   "Semilla de zanahoria": { url: "https://images.unsplash.com/photo-1633380110125-f6e685676160", encuadre: "centro" },
   "Tabaco": { url: "https://images.unsplash.com/photo-1634922951968-11ca107aa6e3", encuadre: "centro" },
-  "Whisky": { url: "https://images.unsplash.com/photo-1470337458703-46ad1756a187", encuadre: "centro" }
+  "Whisky": { url: "https://images.unsplash.com/photo-1470337458703-46ad1756a187", encuadre: "centro" },
+  "Galleta": { url: "https://images.unsplash.com/photo-1639590229762-3c9a8c98ca31", encuadre: "centro" },
+  "Ciprés": { url: "https://images.unsplash.com/photo-1542969587-5b90477b65f4", encuadre: "centro" }
 };

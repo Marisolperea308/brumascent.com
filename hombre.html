@@ -13,11 +13,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="estilos.css?v=22">
+<link rel="stylesheet" href="estilos.css?v=25">
 </head>
 <body class="pagina-catalogo" data-genero="hombre">
 
-<!-- Catálogo de hombre. Esta página y mujer.html son iguales salvo data-genero y los textos de arriba. -->
+<!-- Catálogo "Para él". Las 4 páginas de colección se generan igual; solo cambian data-genero y los textos de arriba. -->
 <header class="top">
   <div class="top-in">
     <a href="index.html" class="marca" aria-label="Bruma Scent, inicio">
@@ -26,8 +26,9 @@
     <nav class="nav" aria-label="Secciones">
       <a href="mujer.html">Mujer</a>
       <a href="hombre.html" aria-current="page">Hombre</a>
+      <a href="unisex.html">Unisex</a>
+      <a href="hogar.html">Hogar</a>
       <a href="index.html#como-pedir">Cómo pedir</a>
-      <a href="index.html#preguntas">Preguntas</a>
     </nav>
     <a class="btn btn-sm js-contacto" href="#contacto">Pedir</a>
   </div>
@@ -39,8 +40,8 @@
       <span class="cuadro-frascos cat-portada-frascos" data-frascos="hombre" aria-hidden="true"></span>
       <a class="cat-volver" href="index.html">← Inicio</a>
       <h1 id="catTit">Para él</h1>
-      <p class="cat-portada-sub"><span data-cuenta="hombre"></span>. Toca un perfume para ver sus notas.</p>
-      <a class="cat-otro" href="mujer.html">Ver para ella</a>
+      <p class="cat-portada-sub"><span data-cuenta="hombre"></span>. Toca un aroma para ver sus notas.</p>
+      <p class="cat-otro">Ver también: <a href="mujer.html">Para ella</a> · <a href="unisex.html">Unisex</a> · <a href="hogar.html">Aromas para tu hogar</a></p>
     </div>
   </section>
 
@@ -80,6 +81,7 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
     <div class="ficha-img">
+      <img class="foto-producto" id="fichaFoto" src="" alt="" hidden>
       <span class="frasco" id="fichaFrasco"><img src="img/botella-neutra.webp" alt="" width="333" height="1000"><i></i></span>
     </div>
     <div class="ficha-txt">
@@ -100,8 +102,8 @@
   </div>
 </dialog>
 
-<script src="productos.js?v=7"></script>
-<script src="notas.js?v=4"></script>
-<script src="app.js?v=10"></script>
+<script src="productos.js?v=8"></script>
+<script src="notas.js?v=5"></script>
+<script src="app.js?v=11"></script>
 </body>
 </html>

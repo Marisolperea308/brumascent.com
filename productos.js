@@ -40,7 +40,10 @@ window.PREGUNTAS = [
    - num: número de catálogo (el cliente pide por este número). Mujer: 1 a 100. Hombre: del 101 en adelante
    - nombre: cómo se llama en el catálogo de Bruma Scent
    - inspiradoEn / marca: el perfume original de referencia
-   - genero: "mujer", "hombre" o "unisex" (unisex aparece en las dos secciones)
+   - genero: "mujer", "hombre", "unisex" (sale en Unisex, Mujer y Hombre),
+     "ambos" (sale en Mujer y Hombre, no en Unisex) o "hogar" (aromas ambientales)
+   - Aromas para el hogar: además llevan tipo: "ambiental", presentacion y foto
+     (la foto va en la carpeta img/). Números del 201 en adelante
    - familia: Floral, Floral frutal, Dulce, Oriental, Amaderado, Fresco, Acuático, Aromático o Chipre
    - tono: color del perfume original (#rrggbb); la página lo aclara sola
    - ocasion: texto libre (Día, Noche, Primavera/verano...)
@@ -1083,7 +1086,7 @@ window.PERFUMES = [
     nombre: "Thé Matcha 26",
     inspiradoEn: "Thé Matcha 26",
     marca: "Le Labo",
-    genero: "mujer",
+    genero: "unisex",
     familia: "Amaderado",
     tono: "#d6e3b8",
     ocasion: "Día",
@@ -1235,7 +1238,7 @@ window.PERFUMES = [
     nombre: "Wood Sage & Sea Salt",
     inspiradoEn: "Wood Sage & Sea Salt",
     marca: "Jo Malone London",
-    genero: "unisex",
+    genero: "ambos",
     familia: "Fresco",
     tono: "#eef0ea",
     ocasion: "Primavera/verano",
@@ -1577,7 +1580,7 @@ window.PERFUMES = [
     nombre: "Santal 33",
     inspiradoEn: "Santal 33",
     marca: "Le Labo",
-    genero: "hombre",
+    genero: "unisex",
     familia: "Amaderado",
     tono: "#e6d8b8",
     ocasion: "Día y noche",
@@ -1710,7 +1713,7 @@ window.PERFUMES = [
     nombre: "Another 13",
     inspiradoEn: "Another 13",
     marca: "Le Labo",
-    genero: "hombre",
+    genero: "unisex",
     familia: "Amaderado",
     tono: "#efece4",
     ocasion: "Día y noche",
@@ -1995,7 +1998,7 @@ window.PERFUMES = [
     nombre: "Myrrhe 55",
     inspiradoEn: "Myrrhe 55 (City Exclusive Shanghai)",
     marca: "Le Labo",
-    genero: "hombre",
+    genero: "unisex",
     familia: "Oriental",
     tono: "#e6dcc0",
     ocasion: "Otoño/invierno",
@@ -2159,6 +2162,50 @@ window.PERFUMES = [
     precio: "",
     disponible: true,
     nuevo: false,
+    masPedido: false
+  },
+  {
+    num: 201,
+    tipo: "ambiental",
+    nombre: "Cuento de Navidad",
+    presentacion: "Aromatizante ambiental · 250 ml",
+    foto: "img/ambiental-cuento-navidad.webp",
+    inspiradoEn: "",
+    marca: "Bruma Scent",
+    genero: "hogar",
+    familia: "Dulce",
+    tono: "#6b3a1f",
+    ocasion: "Temporada navideña",
+    destacadas: ["Canela", "Galleta", "Especias"],
+    salida: [],
+    corazon: ["Canela", "Galleta", "Especias"],
+    fondo: [],
+    descripcion: "Galleta recién horneada con canela y especias cálidas. Llena tu casa del ambiente de una tarde de Navidad.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+  {
+    num: 202,
+    tipo: "ambiental",
+    nombre: "Christmas Tree",
+    presentacion: "Home spray · 250 ml",
+    foto: "img/ambiental-christmas-tree.webp",
+    inspiradoEn: "",
+    marca: "Bruma Scent",
+    genero: "hogar",
+    familia: "Amaderado",
+    tono: "#2f4a2c",
+    ocasion: "Temporada navideña",
+    destacadas: ["Pino", "Ciprés", "Especias"],
+    salida: [],
+    corazon: ["Pino", "Ciprés", "Especias"],
+    fondo: [],
+    descripcion: "Pino y ciprés frescos con un toque de especias, como tener el árbol recién puesto en la sala.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
     masPedido: false
   }
 ];

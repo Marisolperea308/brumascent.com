@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Unisex · Bruma Scent</title>
+<meta name="description" content="Bruma Scent: dupes de alta calidad inspirados en perfumes de alta gama. Conoce las notas de cada aroma y pide el tuyo por WhatsApp.">
+<meta property="og:title" content="Bruma Scent · Tu esencia, tu estilo">
+<meta property="og:description" content="Dupes de alta calidad inspirados en perfumes de alta gama.">
+<meta property="og:image" content="img/botella.webp">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="estilos.css?v=25">
+</head>
+<body class="pagina-catalogo" data-genero="unisex">
+
+<!-- Catálogo "Unisex". Las 4 páginas de colección se generan igual; solo cambian data-genero y los textos de arriba. -->
+<header class="top">
+  <div class="top-in">
+    <a href="index.html" class="marca" aria-label="Bruma Scent, inicio">
+      <img src="img/logo.png" alt="Bruma Scent" class="logo" width="190" height="108">
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="mujer.html">Mujer</a>
+      <a href="hombre.html">Hombre</a>
+      <a href="unisex.html" aria-current="page">Unisex</a>
+      <a href="hogar.html">Hogar</a>
+      <a href="index.html#como-pedir">Cómo pedir</a>
+    </nav>
+    <a class="btn btn-sm js-contacto" href="#contacto">Pedir</a>
+  </div>
+</header>
+
+<main>
+  <section class="cat-portada cat-portada-unisex" aria-labelledby="catTit">
+    <div class="sec-in cat-portada-in">
+      <span class="cuadro-frascos cat-portada-frascos" data-frascos="unisex" aria-hidden="true"></span>
+      <a class="cat-volver" href="index.html">← Inicio</a>
+      <h1 id="catTit">Unisex</h1>
+      <p class="cat-portada-sub"><span data-cuenta="unisex"></span>. Toca un aroma para ver sus notas.</p>
+      <p class="cat-otro">Ver también: <a href="mujer.html">Para ella</a> · <a href="hombre.html">Para él</a> · <a href="hogar.html">Aromas para tu hogar</a></p>
+    </div>
+  </section>
+
+  <section class="catalogo" id="catalogo">
+    <div class="sec-in">
+      <div class="cat-filtros">
+        <label class="buscar" for="buscar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          <input id="buscar" type="search" placeholder="Busca un nombre o una nota" autocomplete="off">
+        </label>
+        <div class="chips" id="chips" role="group" aria-label="Filtrar por familia"></div>
+      </div>
+      <p class="cat-cuenta" id="cuenta" aria-live="polite"></p>
+      <ul class="rejilla" id="rejilla"></ul>
+      <div class="vacio" id="vacio" hidden>
+        <p>No encontramos ese aroma.</p>
+        <p class="vacio-sub">Prueba con otra nota o escríbenos: si no lo tenemos, te decimos cuál se le parece.</p>
+        <button class="btn btn-linea" type="button" id="limpiar">Ver todos</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie" id="contacto">
+  <div class="sec-in pie-in">
+    <img src="img/logo.png" alt="Bruma Scent" class="logo" width="150" height="86" loading="lazy">
+    <p class="pie-lema">Tu esencia, tu estilo.</p>
+    <div class="pie-links" id="pieLinks"></div>
+    <p class="pie-legal">Bruma Scent no está afiliado a las marcas mencionadas. Los nombres se usan solo como referencia del aroma en el que se inspira cada perfume.</p>
+  </div>
+</footer>
+
+<!-- ===== DETALLE DEL PERFUME ===== -->
+<dialog class="ficha" id="ficha" aria-labelledby="fichaNombre">
+  <div class="ficha-in">
+    <button class="ficha-cerrar" type="button" id="fichaCerrar" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="ficha-img">
+      <img class="foto-producto" id="fichaFoto" src="" alt="" hidden>
+      <span class="frasco" id="fichaFrasco"><img src="img/botella-neutra.webp" alt="" width="333" height="1000"><i></i></span>
+    </div>
+    <div class="ficha-txt">
+      <p class="ficha-num" id="fichaNum"></p>
+      <p class="ficha-marca" id="fichaMarca"></p>
+      <h3 class="ficha-nombre" id="fichaNombre"></h3>
+      <p class="ficha-fam"><span id="fichaFamilia"></span><span id="fichaOcasion"></span></p>
+      <ul class="notas-dest" id="fichaDest"></ul>
+      <p class="ficha-desc" id="fichaDesc"></p>
+      <div class="piramide" id="fichaPiramide"></div>
+      <p class="ficha-precio" id="fichaPrecio" hidden></p>
+      <a class="btn btn-ancho" id="fichaPedir" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+      <div class="similares" id="fichaSimilaresBox">
+        <p class="similares-tit">Si te gusta este, prueba también</p>
+        <ul class="similares-lista" id="fichaSimilares"></ul>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script src="productos.js?v=8"></script>
+<script src="notas.js?v=5"></script>
+<script src="app.js?v=11"></script>
+</body>
+</html>
