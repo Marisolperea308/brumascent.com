@@ -120,14 +120,9 @@
     document.querySelectorAll("[data-cuenta]").forEach(function (el) {
       el.textContent = PERFUMES.filter(function (p) { return enGenero(p, el.dataset.cuenta); }).length + " aromas";
     });
+    /* Una sola botella por colección; su color está en estilos.css (--frasco-ella / --frasco-el) */
     document.querySelectorAll("[data-frascos]").forEach(function (el) {
-      var g = el.dataset.frascos;
-      var elegidos = (CONFIG.portada || []).map(function (n) { return PERFUMES.find(function (p) { return p.num === Number(n); }); })
-        .filter(function (p) { return p && generoDe(p) === g; });
-      PERFUMES.forEach(function (p) { if (elegidos.length < 5 && generoDe(p) === g && elegidos.indexOf(p) < 0) elegidos.push(p); });
-      el.innerHTML = elegidos.slice(0, 5).map(function (p) {
-        return '<span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" width="173" height="520" loading="lazy"><i></i></span>';
-      }).join("");
+      el.innerHTML = '<span class="frasco"><img src="img/botella-neutra.webp" alt="" width="333" height="1000" loading="lazy"><i></i></span>';
     });
   }
   function pintarChips() {

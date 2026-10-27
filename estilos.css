@@ -23,6 +23,8 @@
   --ella-2: #94aabb;
   --el: #1d2a44;         /* azul marino (colección hombre) */
   --el-2: #2b3c5e;
+  --frasco-ella: #f6c4d3; /* botella rosita del cuadro de mujer */
+  --frasco-el: #f4d97a;   /* botella amarilla del cuadro de hombre */
   --gris-centro: #f3f1ee; --gris-medio: #dfdbd6; --gris-orilla: #bdb7b1;
 
   --f-display: "Gloock", "Didot", Georgia, serif;
@@ -216,13 +218,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .cuadro-txt { display: grid; gap: 6px; }
 .cuadro-nombre { font: 400 clamp(2.4rem, 5vw, 4.2rem)/1 var(--f-display); letter-spacing: -.02em; }
 .cuadro-cuenta { font-size: .95rem; opacity: .8; }
-.cuadro-frascos { display: flex; justify-content: center; align-items: flex-end; gap: clamp(4px, 1vw, 12px); align-self: end; margin-bottom: 18px; }
-.cuadro-frascos .frasco { height: clamp(110px, 15vw, 210px); transition: transform .4s ease; }
-.cuadro-frascos .frasco img { filter: drop-shadow(0 14px 12px rgba(10, 15, 30, .3)); }
-.cuadro-frascos .frasco:nth-child(1), .cuadro-frascos .frasco:nth-child(5) { height: clamp(80px, 11vw, 160px); }
-.cuadro-frascos .frasco:nth-child(2), .cuadro-frascos .frasco:nth-child(4) { height: clamp(96px, 13vw, 185px); }
-.cuadro:hover .cuadro-frascos .frasco { transform: translateY(-6px); }
-.cuadro:hover .cuadro-frascos .frasco:nth-child(even) { transform: translateY(-12px); }
+.cuadro-frascos { display: flex; justify-content: center; align-items: flex-end; align-self: end; margin-bottom: 18px; }
+.cuadro-frascos .frasco { height: clamp(200px, 24vw, 330px); transform: rotate(-6deg); transition: transform .45s ease; }
+.cuadro-frascos .frasco img { filter: drop-shadow(0 22px 18px rgba(10, 15, 30, .32)); }
+.cuadro-mujer .frasco, .cat-portada-mujer .frasco { --tono: var(--frasco-ella); }
+.cuadro-hombre .frasco, .cat-portada-hombre .frasco { --tono: var(--frasco-el); }
+.cuadro:hover .cuadro-frascos .frasco { transform: rotate(0deg) translateY(-10px); }
 .cuadro-ir {
   justify-self: start; display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 22px;
   border-radius: 999px; font-size: .95rem; background: rgba(255, 255, 255, .85); color: var(--tinta);
@@ -233,10 +234,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 700px) {
   .cuadros { grid-template-columns: 1fr; }
   .cuadro { aspect-ratio: 4 / 5; }
-  .cuadro-frascos .frasco { height: 150px; }
-  .cuadro-frascos .frasco:nth-child(1), .cuadro-frascos .frasco:nth-child(5) { height: 110px; }
-  .cuadro-frascos .frasco:nth-child(2), .cuadro-frascos .frasco:nth-child(4) { height: 130px; }
-}
+  .cuadro-frascos .frasco { height: 240px; }
+      }
 
 /* ---------- Páginas de catálogo (mujer.html / hombre.html) ---------- */
 .pagina-catalogo .top { background: var(--papel); border-bottom: 1px solid var(--linea); }
@@ -253,7 +252,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pagina-catalogo .catalogo { padding-block: 48px 40px; }
 .cat-portada-in { position: relative; }
 .cat-portada-frascos { position: absolute; right: max(20px, env(safe-area-inset-right, 0px)); bottom: 36px; margin: 0; }
-.cat-portada-frascos .frasco { height: 190px; }
+.cat-portada-frascos .frasco { height: 250px; transform: rotate(-6deg); }
 @media (max-width: 860px) { .cat-portada-frascos { display: none; } }
 
 /* ---------- Catálogo ---------- */
