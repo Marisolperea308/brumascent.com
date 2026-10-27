@@ -1272,6 +1272,25 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    num: 65,
+    nombre: "Purple Melancholia",
+    inspiradoEn: "Born in Roma Donna Purple Melancholia",
+    marca: "Valentino",
+    genero: "mujer",
+    familia: "Floral frutal",
+    tono: "#7441a8",
+    ocasion: "Día y noche",
+    destacadas: ["Ciruela", "Osmanto", "Jazmín", "Vainilla"],
+    salida: ["Acorde de ciruela"],
+    corazon: ["Acorde de osmanto", "Jazmín"],
+    fondo: ["Extracto de vainilla"],
+    descripcion: "Un floral frutal cálido y envolvente: la ciruela jugosa se mezcla con la faceta floral del osmanto y el jazmín, y descansa sobre una vainilla rica y sensual.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+  {
     num: 101,
     nombre: "Afternoon Swim",
     inspiradoEn: "Afternoon Swim",
