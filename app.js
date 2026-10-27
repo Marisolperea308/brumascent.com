@@ -105,9 +105,10 @@
       if (a.classList.contains("btn-linea")) a.textContent = textoPedir();
     });
     var links = [];
-    if (CONFIG.whatsapp) links.push('<a class="btn" target="_blank" rel="noopener" href="' + linkPedido(null) + '">WhatsApp</a>');
-    if (CONFIG.instagram) links.push('<a class="btn btn-linea" target="_blank" rel="noopener" href="https://instagram.com/' + esc(CONFIG.instagram) + '">@' + esc(CONFIG.instagram) + '</a>');
-    if (CONFIG.tiktok) links.push('<a class="btn btn-linea" target="_blank" rel="noopener" href="https://www.tiktok.com/@' + esc(CONFIG.tiktok) + '">TikTok</a>');
+    if (CONFIG.instagram) links.push('<a target="_blank" rel="noopener" href="https://instagram.com/' + esc(CONFIG.instagram) + '">Instagram <small>@' + esc(CONFIG.instagram) + '</small></a>');
+    if (CONFIG.tiktok) links.push('<a target="_blank" rel="noopener" href="https://www.tiktok.com/@' + esc(CONFIG.tiktok) + '">TikTok <small>@' + esc(CONFIG.tiktok) + '</small></a>');
+    if (CONFIG.whatsapp) links.push('<a target="_blank" rel="noopener" href="' + linkPedido(null) + '">WhatsApp</a>');
+    var anio = $("#anio"); if (anio) anio.textContent = new Date().getFullYear();
     $("#pieLinks").innerHTML = links.join("");
   }
 

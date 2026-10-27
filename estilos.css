@@ -373,25 +373,41 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 760px) { .calidad-in { grid-template-columns: 1fr; padding-block: 72px; } .calidad-img { width: min(80%, 320px); } }
 
 /* ---------- Preguntas ---------- */
-.faq { padding-block: 88px; }
-.faq-lista { margin-top: 28px; border-top: 1px solid var(--linea); max-width: 820px; }
+.faq { padding-block: clamp(72px, 9vw, 120px); }
+.faq-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.faq-cab { display: grid; gap: 14px; position: sticky; top: 32px; }
+.faq-cab p { color: var(--tinta-2); max-width: 30ch; }
+.faq-lista { border-top: 1px solid var(--linea); }
+@media (max-width: 760px) { .faq-in { grid-template-columns: 1fr; } .faq-cab { position: static; } }
 .faq details { border-bottom: 1px solid var(--linea); }
-.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 20px 0; font-size: 1.08rem; font-weight: 400; }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 24px 0; font: 400 1.35rem/1.25 var(--f-display); }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after { content: "+"; font: 300 1.5rem/1 var(--f-texto); color: var(--rosa); transition: transform .2s; }
 .faq details[open] summary::after { transform: rotate(45deg); }
 .faq details p { padding: 0 0 22px; color: var(--tinta-2); max-width: 62ch; }
 
 /* ---------- Pie ---------- */
-.pie { background: var(--cafe); color: var(--crema); }
-.pie-in { display: grid; justify-items: center; text-align: center; gap: 14px; padding-block: 64px 48px; }
-.pie .logo { width: 150px; height: auto; filter: invert(1) sepia(.25) brightness(1.05); }
-.pie-lema { font: 400 1.3rem var(--f-display); color: var(--dorado); }
-.pie-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 10px 0 18px; }
-.pie-legal { font-size: .78rem; color: rgba(244, 234, 223, .6); max-width: 60ch; }
-.pie .btn { background: var(--crema); color: var(--cafe); border-color: var(--crema); }
-.pie .btn-linea { background: transparent; color: var(--crema); border-color: rgba(244, 234, 223, .5); }
-.pie .btn:hover { background: var(--dorado); border-color: var(--dorado); color: var(--cafe); }
+/* Pie de página: foto de la marca muy oscurecida, frase grande, columnas y logo de lado a lado */
+.pie { position: relative; isolation: isolate; overflow: hidden; background: #1a1410; color: #efe5d6; }
+.pie-foto { position: absolute; inset: 0; z-index: -1; background: url("img/portada.webp?v=4") center 45% / cover no-repeat; opacity: .32; filter: saturate(.8); }
+.pie-foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, #1a1410 0%, rgba(26, 20, 16, .55) 35%, rgba(26, 20, 16, .75) 75%, #1a1410 100%); }
+.pie-in { display: grid; gap: clamp(48px, 7vw, 96px); padding-block: clamp(88px, 11vw, 150px) 28px; }
+.pie-cierre { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 28px; }
+.pie-lema { font: 400 clamp(3rem, 8vw, 7rem)/.95 var(--f-display); letter-spacing: -.02em; color: #f6ecdc; }
+.pie-cta { display: inline-flex; align-items: center; gap: 12px; min-height: 54px; padding: 0 28px; border-radius: 999px; background: #f6ecdc; color: #1a1410; text-decoration: none; font-size: 1rem; transition: background .25s; }
+.pie-cta::after { content: "→"; }
+.pie-cta:hover { background: var(--dorado); }
+.pie-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding-top: 36px; border-top: 1px solid rgba(239, 229, 214, .2); }
+.pie-col { display: grid; gap: 10px; align-content: start; }
+.pie-tit { font-size: .75rem; letter-spacing: .22em; text-transform: uppercase; color: var(--dorado); margin-bottom: 6px; }
+.pie-col a { color: #efe5d6; text-decoration: none; font-size: 1.02rem; width: fit-content; }
+.pie-col a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.pie-redes { display: grid; gap: 10px; }
+.pie-redes small { opacity: .6; margin-left: 6px; }
+.pie .pie-marca { width: min(100%, 640px); justify-self: center; height: auto; filter: invert(1) sepia(.3) brightness(1.02); opacity: .92; }
+.pie-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding-top: 20px; border-top: 1px solid rgba(239, 229, 214, .15); }
+.pie-legal { font-size: .78rem; color: rgba(239, 229, 214, .55); max-width: 70ch; margin: 0; }
+@media (max-width: 700px) { .pie-cols { grid-template-columns: 1fr 1fr; } .pie-cols .pie-col:last-child { grid-column: 1 / -1; } }
 
 /* ---------- Ficha (detalle del perfume) ---------- */
 .ficha {

@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="estilos.css?v=28">
+<link rel="stylesheet" href="estilos.css?v=30">
 </head>
 <body class="pagina-catalogo" data-genero="mujer">
 
@@ -66,11 +66,35 @@
 </main>
 
 <footer class="pie" id="contacto">
+  <div class="pie-foto" aria-hidden="true"></div>
   <div class="sec-in pie-in">
-    <img src="img/logo.png" alt="Bruma Scent" class="logo" width="150" height="86" loading="lazy">
-    <p class="pie-lema">Tu esencia, tu estilo.</p>
-    <div class="pie-links" id="pieLinks"></div>
-    <p class="pie-legal">Bruma Scent no está afiliado a las marcas mencionadas. Los nombres se usan solo como referencia del aroma en el que se inspira cada perfume.</p>
+    <div class="pie-cierre">
+      <p class="pie-lema">Tu esencia,<br>tu estilo.</p>
+      <a class="pie-cta js-contacto" href="#contacto">Haz tu pedido</a>
+    </div>
+    <div class="pie-cols">
+      <nav class="pie-col" aria-label="Colecciones">
+        <p class="pie-tit">Colecciones</p>
+        <a href="mujer.html">Para ella</a>
+        <a href="hombre.html">Para él</a>
+        <a href="unisex.html">Unisex</a>
+        <a href="hogar.html">Para tu hogar</a>
+      </nav>
+      <nav class="pie-col" aria-label="Ayuda">
+        <p class="pie-tit">Ayuda</p>
+        <a href="index.html#como-pedir">Cómo pedir</a>
+        <a href="index.html#preguntas">Preguntas frecuentes</a>
+      </nav>
+      <div class="pie-col">
+        <p class="pie-tit">Síguenos</p>
+        <div class="pie-redes" id="pieLinks"></div>
+      </div>
+    </div>
+    <img src="img/logo.png" alt="Bruma Scent" class="logo pie-marca" width="1349" height="770" loading="lazy">
+    <div class="pie-base">
+      <p class="pie-legal">Bruma Scent no está afiliado a las marcas mencionadas. Los nombres se usan solo como referencia del aroma en el que se inspira cada perfume.</p>
+      <p class="pie-legal">© <span id="anio">2026</span> Bruma Scent</p>
+    </div>
   </div>
 </footer>
 
@@ -104,6 +128,6 @@
 
 <script src="productos.js?v=8"></script>
 <script src="notas.js?v=5"></script>
-<script src="app.js?v=11"></script>
+<script src="app.js?v=12"></script>
 </body>
 </html>
