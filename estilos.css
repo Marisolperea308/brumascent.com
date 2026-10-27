@@ -71,45 +71,57 @@ a { color: inherit; }
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: #e9dfd2; }
-.top-in { display: flex; align-items: center; gap: 28px; min-height: 120px; max-width: 1440px; }
+.top-in { display: flex; align-items: center; gap: 28px; min-height: 120px; max-width: 1440px; padding-block: 34px 10px;
+  padding-left: max(clamp(28px, 6vw, 96px), env(safe-area-inset-left, 0px)); padding-right: max(clamp(28px, 4vw, 64px), env(safe-area-inset-right, 0px)); }
 .marca { margin-right: auto; display: block; }
 .marca .logo { width: 190px; height: auto; }
 .nav { display: flex; gap: 28px; font-size: .95rem; }
 .nav a { text-decoration: none; color: var(--tinta-2); }
 .nav a:hover { color: var(--tinta); }
-@media (max-width: 720px) { .nav { display: none; } .top-in { min-height: 92px; } .marca .logo { width: 140px; } }
+@media (max-width: 720px) { .nav { display: none; } .top-in { min-height: 92px; padding-block: 24px 8px; padding-left: max(22px, env(safe-area-inset-left, 0px)); padding-right: max(22px, env(safe-area-inset-right, 0px)); } .marca .logo { width: 140px; } }
 
-/* ---------- Portada: foto de margen a margen ---------- */
-.inicio { position: relative; background: #2a241f; }
-.inicio .top { position: absolute; inset: 0 0 auto; background: linear-gradient(to bottom, rgba(255, 250, 244, .5), rgba(255, 250, 244, 0)); backdrop-filter: none; -webkit-backdrop-filter: none; }
-.inicio .nav a { color: var(--tinta); }
-.portada { position: relative; height: min(88vh, 860px); min-height: 560px; overflow: hidden; }
+/* ---------- Portada: foto de margen a margen ----------
+   Computadora: la foto llena la pantalla; el texto va a la izquierda,
+   sobre la bruma iluminada, y el frasco queda a la derecha.
+   Celular: la foto completa y el texto encima, abajo, sobre un velo claro. */
+.inicio { position: relative; background: var(--papel); }
+.inicio .top { position: absolute; inset: 0 0 auto; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.inicio .nav a { color: #fbf3e6; text-shadow: 0 1px 8px rgba(40, 30, 20, .35); }
+.inicio .nav a:hover { color: #fff; }
+.inicio .top .btn { background: #fbf3e6; color: var(--tinta); border-color: #fbf3e6; }
+.inicio .top .btn:hover { background: var(--tinta); color: #fbf3e6; border-color: var(--tinta); }
+
+.portada { position: relative; height: 100vh; height: 100svh; min-height: 600px; max-height: 1000px; overflow: hidden; }
 .portada picture, .portada-foto { display: block; width: 100%; height: 100%; }
-.portada-foto { object-fit: cover; object-position: 60% 38%; max-width: none; }
-.portada::after { /* luz suave detrás del texto para que se lea */
+.portada-foto { object-fit: cover; object-position: 50% 42%; max-width: none; }
+.portada::after { /* velo cálido a la izquierda para que el texto se lea */
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 55% 60% at 18% 62%, rgba(255, 249, 240, .62), rgba(255, 249, 240, 0) 70%);
+  background:
+    linear-gradient(90deg, rgba(250, 242, 228, .55) 0%, rgba(250, 242, 228, .25) 34%, rgba(250, 242, 228, 0) 55%),
+    linear-gradient(to top, rgba(250, 242, 228, .35), rgba(250, 242, 228, 0) 30%);
 }
 .portada-txt {
-  position: absolute; z-index: 1; left: 0; right: 0; bottom: clamp(48px, 10vh, 110px);
-  max-width: 1440px; margin: 0 auto; display: grid; gap: 14px; justify-items: start;
-  padding-left: max(28px, env(safe-area-inset-left, 0px)); padding-right: max(28px, env(safe-area-inset-right, 0px));
+  position: absolute; z-index: 1; inset: 0; margin: 0 auto; max-width: 1440px;
+  display: grid; align-content: center; justify-items: start; gap: 18px;
+  padding-top: 90px;
+  padding-left: max(clamp(28px, 6vw, 96px), env(safe-area-inset-left, 0px));
+  padding-right: max(28px, env(safe-area-inset-right, 0px));
 }
-.portada-pre { font-size: .78rem; letter-spacing: .28em; text-transform: uppercase; color: var(--tinta); }
-.portada h1 { font-size: clamp(3rem, 7.5vw, 6.4rem); line-height: .98; letter-spacing: -.02em; color: var(--tinta); }
-.portada-sub { font-size: 1.05rem; color: var(--tinta); max-width: 34ch; }
-.portada-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-.btn-claro { background: rgba(255, 250, 244, .8); color: var(--tinta); border-color: rgba(255, 250, 244, .8); }
+.portada-pre { font-size: .76rem; letter-spacing: .3em; text-transform: uppercase; color: var(--tinta); }
+.portada h1 { font-size: clamp(3.2rem, 7vw, 6.6rem); line-height: .96; letter-spacing: -.02em; color: var(--tinta); }
+.portada-sub { font-size: 1.08rem; color: var(--tinta); max-width: 30ch; }
+.portada-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.btn-claro { background: rgba(255, 250, 244, .55); color: var(--tinta); border-color: var(--tinta); }
+.btn-claro:hover { background: var(--tinta); color: #fbf3e6; }
 @media (max-width: 760px) {
-  .inicio { background: var(--papel); }
-  .portada { height: auto; min-height: 0; overflow: visible; }
-  .portada picture { aspect-ratio: 3 / 4; max-height: 82vh; overflow: hidden; }
-  .portada-foto { object-position: 70% 30%; }
-  .portada::after { display: none; }
-  .portada-txt { position: static; padding-block: 32px 8px; gap: 10px; }
-  .portada h1 { font-size: 2.9rem; }
-  .portada-sub { font-size: .98rem; color: var(--tinta-2); }
-  .btn-claro { background: transparent; border-color: var(--tinta); }
+  .inicio .nav { display: none; }
+  .portada { height: auto; min-height: 0; max-height: none; }
+  .portada picture { aspect-ratio: 3 / 4; }
+  .portada-foto { object-position: 50% 40%; }
+  .portada::after { bottom: auto; height: calc(100vw * 4 / 3); background: linear-gradient(to top, var(--papel) 0%, rgba(251, 244, 241, 0) 18%); }
+  .portada-txt { position: relative; inset: auto; gap: 10px; padding-top: 4px; padding-bottom: 40px; padding-left: max(22px, env(safe-area-inset-left, 0px)); }
+  .portada h1 { font-size: 2.8rem; }
+  .portada-sub { font-size: .96rem; }
 }
 
 /* ---------- Aromas destacados: fila de frascos sobre gris de estudio ---------- */
