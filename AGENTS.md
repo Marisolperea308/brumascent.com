@@ -41,7 +41,7 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 
 **Fotos de notas:** en `notas.js`, cada nota es `"Nombre": { url: "https://images.unsplash.com/photo-...", encuadre: "centro" }`. Para una nota nueva, busca una foto con licencia gratuita "Unsplash License" (no Unsplash+), copia la dirección de la imagen que empieza con `https://images.unsplash.com/photo-` sin lo que va después del `?`, y agrégala con el nombre exacto de la nota. `encuadre` puede ser `centro`, `arriba`, `abajo`, `izquierda` o `derecha` (hacia dónde está el objeto en la foto). Si una nota no tiene foto, se muestra la foto `_generica`.
 
-**Colecciones Mujer / Hombre:** el inicio muestra dos cuadros (azul celeste grisáceo para mujer, azul marino para hombre) que llevan a `mujer.html` y `hombre.html`. Cada página muestra solo los perfumes de su `genero`. Los colores están en `estilos.css` como `--ella` y `--el`.
+**Colecciones Mujer / Hombre:** el inicio muestra dos cuadros (rosa muy clarito para mujer, azul marino para hombre) que llevan a `mujer.html` y `hombre.html`. Cada página muestra solo los perfumes de su `genero`. Los colores están en `estilos.css` como `--ella` y `--el`.
 
 **Etiquetas:** `nuevo: true` muestra "Nuevo" y `masPedido: true` muestra "Más pedido" en su tarjeta.
 

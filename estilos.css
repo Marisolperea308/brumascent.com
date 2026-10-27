@@ -19,11 +19,11 @@
   --cafe-2: #3b2f27;
   --crema: #f4eadf;      /* texto sobre café */
   --dorado: #d8b27a;     /* acento dorado de la luz de la foto */
-  --ella: #a9bccb;       /* azul celeste grisáceo (colección mujer) */
-  --ella-2: #94aabb;
+  --ella: #f7e6e8;       /* rosa muy clarito (colección mujer) */
+  --ella-2: #f0d8dc;
   --el: #1d2a44;         /* azul marino (colección hombre) */
   --el-2: #2b3c5e;
-  --frasco-ella: #fce9ef; /* botella rosita del cuadro de mujer */
+  --frasco-ella: #ffffff; /* botella transparente del cuadro de mujer */
   --frasco-el: #fbf1cf;   /* botella amarilla del cuadro de hombre */
   --gris-centro: #f3f1ee; --gris-medio: #dfdbd6; --gris-orilla: #bdb7b1;
 
@@ -210,7 +210,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   transition: transform .35s ease, box-shadow .35s ease;
 }
 .cuadro::before { content: ""; position: absolute; inset: 0; z-index: -1; }
-.cuadro-mujer::before { background: radial-gradient(ellipse 80% 70% at 50% 85%, #c3d2dc 0%, var(--ella) 55%, var(--ella-2) 100%); }
+.cuadro-mujer::before { background: radial-gradient(ellipse 80% 70% at 50% 85%, #fdf6f7 0%, var(--ella) 55%, var(--ella-2) 100%); }
 .cuadro-hombre { color: #f2ece2; }
 .cuadro-hombre::before { background: radial-gradient(ellipse 80% 70% at 50% 85%, var(--el-2) 0%, var(--el) 60%, #141d31 100%); }
 .cuadro:hover { transform: translateY(-6px); box-shadow: 0 28px 50px rgba(30, 35, 50, .25); }
@@ -222,6 +222,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .cuadro-frascos .frasco { height: clamp(200px, 24vw, 330px); transform: rotate(-6deg); transition: transform .45s ease; }
 .cuadro-frascos .frasco img { filter: drop-shadow(0 22px 18px rgba(10, 15, 30, .32)); }
 .cuadro-mujer .frasco, .cat-portada-mujer .frasco { --tono: var(--frasco-ella); }
+.cuadro-mujer .frasco img, .cat-portada-mujer .frasco img { filter: drop-shadow(0 22px 18px rgba(120, 70, 80, .18)); }
 .cuadro-hombre .frasco, .cat-portada-hombre .frasco { --tono: var(--frasco-el); }
 .cuadro:hover .cuadro-frascos .frasco { transform: rotate(0deg) translateY(-10px); }
 .cuadro-ir {
@@ -241,7 +242,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pagina-catalogo .top { background: var(--papel); border-bottom: 1px solid var(--linea); }
 .pagina-catalogo .nav a[aria-current="page"] { color: var(--tinta); text-decoration: underline; text-underline-offset: 6px; }
 .cat-portada { color: var(--tinta); }
-.cat-portada-mujer { background: radial-gradient(ellipse 70% 120% at 80% 100%, #c3d2dc 0%, var(--ella) 50%, var(--ella-2) 100%); }
+.cat-portada-mujer { background: radial-gradient(ellipse 70% 120% at 80% 100%, #fdf6f7 0%, var(--ella) 50%, var(--ella-2) 100%); }
 .cat-portada-hombre { background: radial-gradient(ellipse 70% 120% at 80% 100%, var(--el-2) 0%, var(--el) 55%, #141d31 100%); color: #f2ece2; }
 .cat-portada-in { display: grid; gap: 10px; justify-items: start; padding-block: clamp(48px, 7vw, 96px); }
 .cat-portada h1 { font-size: clamp(3rem, 8vw, 6rem); letter-spacing: -.02em; }
