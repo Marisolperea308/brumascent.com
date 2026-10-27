@@ -118,6 +118,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .vitrina-nom { font-size: .8rem; color: var(--tinta-2); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 .vitrina-fila button { max-width: 100%; }
 .vitrina-fila button:hover .vitrina-nom { color: var(--tinta); }
+@media (max-width: 1180px) {
+  .vitrina-fila { grid-auto-columns: 108px; gap: 14px; }
+}
 @media (max-width: 760px) {
   .vitrina-in { grid-template-columns: 1fr; padding-block: 96px 64px; gap: 22px; }
   .vitrina-txt { padding-bottom: 0; grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 12px; }
