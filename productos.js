@@ -2181,7 +2181,7 @@ window.PERFUMES = [
     corazon: ["Canela", "Galleta", "Especias"],
     fondo: [],
     descripcion: "Galleta recién horneada con canela y especias cálidas. Llena tu casa del ambiente de una tarde de Navidad.",
-    precio: "",
+    precio: "$350",
     disponible: true,
     nuevo: true,
     masPedido: false
@@ -2203,7 +2203,7 @@ window.PERFUMES = [
     corazon: ["Pino", "Ciprés", "Especias"],
     fondo: [],
     descripcion: "Pino y ciprés frescos con un toque de especias, como tener el árbol recién puesto en la sala.",
-    precio: "",
+    precio: "$350",
     disponible: true,
     nuevo: true,
     masPedido: false
