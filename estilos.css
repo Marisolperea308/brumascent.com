@@ -124,13 +124,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
     linear-gradient(90deg, rgba(22, 17, 12, .72) 0%, rgba(22, 17, 12, .42) 38%, rgba(22, 17, 12, 0) 66%),
-    linear-gradient(to top, rgba(22, 17, 12, .55) 0%, rgba(22, 17, 12, 0) 40%),
     linear-gradient(to bottom, rgba(22, 17, 12, .35) 0%, rgba(22, 17, 12, 0) 22%);
 }
+/* la foto se desvanece suavemente hacia el fondo de la página */
+.portada::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 34%; z-index: 1; pointer-events: none;
+  background: linear-gradient(to top, var(--papel) 0%, rgba(251, 244, 241, .85) 22%, rgba(251, 244, 241, .35) 60%, rgba(251, 244, 241, 0) 100%);
+}
+.portada-txt { z-index: 2; }
 .portada-txt {
   position: absolute; z-index: 1; inset: 0; margin: 0 auto; max-width: 1440px;
   display: grid; align-content: center; justify-items: start; gap: 18px;
-  padding-top: 90px;
+  padding-top: 90px; padding-bottom: 14vh;
   padding-left: max(clamp(28px, 6vw, 96px), env(safe-area-inset-left, 0px));
   padding-right: max(28px, env(safe-area-inset-right, 0px));
 }
@@ -147,7 +152,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .portada { height: auto; min-height: 0; max-height: none; }
   .portada picture { aspect-ratio: 3 / 4; }
   .portada-foto { object-position: 50% 50%; }
-  .portada::after { bottom: auto; height: calc(100vw * 4 / 3); background: linear-gradient(to bottom, rgba(22, 17, 12, .4) 0%, rgba(22, 17, 12, 0) 25%), linear-gradient(to top, rgba(22, 17, 12, .45) 0%, rgba(22, 17, 12, 0) 30%); }
+  .portada::after { bottom: auto; height: calc(100vw * 4 / 3); background: linear-gradient(to bottom, rgba(22, 17, 12, .4) 0%, rgba(22, 17, 12, 0) 25%); }
+  .portada::before { bottom: auto; top: calc(100vw * 4 / 3 * .62); height: calc(100vw * 4 / 3 * .38 + 1px); }
   .portada-pre { color: var(--tinta-2); }
   .portada h1 { color: var(--tinta); }
   .portada-sub { color: var(--tinta-2); }
