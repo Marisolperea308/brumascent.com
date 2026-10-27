@@ -15,10 +15,6 @@
   --rosa-suave: #ead3cb; /* chips y bordes activos */
   --linea: #e4d1ca;      /* líneas de la rejilla */
   --sobre-rosa: #fff8f5; /* texto sobre botones */
-  /* Fondo del inicio: gris cálido con degradado (más claro al centro) */
-  --inicio-centro: #f3f1ee;
-  --inicio-medio: #dfdbd6;
-  --inicio-orilla: #bdb7b1;
 
   --f-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
   --f-texto: "Jost", "Futura", "Avenir Next", system-ui, sans-serif;
@@ -69,7 +65,7 @@ a { color: inherit; }
   background: transparent;
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--inicio-orilla); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: #e9dfd2; }
 .top-in { display: flex; align-items: center; gap: 28px; min-height: 120px; max-width: 1440px; }
 .marca { margin-right: auto; display: block; }
 .marca .logo { width: 190px; height: auto; }
@@ -78,56 +74,37 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nav a:hover { color: var(--tinta); }
 @media (max-width: 720px) { .nav { display: none; } .top-in { min-height: 92px; } .marca .logo { width: 140px; } }
 
-/* ---------- Portada: fila de frascos ---------- */
-.inicio {
-  background:
-    radial-gradient(ellipse 75% 70% at 50% 68%, var(--inicio-centro) 0%, var(--inicio-medio) 48%, var(--inicio-orilla) 100%);
+/* ---------- Portada: foto de margen a margen ---------- */
+.inicio { position: relative; background: #2a241f; }
+.inicio .top { position: absolute; inset: 0 0 auto; background: linear-gradient(to bottom, rgba(255, 250, 244, .5), rgba(255, 250, 244, 0)); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.inicio .nav a { color: var(--tinta); }
+.portada { position: relative; height: min(88vh, 860px); min-height: 560px; overflow: hidden; }
+.portada picture, .portada-foto { display: block; width: 100%; height: 100%; }
+.portada-foto { object-fit: cover; object-position: 60% 38%; max-width: none; }
+.portada::after { /* luz suave detrás del texto para que se lea */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 55% 60% at 18% 62%, rgba(255, 249, 240, .62), rgba(255, 249, 240, 0) 70%);
 }
-.vitrina { background: linear-gradient(to bottom, transparent 70%, rgba(60, 50, 45, .06)); }
-/* sombra suave de cada frasco */
-.vitrina-fila .apoyo { display: block; line-height: 0; }
-.vitrina-fila .frasco img { filter: drop-shadow(0 12px 10px rgba(50, 40, 35, .22)); }
-.vitrina-fila button { position: relative; z-index: 0; }
-.vitrina-in {
-  max-width: 1440px; margin: 0 auto;
-  display: grid; grid-template-columns: 190px minmax(0, 1fr); align-items: end; gap: clamp(24px, 4vw, 64px);
-  padding-block: clamp(110px, 14vw, 210px) clamp(80px, 9vw, 130px);
-  padding-left: max(20px, env(safe-area-inset-left, 0px));
-  padding-right: max(20px, env(safe-area-inset-right, 0px));
+.portada-txt {
+  position: absolute; z-index: 1; left: 0; right: 0; bottom: clamp(48px, 10vh, 110px);
+  max-width: 1440px; margin: 0 auto; display: grid; gap: 14px; justify-items: start;
+  padding-left: max(28px, env(safe-area-inset-left, 0px)); padding-right: max(28px, env(safe-area-inset-right, 0px));
 }
-.vitrina-txt { display: grid; gap: 6px; align-self: center; padding-bottom: 40px; }
-.vitrina-tit { font: 400 .82rem/1.2 var(--f-texto); letter-spacing: .16em; text-transform: uppercase; }
-.vitrina-sub { font-size: .85rem; color: var(--tinta-2); }
-.vitrina-link { text-underline-offset: 3px; }
-.vitrina-link { font-size: .85rem; color: var(--rosa); margin-top: 6px; }
-.vitrina-fila {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); align-items: end; gap: 8px;
-  overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory;
-}
-.vitrina-fila::-webkit-scrollbar { display: none; }
-.vitrina-fila li { scroll-snap-align: start; min-width: 0; display: grid; justify-items: center; }
-.vitrina-fila button {
-  all: unset; cursor: pointer; box-sizing: border-box;
-  display: grid; justify-items: center; gap: 12px; padding: 8px 6px 0; border-radius: 12px;
-}
-.vitrina-fila button:focus-visible { outline: 2px solid var(--rosa); outline-offset: 2px; }
-.vitrina-fila .frasco { height: clamp(150px, 15vw, 210px); transition: transform .35s ease; }
-.vitrina-fila button:hover .apoyo { transform: translateY(-8px); }
-.vitrina-fila .apoyo { transition: transform .35s ease; }
-.vitrina-nom { font-size: .8rem; color: var(--tinta-2); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
-.vitrina-fila button { max-width: 100%; }
-.vitrina-fila button:hover .vitrina-nom { color: var(--tinta); }
-@media (max-width: 1180px) {
-  .vitrina-fila { grid-auto-columns: 108px; gap: 14px; }
-}
+.portada-pre { font-size: .78rem; letter-spacing: .28em; text-transform: uppercase; color: var(--tinta); }
+.portada h1 { font-size: clamp(3rem, 7.5vw, 6.4rem); line-height: .98; letter-spacing: -.02em; color: var(--tinta); }
+.portada-sub { font-size: 1.05rem; color: var(--tinta); max-width: 34ch; }
+.portada-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.btn-claro { background: rgba(255, 250, 244, .8); color: var(--tinta); border-color: rgba(255, 250, 244, .8); }
 @media (max-width: 760px) {
-  .vitrina-in { grid-template-columns: 1fr; padding-block: 96px 64px; gap: 22px; }
-  .vitrina-txt { padding-bottom: 0; grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 12px; }
-  .vitrina-link { margin-top: 0; }
-  .vitrina-sub { display: none; }
-  .vitrina-fila { grid-auto-columns: 108px; gap: 10px; margin-right: calc(-1 * max(20px, env(safe-area-inset-right, 0px))); padding-right: 20px; }
-  .vitrina-fila .frasco { height: 170px; }
+  .inicio { background: var(--papel); }
+  .portada { height: auto; min-height: 0; overflow: visible; }
+  .portada picture { aspect-ratio: 3 / 4; max-height: 82vh; overflow: hidden; }
+  .portada-foto { object-position: 70% 30%; }
+  .portada::after { display: none; }
+  .portada-txt { position: static; padding-block: 32px 8px; gap: 10px; }
+  .portada h1 { font-size: 2.9rem; }
+  .portada-sub { font-size: .98rem; color: var(--tinta-2); }
+  .btn-claro { background: transparent; border-color: var(--tinta); }
 }
 
 /* ---------- Frasco teñido ----------

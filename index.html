@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="estilos.css?v=4">
+<link rel="stylesheet" href="estilos.css?v=7">
 </head>
 <body>
 
@@ -32,16 +32,20 @@
   </div>
 </header>
 
-  <!-- ===== PORTADA: fila de frascos =====
-       Los perfumes de esta fila se eligen en productos.js (CONFIG.portada) -->
-  <section class="vitrina" aria-labelledby="vitrinaTit">
-    <div class="vitrina-in">
-      <div class="vitrina-txt">
-        <h1 id="vitrinaTit" class="vitrina-tit">Aromas destacados</h1>
-        <p class="vitrina-sub">Dupes de alta calidad · <span id="totalAromas">63</span> aromas</p>
-        <a class="vitrina-link" href="#catalogo">Ver todos</a>
+  <!-- ===== PORTADA: foto de margen a margen ===== -->
+  <section class="portada" aria-labelledby="portadaTit">
+    <picture>
+      <source media="(max-width: 760px)" srcset="img/portada-movil.webp">
+      <img class="portada-foto" src="img/portada.webp" alt="Mano rociando un perfume Bruma Scent a contraluz" width="1086" height="1448" fetchpriority="high">
+    </picture>
+    <div class="portada-txt">
+      <p class="portada-pre">Dupes de alta calidad</p>
+      <h1 id="portadaTit">Tu esencia,<br>tu estilo.</h1>
+      <p class="portada-sub"><span id="totalAromas">63</span> aromas inspirados en los perfumes que más amas.</p>
+      <div class="portada-cta">
+        <a class="btn" href="#catalogo">Ver catálogo</a>
+        <a class="btn btn-claro js-contacto" href="#contacto">Pedir</a>
       </div>
-      <ul class="vitrina-fila" id="vitrina"></ul>
     </div>
   </section>
 </div>
@@ -144,8 +148,8 @@
   </div>
 </dialog>
 
-<script src="productos.js?v=3"></script>
+<script src="productos.js?v=4"></script>
 <script src="notas.js?v=3"></script>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
