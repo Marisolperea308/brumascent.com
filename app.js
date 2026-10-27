@@ -96,7 +96,7 @@
     if (!elegidos.length) elegidos = PERFUMES.slice(0, 10);
     $("#vitrina").innerHTML = elegidos.map(function (p) {
       return '<li><button type="button" data-num="' + p.num + '" aria-label="Ver ' + esc(p.nombre) + '">' +
-        '<span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" width="173" height="520"><i></i></span>' +
+        '<span class="apoyo"><span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" width="173" height="520"><i></i></span></span>' +
         '<span class="vitrina-nom">' + esc(p.nombre) + '</span></button></li>';
     }).join("");
     $("#vitrina").addEventListener("click", function (e) {
