@@ -50,3 +50,4 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 3. No borres `CNAME`.
 4. Para la marca original usa siempre la frase "Inspirado en". No agregues logos, fotos de botellas ni imágenes de otras marcas.
 5. La página no usa ningún sistema de compilación: los archivos se publican tal cual.
+6. Cada vez que cambies `estilos.css`, `app.js`, `productos.js` o `notas.js`, sube en 1 el número `?v=` de ese archivo en `index.html` (ej. `productos.js?v=3` → `productos.js?v=4`). Así los visitantes ven el cambio de inmediato y no una versión guardada.
