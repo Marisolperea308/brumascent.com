@@ -363,28 +363,35 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pasos-lista span { color: rgba(244, 234, 223, .72); }
 @media (max-width: 760px) { .pasos-lista { grid-template-columns: 1fr; gap: 28px; } }
 
-/* ---------- Calidad: foto a media pantalla + texto ---------- */
-.calidad { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #efe6dc; }
-.calidad-img { margin: 0; position: relative; min-height: 640px; overflow: hidden; }
-.calidad-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 45% 40%; max-width: none; }
-.calidad-txt {
-  display: grid; align-content: center; gap: 22px; max-width: 560px;
-  padding-block: clamp(64px, 8vw, 120px);
-  padding-left: clamp(32px, 6vw, 96px); padding-right: max(28px, env(safe-area-inset-right, 0px));
+/* ---------- Calidad: foto de orilla a orilla con look de película vintage ---------- */
+.calidad { position: relative; isolation: isolate; overflow: hidden; background: #f1e3cc; }
+.calidad-img { margin: 0; position: absolute; inset: 0; z-index: -2; }
+.calidad-img img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; max-width: none; }
+/* grano de película: textura nítida al tamaño de la pantalla, se mueve como en una proyección */
+.calidad::after {
+  content: ""; position: absolute; inset: -60px; z-index: -1; pointer-events: none;
+  background: url("img/grano.png") 0 0 / 220px 220px repeat;
+  mix-blend-mode: overlay; opacity: .9;
+  animation: grano .7s steps(5) infinite;
 }
-.calidad-txt h2 { font-size: clamp(2.3rem, 4.2vw, 3.6rem); line-height: 1.02; }
-.calidad-intro { color: var(--tinta-2); font-size: 1.05rem; }
-.calidad-lista { margin: 10px 0 0; display: grid; }
-.calidad-lista div { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 16px; padding-block: 18px; border-top: 1px solid rgba(36, 28, 27, .15); }
-.calidad-lista div:last-child { border-bottom: 1px solid rgba(36, 28, 27, .15); }
-.calidad-lista dt { font: 400 1.2rem/1.2 var(--f-display); }
-.calidad-lista dd { margin: 0; color: var(--tinta-2); font-size: .96rem; }
+.calidad-in { max-width: 1440px; margin: 0 auto; min-height: min(56.3vw, 860px); display: grid; align-items: center;
+  padding-left: max(clamp(28px, 6vw, 96px), env(safe-area-inset-left, 0px)); padding-right: max(28px, env(safe-area-inset-right, 0px)); }
+.calidad-txt { display: grid; gap: 20px; max-width: 470px; padding-block: clamp(56px, 7vw, 100px); }
+.calidad-txt h2 { font-size: clamp(2.3rem, 4vw, 3.6rem); line-height: 1.02; }
+.calidad-intro { color: #5b4636; font-size: 1.05rem; }
+.calidad-lista { margin: 8px 0 0; display: grid; }
+.calidad-lista div { display: grid; grid-template-columns: minmax(0, 10rem) minmax(0, 1fr); gap: 16px; padding-block: 16px; border-top: 1px solid rgba(60, 40, 25, .2); }
+.calidad-lista div:last-child { border-bottom: 1px solid rgba(60, 40, 25, .2); }
+.calidad-lista dt { font: 400 1.18rem/1.2 var(--f-display); }
+.calidad-lista dd { margin: 0; color: #5b4636; font-size: .95rem; }
 @media (max-width: 860px) {
-  .calidad { grid-template-columns: 1fr; }
-  .calidad-img { min-height: 0; aspect-ratio: 4 / 5; }
-  .calidad-txt { padding-left: max(22px, env(safe-area-inset-left, 0px)); padding-right: max(22px, env(safe-area-inset-right, 0px)); }
+  .calidad-img { position: relative; inset: auto; aspect-ratio: 4 / 3; }
+  .calidad-img img { object-position: 82% 50%; }
+  .calidad-in { min-height: 0; padding-left: max(22px, env(safe-area-inset-left, 0px)); padding-right: max(22px, env(safe-area-inset-right, 0px)); }
+  .calidad-txt { max-width: none; padding-block: 36px 56px; }
   .calidad-lista div { grid-template-columns: 1fr; gap: 4px; }
 }
+@media (prefers-reduced-motion: reduce) { .calidad::after { animation: none; } }
 
 /* ---------- Preguntas ---------- */
 .faq { padding-block: clamp(72px, 9vw, 120px); }

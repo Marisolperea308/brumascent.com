@@ -138,7 +138,7 @@
        En "hogar" se muestra img/hogar-spray.webp. */
     document.querySelectorAll("[data-frascos]").forEach(function (el) {
       if (el.dataset.frascos === "hogar") {  // imagen neutral (sin temporada) del atomizador
-        el.innerHTML = '<img class="foto-hogar" src="img/hogar-spray.webp" alt="" loading="lazy">';
+        el.innerHTML = '<img class="foto-hogar" src="img/hogar-spray.webp?v=2" alt="" loading="lazy">';
         return;
       }
       el.innerHTML = '<span class="frasco"><img src="img/botella-neutra.webp" alt="" width="333" height="1000" loading="lazy"><i></i></span>';
