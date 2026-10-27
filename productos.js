@@ -22,7 +22,7 @@ window.CONFIG = {
   portada: [35, 40, 7, 11, 60, 112, 123, 128, 125, 118],
 
   // Precio general que se muestra en todos los perfumes que no tengan precio propio. Ejemplo: "$350 · 100 ml". Vacío = no se muestra.
-  precioGeneral: ""
+  precioGeneral: "$250"
 };
 
 /* Preguntas frecuentes: agrega, quita o cambia libremente. */
