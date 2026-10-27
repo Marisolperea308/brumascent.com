@@ -76,7 +76,7 @@ a { color: inherit; }
 .btn-ancho { width: 100%; }
 
 /* logo claro sobre la foto oscura */
-.inicio .top .marca img.logo { filter: brightness(0) saturate(100%) invert(12%) sepia(98%) saturate(7480%) hue-rotate(355deg) brightness(96%) contrast(112%) !important; }
+.inicio .marca .logo { filter: invert(1) sepia(.15) brightness(1.08); }
 
 /* ---------- Encabezado ---------- */
 .top {
