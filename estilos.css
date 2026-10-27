@@ -95,8 +95,20 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .inicio .top .btn:hover { background: var(--tinta); color: #fbf3e6; border-color: var(--tinta); }
 
 .portada { position: relative; height: 100vh; height: 100svh; min-height: 600px; max-height: 1000px; overflow: hidden; }
-.portada picture, .portada-foto { display: block; width: 100%; height: 100%; }
+.portada picture, .portada-foto { display: block; width: 100%; height: 100%; overflow: hidden; }
 .portada-foto { object-fit: cover; object-position: 50% 40%; max-width: none; }
+.portada picture { position: relative; }
+.portada picture::after { /* grano de película nítido, encima de la foto */
+  content: ""; position: absolute; inset: -40px; pointer-events: none; z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.6 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"); background-size: 220px 220px;
+  mix-blend-mode: overlay; opacity: .55;
+  animation: grano .9s steps(6) infinite;
+}
+@keyframes grano {
+  0% { transform: translate(0, 0); } 20% { transform: translate(-14px, 9px); } 40% { transform: translate(11px, -16px); }
+  60% { transform: translate(-7px, 18px); } 80% { transform: translate(17px, 5px); } 100% { transform: translate(0, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .portada picture::after { animation: none; } }
 .portada::after { /* degradado oscuro para que el texto claro resalte */
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
