@@ -93,7 +93,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 .portada { position: relative; height: 100vh; height: 100svh; min-height: 600px; max-height: 1000px; overflow: hidden; }
 .portada picture, .portada-foto { display: block; width: 100%; height: 100%; }
-.portada-foto { object-fit: cover; object-position: 50% 42%; max-width: none; }
+.portada-foto { object-fit: cover; object-position: 50% 40%; max-width: none; }
 .portada::after { /* velo cálido a la izquierda para que el texto se lea */
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
@@ -117,7 +117,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .inicio .nav { display: none; }
   .portada { height: auto; min-height: 0; max-height: none; }
   .portada picture { aspect-ratio: 3 / 4; }
-  .portada-foto { object-position: 50% 40%; }
+  .portada-foto { object-position: 50% 50%; }
   .portada::after { bottom: auto; height: calc(100vw * 4 / 3); background: linear-gradient(to top, var(--papel) 0%, rgba(251, 244, 241, 0) 18%); }
   .portada-txt { position: relative; inset: auto; gap: 10px; padding-top: 4px; padding-bottom: 40px; padding-left: max(22px, env(safe-area-inset-left, 0px)); }
   .portada h1 { font-size: 2.8rem; }
