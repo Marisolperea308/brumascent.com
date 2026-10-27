@@ -23,7 +23,7 @@
   --ella-2: #f0d8dc;
   --el: #1d2a44;         /* azul marino (colección hombre) */
   --el-2: #2b3c5e;
-  --frasco-ella: #ffffff; /* botella transparente del cuadro de mujer */
+  --frasco-ella: #f6dee3; /* botella transparente que deja ver el fondo rosita */
   --frasco-el: #fbf1cf;   /* botella amarilla del cuadro de hombre */
   --uni: #6b4a35;        /* café (colección unisex) */
   --uni-2: #8a6448;
@@ -261,7 +261,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pagina-catalogo .top { background: var(--papel); border-bottom: 1px solid var(--linea); }
 .pagina-catalogo .nav a[aria-current="page"] { color: var(--tinta); text-decoration: underline; text-underline-offset: 6px; }
 .cat-portada { color: var(--tinta); }
-.cat-portada-mujer { background: radial-gradient(ellipse 70% 120% at 80% 100%, #fdf6f7 0%, var(--ella) 50%, var(--ella-2) 100%); }
+.cat-portada-mujer { background: radial-gradient(ellipse 80% 140% at 82% 100%, #fdf6f7 0%, var(--ella) 55%, var(--ella-2) 100%); }
 .cat-portada-unisex { background: radial-gradient(ellipse 70% 120% at 80% 100%, var(--uni-2) 0%, var(--uni) 55%, #4a3122 100%); color: #f5ece0; }
 .cat-portada-hogar { background: radial-gradient(ellipse 70% 120% at 80% 100%, #ece7dc 0%, var(--hogar) 50%, var(--hogar-2) 100%); }
 .cat-portada-hogar .cat-portada-frascos { bottom: 0; }
