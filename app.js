@@ -11,7 +11,8 @@
   var FAMILIAS = ["Floral", "Floral frutal", "Dulce", "Oriental", "Amaderado", "Fresco", "Acuático", "Aromático", "Chipre"];
 
   var $ = function (s, el) { return (el || document).querySelector(s); };
-  var estado = { genero: "mujer", familia: "Todos", texto: "" };
+  var estado = { genero: (document.body.dataset.genero === "hombre" ? "hombre" : "mujer"), familia: "Todos", texto: "" };
+  var ES_CATALOGO = !!document.getElementById("rejilla");
   /* Género: "mujer", "hombre" o "unisex" (aparece en las dos secciones). Sin dato = mujer. */
   function generoDe(p) { return p.genero || "mujer"; }
   function enGenero(p, g) { var x = generoDe(p); return x === g || x === "unisex"; }
@@ -100,7 +101,6 @@
   /* ---------- portada ---------- */
   function pintarPortada() {
     var t = $("#totalAromas"); if (t) t.textContent = PERFUMES.length;
-    var lv = $(".vitrina-link"); if (lv) lv.textContent = "Ver los " + PERFUMES.length;
     var fila = $("#vitrina"); if (!fila) return;
     var elegidos = (CONFIG.portada || []).map(function (n) { return PERFUMES.find(function (p) { return p.num === Number(n); }); }).filter(Boolean);
     if (!elegidos.length) elegidos = PERFUMES.slice(0, 10);
@@ -115,17 +115,20 @@
   }
 
   /* ---------- catálogo ---------- */
-  function pintarGeneros() {
-    ["mujer", "hombre"].forEach(function (g) {
-      var b = document.querySelector('.genero-tab[data-g="' + g + '"]'); if (!b) return;
-      b.setAttribute("aria-pressed", String(estado.genero === g));
-      var c = b.querySelector("small"); if (c) c.textContent = PERFUMES.filter(function (p) { return enGenero(p, g); }).length + " aromas";
+  /* Cuentas ("64 aromas") y frascos de los cuadros de colección */
+  function pintarColecciones() {
+    document.querySelectorAll("[data-cuenta]").forEach(function (el) {
+      el.textContent = PERFUMES.filter(function (p) { return enGenero(p, el.dataset.cuenta); }).length + " aromas";
     });
-  }
-  function cambiarGenero(g) {
-    if (g !== "mujer" && g !== "hombre") return;
-    estado.genero = g; estado.familia = "Todos";
-    pintarGeneros(); pintarChips(); pintarRejilla();
+    document.querySelectorAll("[data-frascos]").forEach(function (el) {
+      var g = el.dataset.frascos;
+      var elegidos = (CONFIG.portada || []).map(function (n) { return PERFUMES.find(function (p) { return p.num === Number(n); }); })
+        .filter(function (p) { return p && generoDe(p) === g; });
+      PERFUMES.forEach(function (p) { if (elegidos.length < 5 && generoDe(p) === g && elegidos.indexOf(p) < 0) elegidos.push(p); });
+      el.innerHTML = elegidos.slice(0, 5).map(function (p) {
+        return '<span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" width="173" height="520" loading="lazy"><i></i></span>';
+      }).join("");
+    });
   }
   function pintarChips() {
     var base = deEsteGenero();
@@ -215,7 +218,7 @@
     if (ficha.open) { if (ficha.close) ficha.close(); else ficha.removeAttribute("open"); }
   }
   ficha.addEventListener("close", function () {
-    if (/^#perfume-/.test(location.hash)) { try { history.replaceState(null, "", "#catalogo"); } catch (e) {} }
+    if (/^#perfume-/.test(location.hash)) { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} }
   });
   ficha.addEventListener("click", function (e) { if (e.target === ficha) cerrar(); });
   $("#fichaCerrar").addEventListener("click", cerrar);
@@ -226,16 +229,11 @@
     var m = location.hash.match(/^#perfume-(\d+)/);
     if (m) { abrir(m[1], true); return; }
     var g = location.hash.match(/^#(mujer|hombre)$/);
-    if (g) { cambiarGenero(g[1]); var cat = $("#catalogo"); if (cat) cat.scrollIntoView(); }
+    if (g) location.href = g[1] + ".html";  // ligas viejas #mujer / #hombre
   }
 
   /* ---------- eventos del catálogo ---------- */
-  document.querySelectorAll(".genero-tab").forEach(function (b) {
-    b.addEventListener("click", function () {
-      cambiarGenero(b.dataset.g);
-      try { history.replaceState(null, "", "#" + b.dataset.g); } catch (e) {}
-    });
-  });
+  if (ES_CATALOGO) {
   $("#chips").addEventListener("click", function (e) {
     var b = e.target.closest(".chip"); if (!b) return;
     estado.familia = b.dataset.f; pintarChips(); pintarRejilla();
@@ -247,9 +245,11 @@
   $("#rejilla").addEventListener("click", function (e) {
     var b = e.target.closest(".carta"); if (b) abrir(b.dataset.num);
   });
+  }
 
   /* ---------- preguntas ---------- */
   function pintarPreguntas() {
+    if (!$("#faq")) return;
     $("#faq").innerHTML = (window.PREGUNTAS || []).map(function (q) {
       return '<details><summary>' + esc(q.p) + '</summary><p>' + esc(q.r) + '</p></details>';
     }).join("");
@@ -258,9 +258,8 @@
   /* ---------- arranque ---------- */
   pintarContacto();
   pintarPortada();
-  pintarGeneros();
-  pintarChips();
-  pintarRejilla();
+  pintarColecciones();
+  if (ES_CATALOGO) { pintarChips(); pintarRejilla(); }
   pintarPreguntas();
   desdeHash();
   window.addEventListener("hashchange", desdeHash);

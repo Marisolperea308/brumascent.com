@@ -19,6 +19,10 @@
   --cafe-2: #3b2f27;
   --crema: #f4eadf;      /* texto sobre café */
   --dorado: #d8b27a;     /* acento dorado de la luz de la foto */
+  --ella: #a9bccb;       /* azul celeste grisáceo (colección mujer) */
+  --ella-2: #94aabb;
+  --el: #1d2a44;         /* azul marino (colección hombre) */
+  --el-2: #2b3c5e;
   --gris-centro: #f3f1ee; --gris-medio: #dfdbd6; --gris-orilla: #bdb7b1;
 
   --f-display: "Gloock", "Didot", Georgia, serif;
@@ -193,26 +197,69 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           mask: url(img/liquido.png) center / 100% 100% no-repeat;
 }
 
+/* ---------- Colecciones: dos cuadros en el inicio ---------- */
+.colecciones { padding-block: clamp(64px, 8vw, 110px) clamp(48px, 6vw, 80px); }
+.colecciones-tit { font-size: clamp(2rem, 4.4vw, 3.1rem); margin-bottom: 32px; }
+.cuadros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); }
+.cuadro {
+  position: relative; overflow: hidden; isolation: isolate; text-decoration: none;
+  aspect-ratio: 1 / 1; border-radius: 28px; padding: clamp(24px, 3.2vw, 44px);
+  display: grid; grid-template-rows: auto 1fr auto; color: var(--tinta);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.cuadro::before { content: ""; position: absolute; inset: 0; z-index: -1; }
+.cuadro-mujer::before { background: radial-gradient(ellipse 80% 70% at 50% 85%, #c3d2dc 0%, var(--ella) 55%, var(--ella-2) 100%); }
+.cuadro-hombre { color: #f2ece2; }
+.cuadro-hombre::before { background: radial-gradient(ellipse 80% 70% at 50% 85%, var(--el-2) 0%, var(--el) 60%, #141d31 100%); }
+.cuadro:hover { transform: translateY(-6px); box-shadow: 0 28px 50px rgba(30, 35, 50, .25); }
+.cuadro:focus-visible { outline: 3px solid var(--tinta); outline-offset: 4px; }
+.cuadro-txt { display: grid; gap: 6px; }
+.cuadro-nombre { font: 400 clamp(2.4rem, 5vw, 4.2rem)/1 var(--f-display); letter-spacing: -.02em; }
+.cuadro-cuenta { font-size: .95rem; opacity: .8; }
+.cuadro-frascos { display: flex; justify-content: center; align-items: flex-end; gap: clamp(4px, 1vw, 12px); align-self: end; margin-bottom: 18px; }
+.cuadro-frascos .frasco { height: clamp(110px, 15vw, 210px); transition: transform .4s ease; }
+.cuadro-frascos .frasco img { filter: drop-shadow(0 14px 12px rgba(10, 15, 30, .3)); }
+.cuadro-frascos .frasco:nth-child(1), .cuadro-frascos .frasco:nth-child(5) { height: clamp(80px, 11vw, 160px); }
+.cuadro-frascos .frasco:nth-child(2), .cuadro-frascos .frasco:nth-child(4) { height: clamp(96px, 13vw, 185px); }
+.cuadro:hover .cuadro-frascos .frasco { transform: translateY(-6px); }
+.cuadro:hover .cuadro-frascos .frasco:nth-child(even) { transform: translateY(-12px); }
+.cuadro-ir {
+  justify-self: start; display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 22px;
+  border-radius: 999px; font-size: .95rem; background: rgba(255, 255, 255, .85); color: var(--tinta);
+}
+.cuadro-hombre .cuadro-ir { background: #f2ece2; color: var(--el); }
+.cuadro-ir::after { content: "→"; transition: transform .25s; }
+.cuadro:hover .cuadro-ir::after { transform: translateX(4px); }
+@media (max-width: 700px) {
+  .cuadros { grid-template-columns: 1fr; }
+  .cuadro { aspect-ratio: 4 / 5; }
+  .cuadro-frascos .frasco { height: 150px; }
+  .cuadro-frascos .frasco:nth-child(1), .cuadro-frascos .frasco:nth-child(5) { height: 110px; }
+  .cuadro-frascos .frasco:nth-child(2), .cuadro-frascos .frasco:nth-child(4) { height: 130px; }
+}
+
+/* ---------- Páginas de catálogo (mujer.html / hombre.html) ---------- */
+.pagina-catalogo .top { background: var(--papel); border-bottom: 1px solid var(--linea); }
+.pagina-catalogo .nav a[aria-current="page"] { color: var(--tinta); text-decoration: underline; text-underline-offset: 6px; }
+.cat-portada { color: var(--tinta); }
+.cat-portada-mujer { background: radial-gradient(ellipse 70% 120% at 80% 100%, #c3d2dc 0%, var(--ella) 50%, var(--ella-2) 100%); }
+.cat-portada-hombre { background: radial-gradient(ellipse 70% 120% at 80% 100%, var(--el-2) 0%, var(--el) 55%, #141d31 100%); color: #f2ece2; }
+.cat-portada-in { display: grid; gap: 10px; justify-items: start; padding-block: clamp(48px, 7vw, 96px); }
+.cat-portada h1 { font-size: clamp(3rem, 8vw, 6rem); letter-spacing: -.02em; }
+.cat-portada-sub { font-size: 1.05rem; opacity: .85; }
+.cat-volver, .cat-otro { font-size: .9rem; color: inherit; opacity: .85; text-underline-offset: 4px; }
+.cat-volver { text-decoration: none; }
+.cat-otro { margin-top: 6px; }
+.pagina-catalogo .catalogo { padding-block: 48px 40px; }
+.cat-portada-in { position: relative; }
+.cat-portada-frascos { position: absolute; right: max(20px, env(safe-area-inset-right, 0px)); bottom: 36px; margin: 0; }
+.cat-portada-frascos .frasco { height: 190px; }
+@media (max-width: 860px) { .cat-portada-frascos { display: none; } }
+
 /* ---------- Catálogo ---------- */
 .catalogo { padding-block: 88px 40px; }
 .cat-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
 .cat-sub { color: var(--tinta-2); }
-.generos {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 28px;
-  border: 1px solid var(--tinta); border-radius: 999px; padding: 5px; max-width: 560px;
-}
-.genero-tab {
-  all: unset; box-sizing: border-box; cursor: pointer; text-align: center;
-  display: grid; justify-items: center; gap: 2px; padding: 12px 18px; border-radius: 999px;
-  transition: background .25s, color .25s;
-}
-.genero-tab span { font: 400 1.5rem/1.1 var(--f-display); }
-.genero-tab small { font-size: .78rem; color: var(--tinta-2); letter-spacing: .02em; }
-.genero-tab[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
-.genero-tab[aria-pressed="true"] small { color: rgba(251, 244, 241, .7); }
-.genero-tab:not([aria-pressed="true"]):hover { background: var(--papel-2); }
-.genero-tab:focus-visible { outline: 2px solid var(--rosa); outline-offset: 2px; }
-@media (max-width: 520px) { .genero-tab span { font-size: 1.25rem; } .genero-tab { padding: 10px 12px; } }
 .cat-filtros { display: grid; gap: 16px; margin-top: 28px; }
 .buscar {
   display: flex; align-items: center; gap: 10px; max-width: 560px;

@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="estilos.css?v=18">
+<link rel="stylesheet" href="estilos.css?v=19">
 </head>
 <body>
 
@@ -24,8 +24,8 @@
       <img src="img/logo.png" alt="Bruma Scent" class="logo" width="190" height="108">
     </a>
     <nav class="nav" aria-label="Secciones">
-      <a href="#mujer">Mujer</a>
-      <a href="#hombre">Hombre</a>
+      <a href="mujer.html">Mujer</a>
+      <a href="hombre.html">Hombre</a>
       <a href="#como-pedir">Cómo pedir</a>
       <a href="#preguntas">Preguntas</a>
     </nav>
@@ -44,8 +44,8 @@
       <h1 id="portadaTit">Tu esencia,<br>tu estilo.</h1>
       <p class="portada-sub"><span id="totalAromas">63</span> aromas inspirados en los perfumes que más amas.</p>
       <div class="portada-cta">
-        <a class="btn" href="#mujer">Para ella</a>
-        <a class="btn btn-claro" href="#hombre">Para él</a>
+        <a class="btn" href="mujer.html">Para ella</a>
+        <a class="btn btn-claro" href="hombre.html">Para él</a>
       </div>
     </div>
   </section>
@@ -53,43 +53,40 @@
 
 <main>
 
+  <!-- ===== COLECCIONES: dos cuadros que llevan a cada catálogo ===== -->
+  <section class="colecciones" id="catalogo" aria-labelledby="coleccionesTit">
+    <div class="sec-in">
+      <h2 id="coleccionesTit" class="colecciones-tit">Elige tu colección</h2>
+      <div class="cuadros">
+        <a class="cuadro cuadro-mujer" href="mujer.html">
+          <span class="cuadro-txt">
+            <span class="cuadro-nombre">Para ella</span>
+            <span class="cuadro-cuenta" data-cuenta="mujer"></span>
+          </span>
+          <span class="cuadro-frascos" data-frascos="mujer" aria-hidden="true"></span>
+          <span class="cuadro-ir">Ver catálogo</span>
+        </a>
+        <a class="cuadro cuadro-hombre" href="hombre.html">
+          <span class="cuadro-txt">
+            <span class="cuadro-nombre">Para él</span>
+            <span class="cuadro-cuenta" data-cuenta="hombre"></span>
+          </span>
+          <span class="cuadro-frascos" data-frascos="hombre" aria-hidden="true"></span>
+          <span class="cuadro-ir">Ver catálogo</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== AROMAS DESTACADOS: fila de frascos =====
        Los perfumes se eligen en productos.js (CONFIG.portada) -->
   <section class="vitrina" aria-labelledby="vitrinaTit">
     <div class="vitrina-in">
       <div class="vitrina-txt">
         <h2 id="vitrinaTit" class="vitrina-tit">Aromas destacados</h2>
-        <a class="vitrina-link" href="#catalogo">Ver los 63</a>
+        <a class="vitrina-link" href="#catalogo">Ver colecciones</a>
       </div>
       <ul class="vitrina-fila" id="vitrina"></ul>
-    </div>
-  </section>
-
-  <!-- ===== CATÁLOGO ===== -->
-  <section class="catalogo" id="catalogo">
-    <div class="sec-in">
-      <div class="cat-cab">
-        <h2>La colección</h2>
-        <p class="cat-sub">Toca un perfume para ver sus notas.</p>
-      </div>
-      <div class="generos" role="group" aria-label="Elige la sección">
-        <button type="button" class="genero-tab" data-g="mujer" aria-pressed="true"><span>Para ella</span><small></small></button>
-        <button type="button" class="genero-tab" data-g="hombre" aria-pressed="false"><span>Para él</span><small></small></button>
-      </div>
-      <div class="cat-filtros">
-        <label class="buscar" for="buscar">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
-          <input id="buscar" type="search" placeholder="Busca un nombre o una nota" autocomplete="off">
-        </label>
-        <div class="chips" id="chips" role="group" aria-label="Filtrar por familia"></div>
-      </div>
-      <p class="cat-cuenta" id="cuenta" aria-live="polite"></p>
-      <ul class="rejilla" id="rejilla"></ul>
-      <div class="vacio" id="vacio" hidden>
-        <p>No encontramos ese aroma.</p>
-        <p class="vacio-sub">Prueba con otra nota o escríbenos: si no lo tenemos, te decimos cuál se le parece.</p>
-        <button class="btn btn-linea" type="button" id="limpiar">Ver todos</button>
-      </div>
     </div>
   </section>
 
@@ -112,7 +109,7 @@
     <div class="sec-in">
       <h2>Cómo pedir</h2>
       <ol class="pasos-lista">
-        <li><strong>Elige tu aroma</strong><span>Busca en el catálogo y anota el número de tu perfume (por ejemplo, N.º 23).</span></li>
+        <li><strong>Elige tu aroma</strong><span>Entra a tu colección y anota el número de tu perfume (por ejemplo, N.º 23).</span></li>
         <li><strong>Escríbenos</strong><span>Toca “Pedir por WhatsApp” dentro del perfume y el mensaje se arma solo.</span></li>
         <li><strong>Recíbelo</strong><span>Te confirmamos precio, forma de pago y entrega o envío.</span></li>
       </ol>
@@ -165,8 +162,8 @@
   </div>
 </dialog>
 
-<script src="productos.js?v=6"></script>
+<script src="productos.js?v=7"></script>
 <script src="notas.js?v=4"></script>
-<script src="app.js?v=8"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>

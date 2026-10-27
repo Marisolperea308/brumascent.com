@@ -9,7 +9,8 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 | Archivo | Para qué sirve |
 |---|---|
 | `productos.js` | **Casi todos los cambios van aquí.** Contacto, precios, preguntas frecuentes y la lista de perfumes. |
-| `index.html` | Textos fijos de la página (portada, "Cómo pedir", sección de calidad, pie). |
+| `index.html` | Página de inicio: portada, cuadros "Para ella / Para él", aromas destacados, calidad, "Cómo pedir", preguntas y pie. |
+| `mujer.html`, `hombre.html` | Catálogo completo de cada colección. Son iguales salvo `data-genero` y los textos de arriba: si cambias algo en una, cámbialo también en la otra. |
 | `estilos.css` | Colores, tipografías y diseño. Los colores están al inicio como variables (`--papel`, `--tinta`, `--rosa`...). |
 | `app.js` | Funcionamiento (filtros, buscador, ventana de cada perfume). Normalmente no se toca. |
 | `img/botella.webp` | Foto de la botella original (portada). |
@@ -40,7 +41,7 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 
 **Fotos de notas:** en `notas.js`, cada nota es `"Nombre": { url: "https://images.unsplash.com/photo-...", encuadre: "centro" }`. Para una nota nueva, busca una foto con licencia gratuita "Unsplash License" (no Unsplash+), copia la dirección de la imagen que empieza con `https://images.unsplash.com/photo-` sin lo que va después del `?`, y agrégala con el nombre exacto de la nota. `encuadre` puede ser `centro`, `arriba`, `abajo`, `izquierda` o `derecha` (hacia dónde está el objeto en la foto). Si una nota no tiene foto, se muestra la foto `_generica`.
 
-**Sección Mujer / Hombre:** la página muestra dos pestañas ("Para ella" y "Para él") según el campo `genero` de cada perfume. Los enlaces `brumascent.com/#mujer` y `brumascent.com/#hombre` abren directo cada sección.
+**Colecciones Mujer / Hombre:** el inicio muestra dos cuadros (azul celeste grisáceo para mujer, azul marino para hombre) que llevan a `mujer.html` y `hombre.html`. Cada página muestra solo los perfumes de su `genero`. Los colores están en `estilos.css` como `--ella` y `--el`.
 
 **Etiquetas:** `nuevo: true` muestra "Nuevo" y `masPedido: true` muestra "Más pedido" en su tarjeta.
 
@@ -53,4 +54,4 @@ La dueña pide los cambios en lenguaje normal (por ejemplo: "agrega un perfume",
 3. No borres `CNAME`.
 4. Para la marca original usa siempre la frase "Inspirado en". No agregues logos, fotos de botellas ni imágenes de otras marcas.
 5. La página no usa ningún sistema de compilación: los archivos se publican tal cual.
-6. Cada vez que cambies `estilos.css`, `app.js`, `productos.js` o `notas.js`, sube en 1 el número `?v=` de ese archivo en `index.html` (ej. `productos.js?v=3` → `productos.js?v=4`). Así los visitantes ven el cambio de inmediato y no una versión guardada.
+6. Cada vez que cambies `estilos.css`, `app.js`, `productos.js` o `notas.js`, sube en 1 el número `?v=` de ese archivo en `index.html`, `mujer.html` y `hombre.html` (ej. `productos.js?v=3` → `productos.js?v=4`). Así los visitantes ven el cambio de inmediato y no una versión guardada.
