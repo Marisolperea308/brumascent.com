@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Bruma Scent</title>
+<meta name="description" content="Bruma Scent: dupes de alta calidad inspirados en perfumes de alta gama. Conoce las notas de cada aroma y pide el tuyo por WhatsApp.">
+<meta property="og:title" content="Bruma Scent · Tu esencia, tu estilo">
+<meta property="og:description" content="Dupes de alta calidad inspirados en perfumes de alta gama.">
+<meta property="og:image" content="img/botella.webp">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a href="#inicio" class="marca" aria-label="Bruma Scent, inicio">
+      <img src="img/logo.png" alt="Bruma Scent" class="logo" width="190" height="108">
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#como-pedir">Cómo pedir</a>
+      <a href="#preguntas">Preguntas</a>
+    </nav>
+    <a class="btn btn-sm js-contacto" href="#contacto">Pedir</a>
+  </div>
+</header>
+
+<main id="inicio">
+
+  <!-- ===== PORTADA: fila de frascos =====
+       Los perfumes de esta fila se eligen en productos.js (CONFIG.portada) -->
+  <section class="vitrina" aria-labelledby="vitrinaTit">
+    <div class="vitrina-in">
+      <div class="vitrina-txt">
+        <h1 id="vitrinaTit" class="vitrina-tit">Aromas destacados</h1>
+        <p class="vitrina-sub">Dupes de alta calidad · <span id="totalAromas">63</span> aromas</p>
+        <a class="vitrina-link" href="#catalogo">Ver todos</a>
+      </div>
+      <ul class="vitrina-fila" id="vitrina"></ul>
+    </div>
+  </section>
+
+  <!-- ===== CATÁLOGO ===== -->
+  <section class="catalogo" id="catalogo">
+    <div class="sec-in">
+      <div class="cat-cab">
+        <h2>La colección</h2>
+        <p class="cat-sub">Toca un perfume para ver sus notas.</p>
+      </div>
+      <div class="cat-filtros">
+        <label class="buscar" for="buscar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          <input id="buscar" type="search" placeholder="Busca un nombre o una nota" autocomplete="off">
+        </label>
+        <div class="chips" id="chips" role="group" aria-label="Filtrar por familia"></div>
+      </div>
+      <p class="cat-cuenta" id="cuenta" aria-live="polite"></p>
+      <ul class="rejilla" id="rejilla"></ul>
+      <div class="vacio" id="vacio" hidden>
+        <p>No encontramos ese aroma.</p>
+        <p class="vacio-sub">Prueba con otra nota o escríbenos: si no lo tenemos, te decimos cuál se le parece.</p>
+        <button class="btn btn-linea" type="button" id="limpiar">Ver todos</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CÓMO PEDIR ===== -->
+  <section class="pasos" id="como-pedir">
+    <div class="sec-in">
+      <h2>Cómo pedir</h2>
+      <ol class="pasos-lista">
+        <li><strong>Elige tu aroma</strong><span>Busca en el catálogo y anota el número de tu perfume (por ejemplo, N.º 23).</span></li>
+        <li><strong>Escríbenos</strong><span>Toca “Pedir por WhatsApp” dentro del perfume y el mensaje se arma solo.</span></li>
+        <li><strong>Recíbelo</strong><span>Te confirmamos precio, forma de pago y entrega o envío.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== CALIDAD ===== -->
+  <section class="calidad">
+    <div class="sec-in calidad-in">
+      <div class="calidad-txt">
+        <h2>El aroma que amas, sin pagar la etiqueta.</h2>
+        <p>Cada Bruma Scent está inspirado en un perfume de diseñador y busca reproducir su perfil: las mismas notas de salida, corazón y fondo, con buena duración en piel.</p>
+        <p>Así puedes tener varios aromas para distintos momentos del día, sin gastar lo de uno solo.</p>
+      </div>
+      <figure class="calidad-img">
+        <img src="img/botella.webp" alt="" width="333" height="1000" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== PREGUNTAS ===== -->
+  <section class="faq" id="preguntas">
+    <div class="sec-in">
+      <h2>Preguntas frecuentes</h2>
+      <div class="faq-lista" id="faq"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pie" id="contacto">
+  <div class="sec-in pie-in">
+    <img src="img/logo.png" alt="Bruma Scent" class="logo" width="150" height="86" loading="lazy">
+    <p class="pie-lema">Tu esencia, tu estilo.</p>
+    <div class="pie-links" id="pieLinks"></div>
+    <p class="pie-legal">Bruma Scent no está afiliado a las marcas mencionadas. Los nombres se usan solo como referencia del aroma en el que se inspira cada perfume.</p>
+  </div>
+</footer>
+
+<!-- ===== DETALLE DEL PERFUME ===== -->
+<dialog class="ficha" id="ficha" aria-labelledby="fichaNombre">
+  <div class="ficha-in">
+    <button class="ficha-cerrar" type="button" id="fichaCerrar" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="ficha-img">
+      <span class="frasco" id="fichaFrasco"><img src="img/botella-neutra.webp" alt="" width="333" height="1000"><i></i></span>
+    </div>
+    <div class="ficha-txt">
+      <p class="ficha-num" id="fichaNum"></p>
+      <p class="ficha-marca" id="fichaMarca"></p>
+      <h3 class="ficha-nombre" id="fichaNombre"></h3>
+      <p class="ficha-fam"><span id="fichaFamilia"></span><span id="fichaOcasion"></span></p>
+      <ul class="notas-dest" id="fichaDest"></ul>
+      <p class="ficha-desc" id="fichaDesc"></p>
+      <div class="piramide" id="fichaPiramide"></div>
+      <p class="ficha-precio" id="fichaPrecio" hidden></p>
+      <a class="btn btn-ancho" id="fichaPedir" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+      <div class="similares" id="fichaSimilaresBox">
+        <p class="similares-tit">Si te gusta este, prueba también</p>
+        <ul class="similares-lista" id="fichaSimilares"></ul>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script src="productos.js"></script>
+<script src="notas.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
