@@ -367,13 +367,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .calidad { position: relative; isolation: isolate; overflow: hidden; background: #f1e3cc; }
 .calidad-img { margin: 0; position: absolute; inset: 0; z-index: -2; }
 .calidad-img img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; max-width: none; }
-/* grano de película: textura nítida al tamaño de la pantalla, se mueve como en una proyección */
-.calidad::after {
-  content: ""; position: absolute; inset: -60px; z-index: -1; pointer-events: none;
-  background: url("img/grano.png") 0 0 / 220px 220px repeat;
-  mix-blend-mode: overlay; opacity: .9;
-  animation: grano .7s steps(5) infinite;
-}
 .calidad-in { max-width: 1440px; margin: 0 auto; min-height: min(56.3vw, 860px); display: grid; align-items: center;
   padding-left: max(clamp(28px, 6vw, 96px), env(safe-area-inset-left, 0px)); padding-right: max(28px, env(safe-area-inset-right, 0px)); }
 .calidad-txt { display: grid; gap: 20px; max-width: 470px; padding-block: clamp(56px, 7vw, 100px); }
@@ -391,7 +384,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .calidad-txt { max-width: none; padding-block: 36px 56px; }
   .calidad-lista div { grid-template-columns: 1fr; gap: 4px; }
 }
-@media (prefers-reduced-motion: reduce) { .calidad::after { animation: none; } }
 
 /* ---------- Preguntas ---------- */
 .faq { padding-block: clamp(72px, 9vw, 120px); }
