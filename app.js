@@ -175,7 +175,6 @@
           : '<span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" loading="lazy" width="173" height="520"><i></i></span>') + '</span>' +
         '<span class="carta-txt"><span class="carta-insp">' + (esAmbiental(p) ? "Aroma para tu hogar" : "Inspirado en") + '</span><span class="carta-nombre">' + esc(p.nombre) + '</span>' +
         '<span class="carta-marca">' + esc(esAmbiental(p) ? (p.presentacion || "") : p.marca) + '</span>' +
-        (p.fotoReferencia ? '<span class="referencia-original"><img src="' + esc(p.fotoReferencia) + '" alt="Frasco original de referencia: ' + esc(p.inspiradoEn || p.nombre) + '" loading="lazy" width="42" height="54"></span>' : '') +
         ((p.precio || CONFIG.precioGeneral) ? '<span class="carta-precio">' + esc(p.precio || CONFIG.precioGeneral) + '</span>' : '') +
         '<span class="carta-notas">' + (p.destacadas || []).slice(0, 4).map(function (n) { return imgNota(n); }).join("") + '</span></span>' +
         '</button></li>';
