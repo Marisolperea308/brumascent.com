@@ -116,6 +116,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.100628.jpg",
     num: 4,
     nombre: "Black Opium Glitter",
     inspiradoEn: "Black Opium Glitter",
@@ -135,6 +136,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.88707.jpg",
     num: 5,
     nombre: "Black Opium Over Red",
     inspiradoEn: "Black Opium Over Red",
@@ -154,6 +156,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.51694.jpg",
     num: 6,
     nombre: "Burberry Her",
     inspiradoEn: "Burberry Her",
@@ -233,6 +236,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.610.jpg",
     num: 10,
     nombre: "Chance",
     inspiradoEn: "Chance",
@@ -469,6 +473,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.1460.jpg",
     num: 22,
     nombre: "Flowerbomb",
     inspiradoEn: "Flowerbomb",
@@ -623,6 +628,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.55786.jpg",
     num: 30,
     nombre: "La Belle",
     inspiradoEn: "La Belle",
@@ -817,6 +823,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.485.jpg",
     num: 40,
     nombre: "Light Blue",
     inspiradoEn: "Light Blue",
@@ -836,6 +843,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.51411.jpg",
     num: 41,
     nombre: "Lost Cherry",
     inspiradoEn: "Lost Cherry",
