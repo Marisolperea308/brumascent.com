@@ -680,7 +680,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
-    fotoReferencia: "https://www.studio.co.uk/images/imgzoom/75/75484069_xxl.jpg",
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.105931.jpg",
     num: 33,
     nombre: "La Bomba",
     inspiradoEn: "La Bomba",
@@ -739,6 +739,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.120531.jpg",
     num: 36,
     nombre: "Libre Berry Crush",
     inspiradoEn: "Libre Berry Crush",
@@ -1618,6 +1619,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.12201.jpg",
     num: 117,
     nombre: "Santal 33",
     inspiradoEn: "Santal 33",
