@@ -284,9 +284,7 @@
     bar.id = "halloweenBar";
     bar.className = "halloween-bar";
     bar.innerHTML = '<span class="halloween-moon" aria-hidden="true">☾</span><span class="halloween-copy"><strong>HALLOWEEN EDITION</strong><small>Un toque de magia, un aroma misterioso.</small></span><button type="button" class="halloween-magic" id="halloweenMagic" aria-pressed="false">✦ Invocar magia</button><span class="halloween-star" aria-hidden="true">✧</span>';
-    var top = document.querySelector(".top");
-    if (top && top.parentNode) top.parentNode.insertBefore(bar, top);
-    else document.body.insertBefore(bar, document.body.firstChild);
+    document.body.insertBefore(bar, document.body.firstChild);
     var magic = document.getElementById("halloweenMagic");
     magic.addEventListener("click", function () {
       var activo = magic.getAttribute("aria-pressed") !== "true";
@@ -294,16 +292,18 @@
       magic.textContent = activo ? "✧ Magia activada" : "✦ Invocar magia";
       document.body.classList.toggle("halloween-magic-on", activo);
       if (activo) {
-        var symbols = ["✦", "☾", "✧", "🦇", "✦", "✧", "🕸"];
-        for (var i = 0; i < 14; i++) {
+        var symbols = ["🦇", "✦", "☾", "✧", "🕸", "🦇", "✦", "✧", "🕷", "🦇"];
+        for (var i = 0; i < 24; i++) {
           var particle = document.createElement("span");
           particle.className = "halloween-particle";
           particle.textContent = symbols[i % symbols.length];
           particle.style.left = (4 + Math.random() * 92) + "%";
-          particle.style.animationDelay = (Math.random() * 1.8) + "s";
+          particle.style.animationDelay = (Math.random() * 0.65) + "s";
+          particle.style.fontSize = (22 + Math.random() * 22) + "px";
+          particle.style.color = ["#f0c58e", "#f6dce4", "#d8c1f0", "#ffffff"][i % 4];
           particle.style.setProperty("--drift", ((Math.random() * 90) - 45) + "px");
           document.body.appendChild(particle);
-          window.setTimeout(function (node) { if (node.parentNode) node.parentNode.removeChild(node); }, 4300, particle);
+          window.setTimeout(function (node) { if (node.parentNode) node.parentNode.removeChild(node); }, 5000, particle);
         }
       }
     });
