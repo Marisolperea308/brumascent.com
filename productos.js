@@ -76,6 +76,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://felix.com.pa/cdn/shop/files/1189-0008475_1_689bfef3-1505-456f-a95c-2a739d869bf7_2048x.png?v=1728817738",
     num: 2,
     nombre: "Aventus for Her",
     inspiradoEn: "Aventus for Her",
@@ -192,6 +193,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://www.beautycrew.com.au/media/15729/chance-eau-fraiche-eau-de-toilette-spray-50ml3145891364101.jpg?width=675",
     num: 8,
     nombre: "Chance Eau Fraîche",
     inspiradoEn: "Chance Eau Fraîche",
@@ -349,6 +351,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://home.ripley.com.pe/Attachment/WOP_5/2014326356237/2014326356237-1.jpg",
     num: 16,
     nombre: "Devotion",
     inspiradoEn: "Devotion",
@@ -406,6 +409,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://cdn.basler-beauty.de/out/pictures/generated/product/1/980_980_100/40285fef9c6c6cf7019c8a2eeb2409c6-Versace-Dylan-Blush-Pink-Eau-de-Parfum.ddbef563.jpg",
     num: 19,
     nombre: "Dylan Blush Pink",
     inspiradoEn: "Dylan Blush Pink",
@@ -425,6 +429,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://www.tomfordbeauty.com/cdn/shop/files/tf_sku_TCRN01_2000x2000_0.png?v=1781077895",
     num: 20,
     nombre: "Electric Cherry",
     inspiradoEn: "Electric Cherry",
@@ -444,6 +449,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://media-2025.alina-cosmetics.com/prod/media/23/e7/52/1636740216/46d5f6e2010146a0b0b560e3f36e0acd.png?ts=1640852830",
     num: 21,
     nombre: "Flora Gorgeous Gardenia",
     inspiradoEn: "Flora Gorgeous Gardenia",
@@ -482,6 +488,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://home.ripley.com.pe/Attachment/WOP_5/2014321752249/2014321752249-1.jpg",
     num: 23,
     nombre: "Good Girl",
     inspiradoEn: "Good Girl",
@@ -2249,6 +2256,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://www.sephora.com/productimages/sku/s1930759-main-zoom.jpg?imwidth=175&imwidth=450%3Fpb%3D2023-03-sephora-value-2023",
     num: 151,
     nombre: "Sol Cheirosa 62",
     inspiradoEn: "Sol Cheirosa 62",
