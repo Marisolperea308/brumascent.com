@@ -2203,6 +2203,25 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    num: 149,
+    nombre: "Ginger Biscuit",
+    inspiradoEn: "Ginger Biscuit Cologne",
+    marca: "Jo Malone London",
+    genero: "unisex",
+    familia: "Dulce",
+    tono: "#c79b62",
+    ocasion: "Otoño e invierno",
+    destacadas: ["Jengibre", "Avellana tostada", "Haba tonka", "Vainilla"],
+    salida: ["Jengibre", "Nuez moscada", "Canela"],
+    corazon: ["Avellana tostada", "Caramelo"],
+    fondo: ["Haba tonka", "Vainilla"],
+    descripcion: "Un gourmand cálido que recuerda a una galleta recién horneada: el jengibre especiado se mezcla con nuez moscada y canela, un corazón de avellana tostada y caramelo, y un fondo suave de haba tonka y vainilla. La referencia olfativa oficial destaca el jengibre en la salida, la avellana tostada en el corazón y el haba tonka en el fondo.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+  {
     num: 201,
     tipo: "ambiental",
     nombre: "Cuento de Navidad",
