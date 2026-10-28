@@ -2356,4 +2356,24 @@ window.PERFUMES = [
     nuevo: true,
     masPedido: false
   }
+  {
+    num: 153,
+    nombre: "212 VIP Rosé",
+    inspiradoEn: "212 VIP Rosé",
+    marca: "Carolina Herrera",
+    genero: "mujer",
+    familia: "Floral frutal amaderado",
+    tono: "#d9a0ad",
+    ocasion: "Día y noche, celebraciones",
+    destacadas: ["Champagne rosé", "Pimienta rosa", "Flor de durazno", "Rosa", "Almizcle"],
+    salida: ["Champagne rosé", "Pimienta rosa"],
+    corazon: ["Flor de durazno", "Rosa"],
+    fondo: ["Melocotón", "Almizcle", "Maderas suaves"],
+    descripcion: "Una fragancia chispeante y femenina que mezcla el brillo del champagne rosé con flores delicadas y un fondo suave de almizcle y madera. Glamourosa, fresca y perfecta para celebrar.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
 ];
