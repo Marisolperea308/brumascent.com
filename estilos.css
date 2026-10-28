@@ -514,3 +514,33 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .referencia-original { min-height:126px; margin-top:10px; }
   .referencia-original img { width:94px; height:122px; }
 }
+
+
+/* =========================================================
+   BRUMA SCENT · HALLOWEEN EDITION — temporada interactiva
+   ========================================================= */
+:root { --halloween-ink:#261b36; --halloween-plum:#6c4b83; --halloween-lilac:#d8c1f0; --halloween-orange:#f3a65b; --halloween-mint:#b8e4d2; }
+body.halloween-season { background-image: radial-gradient(ellipse at 8% 8%, rgba(216,193,240,.24), transparent 30%), radial-gradient(ellipse at 94% 20%, rgba(243,166,91,.15), transparent 28%); }
+.halloween-bar { position:relative; z-index:30; min-height:54px; padding:10px clamp(14px,4vw,42px); display:flex; align-items:center; justify-content:center; gap:clamp(10px,2vw,22px); overflow:hidden; color:#fff8f0; background:linear-gradient(100deg,#24182f 0%,#51365e 48%,#273b3a 100%); border-bottom:1px solid rgba(216,193,240,.5); }
+.halloween-bar::before,.halloween-bar::after { content:""; position:absolute; width:160px; height:160px; border:1px solid rgba(243,166,91,.19); border-radius:50%; pointer-events:none; }
+.halloween-bar::before { left:-60px; top:-108px; }
+.halloween-bar::after { right:-48px; bottom:-116px; }
+.halloween-moon { color:#f3c9a0; font-size:30px; line-height:1; animation:halloween-moon-glow 3.5s ease-in-out infinite; }
+.halloween-copy { display:flex; flex-direction:column; gap:2px; }
+.halloween-copy strong { font-size:.68rem; letter-spacing:.2em; font-weight:600; }
+.halloween-copy small { font-size:.78rem; color:#e9dff0; }
+.halloween-star { color:#f3c9a0; font-size:23px; animation:halloween-twinkle 2.8s ease-in-out infinite; }
+.halloween-magic { position:relative; z-index:1; padding:9px 15px; border:1px solid rgba(243,201,160,.72); border-radius:999px; color:#fff8f0; background:rgba(255,255,255,.08); font:500 .78rem var(--f-texto); cursor:pointer; transition:background .25s, transform .25s, box-shadow .25s; white-space:nowrap; }
+.halloween-magic:hover,.halloween-magic[aria-pressed="true"] { background:rgba(243,166,91,.2); box-shadow:0 0 22px rgba(243,166,91,.2); transform:translateY(-1px); }
+.halloween-season .top { border-bottom-color:rgba(108,75,131,.22); }
+.halloween-season .btn, .halloween-season .chip[aria-pressed="true"] { box-shadow:0 5px 20px rgba(108,75,131,.16); }
+.halloween-season .carta { transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+.halloween-season .carta:hover { transform:translateY(-5px); border-color:rgba(108,75,131,.4); box-shadow:0 14px 34px rgba(64,43,77,.12),0 0 0 1px rgba(243,166,91,.15); }
+.halloween-season .cat-portada { position:relative; }
+.halloween-season .cat-portada::after { content:"✦  ☾  ✧"; position:absolute; right:clamp(14px,5vw,60px); top:18px; color:#9a78b3; letter-spacing:.5em; opacity:.7; pointer-events:none; animation:halloween-twinkle 4s ease-in-out infinite; }
+.halloween-particle { position:fixed; z-index:9999; top:-32px; color:#d8c1f0; font-size:22px; pointer-events:none; text-shadow:0 0 14px rgba(243,166,91,.45); animation:halloween-fall 3.7s cubic-bezier(.2,.65,.35,1) forwards; }
+@keyframes halloween-fall { 0% { transform:translate3d(0,-20px,0) rotate(0deg); opacity:0; } 12% { opacity:.95; } 85% { opacity:.8; } 100% { transform:translate3d(var(--drift,20px),105vh,0) rotate(300deg); opacity:0; } }
+@keyframes halloween-moon-glow { 0%,100% { text-shadow:0 0 4px rgba(243,201,160,.25); transform:rotate(-8deg); } 50% { text-shadow:0 0 16px rgba(243,201,160,.8); transform:rotate(8deg); } }
+@keyframes halloween-twinkle { 0%,100% { opacity:.5; } 50% { opacity:1; } }
+@media (max-width:600px) { .halloween-bar { gap:9px; padding:9px 12px; justify-content:space-between; } .halloween-moon { font-size:25px; } .halloween-copy strong { font-size:.59rem; letter-spacing:.13em; } .halloween-copy small { max-width:170px; font-size:.68rem; line-height:1.25; } .halloween-star { display:none; } .halloween-magic { padding:8px 10px; font-size:.7rem; } }
+@media (prefers-reduced-motion:reduce) { .halloween-moon,.halloween-star,.halloween-season .cat-portada::after { animation:none; } .halloween-particle { display:none; } }
