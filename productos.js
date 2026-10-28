@@ -56,6 +56,7 @@ window.PREGUNTAS = [
    ========================================================= */
 window.PERFUMES = [
   {
+    fotoReferencia: "https://www.1000parfums.ch/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/p/a/parfum-femme-thierry-mugler-angel-nova-eau-de-parfum-100-ml-pas-cher.jpg",
     num: 1,
     nombre: "Angel Nova",
     inspiradoEn: "Angel Nova",
@@ -94,6 +95,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://www.sephora.com.br/dw/image/v2/BFJC_PRD/on/demandware.static/-/Sites-masterCatalog_Sephora/pt_BR/dwf87687eb/images/hi-res-BR/black_opium_edp_50ml_1500px.jpg?sh=1200&sm=fit&sw=1200",
     num: 3,
     nombre: "Black Opium",
     inspiradoEn: "Black Opium",
@@ -170,6 +172,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://www.perfumenz.co.nz/cdn/shop/products/prada-candy-50ml_1024x1024.png?v=1571021696",
     num: 7,
     nombre: "Candy",
     inspiradoEn: "Candy",
@@ -208,6 +211,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://assets.woolworthsstatic.co.za/Eau-De-Toilette-Spray-50ml-503694470.jpg?V=Zver&o=eyJidWNrZXQiOiJ3dy1vbmxpbmUtaW1hZ2UtcmVzaXplIiwia2V5IjoiaW1hZ2VzL2VsYXN0aWNlcmEvcHJvZHVjdHMvaGVyby8yMDIxLTAxLTI4LzUwMzY5NDQ3MF81ME1MX2hlcm8uanBnIn0&q=75",
     num: 9,
     nombre: "Chance Eau Tendre",
     inspiradoEn: "Chance Eau Tendre",
@@ -246,6 +250,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://piaus.mx/cdn/shop/files/Frasco-Photoroom_8769646d-4db3-47b4-b609-ed3bc1fa1302.jpg?v=1765830451&width=3840",
     num: 11,
     nombre: "Cloud",
     inspiradoEn: "Cloud",
@@ -265,6 +270,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1675706478-coco-mademoiselle-eau-de-parfum-spray-3-4fl-oz--packshot-default-116520-9518352924702.png?crop=1xw%3A1.00xh%3Bcenter%2Ctop&resize=980%3A%2A",
     num: 12,
     nombre: "Coco Mademoiselle",
     inspiradoEn: "Coco Mademoiselle",
@@ -303,6 +309,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://www.bigw.com.au/medias/sys_master/images/images/hcf/ha7/120142482571294.jpg",
     num: 14,
     nombre: "Daisy",
     inspiradoEn: "Daisy",
@@ -322,6 +329,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://us.parfums-de-marly.com/cdn/shop/files/DELINA_75ml_2_9100e5ba-e1d7-4657-a1fc-ef264df82058.png?v=1741176359&width=1445",
     num: 15,
     nombre: "Delina",
     inspiradoEn: "Delina",
