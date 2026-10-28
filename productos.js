@@ -2259,6 +2259,7 @@ window.PERFUMES = [
     nuevo: true,
     masPedido: false
   },
+  {
     num: 152,
     nombre: "Wood Sage & Sea Salt",
     inspiradoEn: "Wood Sage & Sea Salt",
@@ -2276,7 +2277,7 @@ window.PERFUMES = [
     disponible: true,
     nuevo: false,
     masPedido: false
-  },,
+  },
   {
     num: 201,
     tipo: "ambiental",
