@@ -2222,6 +2222,25 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    num: 150,
+    nombre: "Spicebomb Extreme",
+    inspiradoEn: "Spicebomb Extreme Eau de Parfum",
+    marca: "Viktor&Rolf",
+    genero: "hombre",
+    familia: "Ambarina especiada",
+    tono: "#b66a3c",
+    ocasion: "Noche, otoño e invierno",
+    destacadas: ["Pimienta negra", "Azafrán", "Tabaco", "Vainilla"],
+    salida: ["Esencia de pimienta negra", "Lavanda"],
+    corazon: ["Acorde de azafrán", "Canela", "Comino"],
+    fondo: ["Absoluto de cistus", "Tabaco", "Bourbon", "Vainilla", "Ámbar amaderado"],
+    descripcion: "Una fragancia masculina intensa y seductora que contrasta la pimienta negra ardiente con el azafrán cálido. La lavanda aporta un matiz aromático, mientras la canela y el comino intensifican el corazón especiado; el tabaco, el bourbon y la vainilla dejan una estela cálida, dulce y ambarada. Lanzada en 2015 y creada por Carlos Benaïm y Jean-Christophe Hérault.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+  {
     num: 201,
     tipo: "ambiental",
     nombre: "Cuento de Navidad",
