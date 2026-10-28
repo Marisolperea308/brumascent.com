@@ -156,7 +156,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
-    fotoReferencia: "https://fimgs.net/mdimg/perfume-thumbs/375x500.51694.jpg",
+    fotoReferencia: "https://assets.burberry.com/is/image/Burberryltd/170DBE43-9B00-40B1-A766-F1482E6F263D?%24BBY_V3_SL_1%24=&hei=1500&wid=1501",
     num: 6,
     nombre: "Burberry Her",
     inspiradoEn: "Burberry Her",
