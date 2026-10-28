@@ -2355,7 +2355,7 @@ window.PERFUMES = [
     disponible: true,
     nuevo: true,
     masPedido: false
-  }
+  },
   {
     num: 153,
     nombre: "212 VIP Rosé",
