@@ -507,9 +507,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .bruma { display: none; }
 }
 
-/* Mini referencia del frasco original: discreta y secundaria al frasco Bruma Scent. */
-.referencia-original { display:flex; align-items:center; gap:7px; margin-top:7px; min-height:30px; color:var(--suave, #82766a); font-size:.68rem; line-height:1.2; text-align:left; }
-.referencia-original img { width:24px; height:30px; object-fit:contain; flex:0 0 24px; border-radius:3px; background:#f8f5f0; }
-.referencia-sin-foto { display:inline-flex; width:24px; height:30px; flex:0 0 24px; align-items:center; justify-content:center; border-radius:3px; background:#f8f5f0; color:var(--tinta, #4b4037); font-size:1rem; }
-.referencia-link { text-decoration:underline; text-underline-offset:2px; }
-.referencia-link:hover { color:var(--tinta, #4b4037); }
+/* Miniatura grande del frasco original para que se distinga en el catálogo. */
+.referencia-original { display:flex; align-items:center; justify-content:center; margin:12px auto 4px; width:100%; min-height:150px; }
+.referencia-original img { display:block; width:112px; height:146px; object-fit:contain; object-position:center; border-radius:6px; background:rgba(255,255,255,.65); padding:4px; box-sizing:border-box; }
+@media (max-width: 600px) {
+  .referencia-original { min-height:126px; margin-top:10px; }
+  .referencia-original img { width:94px; height:122px; }
+}
