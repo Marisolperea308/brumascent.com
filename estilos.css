@@ -544,3 +544,130 @@ body.halloween-season { background-image: radial-gradient(ellipse at 8% 8%, rgba
 @keyframes halloween-twinkle { 0%,100% { opacity:.5; } 50% { opacity:1; } }
 @media (max-width:600px) { .halloween-bar { gap:9px; padding:9px 12px; justify-content:space-between; } .halloween-moon { font-size:25px; } .halloween-copy strong { font-size:.59rem; letter-spacing:.13em; } .halloween-copy small { max-width:170px; font-size:.68rem; line-height:1.25; } .halloween-star { display:none; } .halloween-magic { padding:8px 10px; font-size:.7rem; } }
 @media (prefers-reduced-motion:reduce) { .halloween-moon,.halloween-star,.halloween-season .cat-portada::after { animation:none; } .halloween-particle { display:none; } }
+
+
+/* =========================================================
+   BRUMA SCENT · HALLOWEEN CHIC — PALETA INTEGRAL
+   Ciruela negra, vino, calabaza quemada, oro viejo y marfil.
+   ========================================================= */
+:root {
+  --papel:#fbf4ec;
+  --papel-2:#f2e5df;
+  --tinta:#2b1928;
+  --tinta-2:#715765;
+  --rosa:#8d344e;
+  --rosa-suave:#ead1d8;
+  --linea:#e2c9c6;
+  --sobre-rosa:#fff8f3;
+  --cafe:#291b2c;
+  --cafe-2:#422b43;
+  --crema:#fff3e4;
+  --dorado:#c9a36a;
+  --ella:#f3dce1;
+  --ella-2:#e8c5d0;
+  --el:#302238;
+  --el-2:#50374f;
+  --frasco-ella:#f5dfe5;
+  --frasco-el:#e8c2a4;
+  --uni:#6c3448;
+  --uni-2:#96576a;
+  --frasco-uni:#f1d9b6;
+  --hogar:#e6c7b2;
+  --hogar-2:#c98c70;
+}
+html { background:var(--papel); }
+body { background-color:var(--papel); color:var(--tinta); }
+body.halloween-season {
+  background-image:
+    radial-gradient(ellipse at 0% 17%, rgba(141,52,78,.09), transparent 32%),
+    radial-gradient(ellipse at 100% 46%, rgba(201,163,106,.12), transparent 28%),
+    radial-gradient(ellipse at 8% 88%, rgba(80,55,79,.07), transparent 30%);
+}
+body::before { background:#2b1928; }
+a:hover { color:var(--rosa); }
+:focus-visible { outline-color:var(--dorado); }
+.btn { background:var(--tinta); border-color:var(--tinta); color:var(--crema); }
+.btn:hover { background:var(--rosa); border-color:var(--rosa); color:#fff8f3; }
+.btn-linea { background:transparent; color:var(--tinta); border-color:var(--rosa); }
+.btn-linea:hover { background:var(--rosa); color:#fff8f3; }
+.top { background:rgba(251,244,236,.84); border-bottom:1px solid rgba(141,52,78,.14); }
+.pagina-catalogo .top { background:rgba(251,244,236,.94); }
+.pagina-catalogo .top-in .marca .logo { filter:none; }
+.pagina-catalogo .nav a { color:var(--tinta-2); }
+.pagina-catalogo .nav a:hover,.pagina-catalogo .nav a[aria-current="page"] { color:var(--rosa); }
+.inicio .top { background:linear-gradient(to bottom,rgba(43,25,40,.3),transparent); }
+.inicio .top-in .marca .logo { filter:invert(1) sepia(.15) brightness(1.08); }
+.portada::after {
+  background:
+    linear-gradient(90deg,rgba(35,19,34,.78) 0%,rgba(54,27,48,.49) 40%,rgba(43,25,40,.04) 72%),
+    linear-gradient(to bottom,rgba(35,19,34,.44) 0%,rgba(35,19,34,0) 30%);
+}
+.portada::before {
+  background:linear-gradient(to top,var(--papel) 0%,rgba(251,244,236,.88) 23%,rgba(251,244,236,.24) 66%,transparent 100%);
+}
+.portada-pre { color:#f0d4c4; }
+.portada h1 { color:#fff4e9; text-shadow:0 2px 30px rgba(32,15,28,.24); }
+.portada-sub { color:#f2e3d8; }
+.portada .btn { background:#fbf0e4; border-color:#fbf0e4; color:#321e31; }
+.portada .btn:hover { background:var(--dorado); border-color:var(--dorado); color:#2b1928; }
+.colecciones { background:linear-gradient(180deg,var(--papel) 0%,#f5e9e2 100%); }
+.colecciones-tit,.vitrina-tit,.calidad h2,.faq h2,.cat-portada h1 { color:var(--tinta); }
+.cuadro { border-color:rgba(76,39,60,.16); box-shadow:0 10px 34px rgba(56,29,46,.06); }
+.cuadro-mujer { background:linear-gradient(135deg,#f6e3e5,#eacbd4); }
+.cuadro-hombre { background:linear-gradient(135deg,#34243a,#211923); }
+.cuadro-hombre .cuadro-nombre,.cuadro-hombre .cuadro-cuenta,.cuadro-hombre .cuadro-ir { color:#fff0e4; }
+.cuadro-unisex { background:linear-gradient(135deg,#eed9c4,#d9b4a4); }
+.cuadro-hogar { background:linear-gradient(135deg,#e9d6c7,#cba18c); }
+.cuadro-ir { color:var(--rosa); }
+.vitrina { background:#f1e3dc; }
+.vitrina-link,.cuadro-ir { color:var(--rosa); }
+.vitrina-link:hover { color:var(--cafe); }
+.vitrina-fila > li { border-color:var(--linea); }
+.calidad { background:linear-gradient(135deg,#342238 0%,#4a2b43 55%,#2c2532 100%); color:#f8ece1; }
+.calidad h2,.calidad h3,.calidad .calidad-intro { color:#fff1e5; }
+.calidad-lista li { border-color:rgba(255,241,229,.18); }
+.pasos { background:#ead8d0; }
+.pasos h2,.pasos h3 { color:var(--tinta); }
+.faq { background:var(--papel); }
+.faq-lista details { border-color:var(--linea); }
+.faq-lista summary { color:var(--tinta); }
+.pie { background:#281b2b; color:#f8ede3; }
+.pie h2,.pie h3,.pie-lema { color:#fff2e5; }
+.pie a:hover { color:#e8bd8d; }
+.pie-base,.pie-legal { border-color:rgba(255,242,229,.2); }
+.halloween-bar {
+  color:#fff5e9;
+  background:linear-gradient(100deg,#251729 0%,#592b43 42%,#813b4d 72%,#3b2a3d 100%);
+  border-bottom:1px solid rgba(201,163,106,.55);
+}
+.halloween-bar::before,.halloween-bar::after { border-color:rgba(201,163,106,.26); }
+.halloween-moon,.halloween-star { color:#e7c28b; }
+.halloween-magic { border-color:rgba(231,194,139,.82); }
+.halloween-magic:hover,.halloween-magic[aria-pressed="true"] { background:rgba(201,163,106,.24); box-shadow:0 0 24px rgba(201,163,106,.25); }
+.halloween-season .cat-portada { background:linear-gradient(135deg,#f4e5df,#ead5d5); }
+.halloween-season .cat-portada-mujer { background:linear-gradient(135deg,#f4dfe4,#e7c4d0); }
+.halloween-season .cat-portada-hombre { background:linear-gradient(135deg,#332337,#4e2c42); }
+.halloween-season .cat-portada-unisex { background:linear-gradient(135deg,#e9d1bf,#d6b2a2); }
+.halloween-season .cat-portada-hogar { background:linear-gradient(135deg,#ead7c8,#cba18c); }
+.halloween-season .cat-portada-hombre h1,.halloween-season .cat-portada-hombre .cat-portada-sub,.halloween-season .cat-portada-hombre .cat-volver { color:#fff1e5; }
+.halloween-season .cat-portada::after { color:#9c536a; }
+.halloween-season .catalogo { background:linear-gradient(180deg,#fbf4ec 0%,#f6ebe4 100%); }
+.halloween-season .cat-filtros { border-color:var(--linea); }
+.halloween-season .buscar input,.halloween-season .buscar { border-color:#d9bfc0; background:#fffaf5; }
+.halloween-season .chip { border-color:#dfc7c8; color:var(--tinta-2); background:rgba(255,250,245,.8); }
+.halloween-season .chip:hover,.halloween-season .chip[aria-pressed="true"] { color:#fff8f3; background:var(--rosa); border-color:var(--rosa); }
+.halloween-season .carta { background:rgba(255,250,245,.9); border-color:#e2c9c6; }
+.halloween-season .carta:hover { border-color:var(--dorado); box-shadow:0 15px 35px rgba(63,29,48,.13),0 0 0 1px rgba(201,163,106,.22); }
+.halloween-season .carta-num,.halloween-season .carta-precio { color:var(--rosa); }
+.halloween-season .carta-tag { background:#f1dfd9; color:#71364b; }
+.halloween-season .ficha { background:var(--papel); color:var(--tinta); }
+.halloween-season .ficha-cerrar { background:#f1dfd9; color:var(--tinta); }
+.halloween-season .ficha-num,.halloween-season .ficha-fam { color:var(--rosa); }
+.halloween-season .nota-img { background:#f0dfd7; border-color:#e0c7c4; }
+.halloween-season .similares-lista button { border-color:#dfc7c8; }
+.halloween-season .similares-lista button:hover { border-color:var(--rosa); color:var(--rosa); }
+.halloween-particle { color:#f0c58e; text-shadow:0 0 16px rgba(141,52,78,.55); }
+@media (max-width:720px) {
+  .inicio .top { background:linear-gradient(to bottom,rgba(43,25,40,.4),transparent); }
+  .halloween-season .cat-portada::after { top:12px; right:15px; }
+}
