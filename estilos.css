@@ -671,3 +671,28 @@ a:hover { color:var(--rosa); }
   .inicio .top { background:linear-gradient(to bottom,rgba(43,25,40,.4),transparent); }
   .halloween-season .cat-portada::after { top:12px; right:15px; }
 }
+
+
+/* Ajustes Halloween: barra por encima del logotipo y lluvia de magia más visible */
+.halloween-bar { position:relative; z-index:50; min-height:58px; flex-wrap:wrap; }
+.halloween-bar + .top { position:relative; z-index:20; }
+.inicio .top { top:0; }
+.halloween-season .top-in { padding-top:18px; }
+.halloween-particle {
+  z-index:10000; font-size:30px; font-weight:600; opacity:0;
+  filter:drop-shadow(0 2px 5px rgba(43,25,40,.6)) drop-shadow(0 0 12px rgba(240,197,142,.8));
+  animation-name:halloween-fall; animation-duration:4.8s;
+}
+@keyframes halloween-fall {
+  0% { transform:translate3d(0,-28px,0) rotate(-25deg) scale(.75); opacity:0; }
+  10% { opacity:1; }
+  40% { opacity:.98; }
+  75% { opacity:.9; }
+  100% { transform:translate3d(var(--drift,20px),105vh,0) rotate(360deg) scale(1.18); opacity:0; }
+}
+@media (max-width:600px) {
+  .halloween-bar { min-height:62px; }
+  .halloween-season .top-in { padding-top:12px; }
+  .halloween-copy small { max-width:145px; }
+  .halloween-particle { font-size:27px; }
+}
