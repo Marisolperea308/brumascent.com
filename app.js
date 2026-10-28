@@ -263,6 +263,8 @@
     estado.familia = "Todos"; estado.texto = ""; $("#buscar").value = ""; pintarChips(); pintarRejilla();
   });
   $("#rejilla").addEventListener("click", function (e) {
+    var ref = e.target.closest(".referencia-link");
+    if (ref) { e.preventDefault(); e.stopPropagation(); window.open(ref.href, "_blank", "noopener"); return; }
     var b = e.target.closest(".carta"); if (b) abrir(b.dataset.num);
   });
   }
