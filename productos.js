@@ -2241,6 +2241,25 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    num: 151,
+    nombre: "Sol Cheirosa 62",
+    inspiradoEn: "Sol Cheirosa 62",
+    marca: "Sol de Janeiro",
+    genero: "mujer",
+    familia: "Gourmand cálida y dulce",
+    tono: "#e8bd35",
+    ocasion: "Día y noche, especialmente primavera y verano",
+    destacadas: ["Pistache", "Almendra", "Jazmín", "Caramelo salado", "Vainilla"],
+    salida: ["Pistache", "Almendra"],
+    corazon: ["Heliotropo", "Pétalos de jazmín"],
+    fondo: ["Vainilla", "Caramelo salado", "Sándalo"],
+    descripcion: "Una fragancia gourmand cálida, solar y adictivamente dulce. El pistache cremoso y la almendra abren con un toque delicioso; el heliotropo y los pétalos de jazmín aportan suavidad floral, mientras la vainilla, el caramelo salado y el sándalo dejan una estela envolvente, cremosa y sensual.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+  {
     num: 201,
     tipo: "ambiental",
     nombre: "Cuento de Navidad",
