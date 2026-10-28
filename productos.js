@@ -508,6 +508,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://f.fcdn.app/imgs/e0b7d9/www.sanroque.com.uy/sanruy/451e/original/catalogo/132014_132014_1/1500-1500/perfume-carolina-herrera-good-girl-blush-edp-80ml-perfume-carolina-herrera-good-girl-blush-edp-80ml.jpg",
     num: 24,
     nombre: "Good Girl Blush",
     inspiradoEn: "Good Girl Blush",
@@ -679,6 +680,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://www.studio.co.uk/images/imgzoom/75/75484069_xxl.jpg",
     num: 33,
     nombre: "La Bomba",
     inspiradoEn: "La Bomba",
@@ -717,6 +719,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://media.falabella.com/falabellaCO/1777816_1/w%3D1500%2Ch%3D1500%2Cfit%3Dcover",
     num: 35,
     nombre: "La Vie Est Belle",
     inspiradoEn: "La Vie Est Belle",
@@ -774,6 +777,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://media.ulta.com/i/ulta/2553366?fmt=auto&h=800&w=800",
     num: 38,
     nombre: "Libre",
     inspiradoEn: "Libre",
@@ -888,6 +892,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000000494280677/7rmDCCZqHK-000000000494280677_1.png",
     num: 44,
     nombre: "Miss Dior",
     inspiradoEn: "Miss Dior",
@@ -926,6 +931,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://www.sephora.com/productimages/sku/s2372688-main-zoom.jpg?imwidth=630",
     num: 46,
     nombre: "My Way",
     inspiradoEn: "My Way",
@@ -1002,6 +1008,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1702938374-1698096449-prada-6536e5346ddb2.jpg?crop=1xw%3A1.00xh%3Bcenter%2Ctop&resize=980%3A%2A",
     num: 50,
     nombre: "Paradoxe",
     inspiradoEn: "Paradoxe",
@@ -1135,6 +1142,7 @@ window.PERFUMES = [
     masPedido: false
   },
   {
+    fotoReferencia: "https://felix.com.pa/cdn/shop/files/1137-LB040200.png?v=1704918319",
     num: 57,
     nombre: "Born in Roma",
     inspiradoEn: "Donna Born in Roma",
