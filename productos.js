@@ -2376,4 +2376,24 @@ window.PERFUMES = [
     masPedido: false
   },
 
-];
+  {
+    num: 154,
+    nombre: "Jasmine Coast",
+    inspiradoEn: "Jasmine Coast",
+    marca: "Nautica",
+    genero: "mujer",
+    familia: "Floral acuático",
+    tono: "#9dc9c8",
+    ocasion: "Día, clima cálido y uso diario",
+    destacadas: ["Pera", "Mandarina", "Jazmín costero", "Ylang-ylang", "Violeta", "Musgo marino", "Almizcle"],
+    salida: ["Pera", "Hoja de pimienta rosa", "Mandarina"],
+    corazon: ["Jazmín costero", "Ylang-ylang", "Violeta"],
+    fondo: ["Musgo marino", "Ámbar gris", "Almizcle etéreo"],
+    descripcion: "Una fragancia floral acuática, fresca y luminosa. Abre con pera jugosa, mandarina y un matiz especiado de hoja de pimienta rosa; después florecen el jazmín costero, el ylang-ylang y la violeta sobre un fondo suave de musgo marino, ámbar gris y almizcle.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
+]; 
