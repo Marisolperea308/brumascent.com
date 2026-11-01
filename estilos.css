@@ -696,3 +696,145 @@ a:hover { color:var(--rosa); }
   .halloween-copy small { max-width:145px; }
   .halloween-particle { font-size:27px; }
 }
+
+
+/* =========================================================
+   BRUMA SCENT · CHRISTMAS EDITION — bosque, nieve y oro champán
+   ========================================================= */
+:root {
+  --papel:#f8f5ef; --papel-2:#e8eee8; --tinta:#173b32; --tinta-2:#5e7169;
+  --rosa:#9b3447; --rosa-suave:#ead5d6; --linea:#d8e0d8; --sobre-rosa:#fffaf2;
+  --cafe:#102f29; --cafe-2:#1c483d; --crema:#fff8ed; --dorado:#d8bd82;
+  --ella:#f2dfe0; --ella-2:#e5c4c7; --el:#173b32; --el-2:#2d5a4e;
+  --frasco-ella:#f3dfe1; --frasco-el:#e7d4b5; --uni:#7b2739; --uni-2:#a64b56;
+  --frasco-uni:#f3e5c7; --hogar:#dce6de; --hogar-2:#b7cfc2;
+}
+html { background:var(--papel); }
+body { background-color:var(--papel); color:var(--tinta); }
+body.navidad-season {
+  background-image:radial-gradient(ellipse at 0% 18%,rgba(36,93,70,.09),transparent 34%),
+    radial-gradient(ellipse at 100% 44%,rgba(216,189,130,.15),transparent 30%),
+    radial-gradient(ellipse at 12% 92%,rgba(155,52,71,.06),transparent 28%);
+}
+body.navidad-season::before { background:#173b32; }
+.navidad-bar {
+  position:relative; z-index:50; display:flex; align-items:center; justify-content:center;
+  gap:clamp(12px,3vw,34px); flex-wrap:wrap; min-height:64px; padding:10px 20px;
+  color:#fffaf0; background:linear-gradient(105deg,#102f29 0%,#1d5141 45%,#7b2739 100%);
+  border-bottom:1px solid rgba(216,189,130,.72); overflow:hidden;
+}
+.navidad-bar::before,.navidad-bar::after { content:""; position:absolute; width:180px;height:180px;border:1px solid rgba(216,189,130,.18);border-radius:50%;pointer-events:none; }
+.navidad-bar::before { left:-95px;top:-125px; } .navidad-bar::after { right:-90px;bottom:-130px; }
+.navidad-sparkle { color:#e9d6a6;font-size:22px;line-height:1; }
+.navidad-copy { display:flex;flex-direction:column;line-height:1.3;text-align:left; }
+.navidad-copy strong { font-size:11px;letter-spacing:.2em;font-weight:600; }
+.navidad-copy small { color:#f2e9d8;font-size:12px;letter-spacing:.025em; }
+.navidad-magic { position:relative;z-index:1;border:1px solid rgba(241,222,177,.75);border-radius:999px;padding:9px 16px;background:rgba(255,255,255,.07);color:#fff8e8;font:500 12px var(--f-texto);cursor:pointer;transition:background .25s,transform .25s; }
+.navidad-magic:hover,.navidad-magic[aria-pressed="true"] { background:rgba(216,189,130,.22);transform:translateY(-1px); }
+.navidad-season .top { border-bottom-color:rgba(23,59,50,.13); }
+.inicio .top { background:linear-gradient(to bottom,rgba(16,47,41,.28),transparent); }
+.inicio .top-in .marca .logo { filter:invert(1) sepia(.15) brightness(1.08); }
+.pagina-catalogo .top { background:rgba(248,245,239,.95); }
+.portada::after { background:linear-gradient(90deg,rgba(13,42,34,.78) 0%,rgba(20,62,48,.46) 42%,rgba(23,59,50,.02) 76%),linear-gradient(to bottom,rgba(13,42,34,.38),transparent 35%); }
+.portada::before { background:linear-gradient(to top,var(--papel) 0%,rgba(248,245,239,.83) 23%,rgba(248,245,239,.18) 67%,transparent 100%); }
+.portada-pre { color:#e8d7ad; } .portada h1 { color:#fffaf0;text-shadow:0 2px 30px rgba(10,37,30,.25); }
+.portada-sub { color:#f4e9d9; }
+.portada .btn { background:#f8f1e5;border-color:#f8f1e5;color:#173b32; }
+.portada .btn:hover { background:#d8bd82;border-color:#d8bd82;color:#173b32; }
+.btn { background:var(--tinta);border-color:var(--tinta);color:var(--crema); }
+.btn:hover { background:var(--rosa);border-color:var(--rosa);color:#fffaf2; }
+.top { background:rgba(248,245,239,.9); }
+.colecciones { background:linear-gradient(180deg,var(--papel),#eaf0e9); }
+.colecciones-tit,.vitrina-tit,.calidad h2,.faq h2,.cat-portada h1 { color:var(--tinta); }
+.cuadro { border-color:rgba(23,59,50,.16);box-shadow:0 10px 34px rgba(19,53,43,.07); }
+.cuadro-mujer { background:linear-gradient(135deg,#f5e6e5,#e7cdd0); }
+.cuadro-hombre { background:linear-gradient(135deg,#173b32,#102821); }
+.cuadro-hombre .cuadro-nombre,.cuadro-hombre .cuadro-cuenta,.cuadro-hombre .cuadro-ir { color:#fff6e8; }
+.cuadro-unisex { background:linear-gradient(135deg,#eee5d1,#d8c59e); }
+.cuadro-hogar { background:linear-gradient(135deg,#e0eae1,#b9d0c2); }
+.cuadro-ir,.vitrina-link { color:var(--rosa); }
+.vitrina { background:#eaf0e9; }
+.calidad { background:linear-gradient(135deg,#102f29 0%,#1d5141 55%,#183b34 100%);color:#f8f1e5; }
+.calidad h2,.calidad h3,.calidad .calidad-intro { color:#fff8ec; }
+.calidad-lista li { border-color:rgba(255,248,236,.18); }
+.pasos { background:#e4ebe3; } .pasos h2,.pasos h3 { color:var(--tinta); }
+.faq { background:var(--papel); } .faq-lista details { border-color:var(--linea); }
+.faq-lista summary { color:var(--tinta); }
+.pie { background:#102f29;color:#f8f1e5; }
+.pie h2,.pie h3,.pie-lema { color:#fff8ec; }
+.pie a:hover { color:#e8d5a4; }
+.pie-base,.pie-legal { border-color:rgba(255,248,236,.2); }
+.navidad-season .cat-portada { background:linear-gradient(135deg,#e6eee7,#f4e6e2); }
+.navidad-season .cat-portada-mujer { background:linear-gradient(135deg,#f4e1e3,#e7c9cc); }
+.navidad-season .cat-portada-hombre { background:linear-gradient(135deg,#173b32,#2e5c4e); }
+.navidad-season .cat-portada-unisex { background:linear-gradient(135deg,#f0e6cf,#d8c79f); }
+.navidad-season .cat-portada-hogar { background:linear-gradient(135deg,#e3eee5,#b9d0c2); }
+.navidad-season .cat-portada-hombre h1,.navidad-season .cat-portada-hombre .cat-portada-sub,.navidad-season .cat-portada-hombre .cat-volver { color:#fff8ec; }
+.navidad-season .catalogo { background:linear-gradient(180deg,#f8f5ef,#edf1e9); }
+.navidad-season .cat-filtros { border-color:var(--linea); }
+.navidad-season .buscar input,.navidad-season .buscar { border-color:#d7e0d6;background:#fffdf8; }
+.navidad-season .chip { border-color:#d7e0d6;color:var(--tinta-2);background:rgba(255,253,248,.85); }
+.navidad-season .chip:hover,.navidad-season .chip[aria-pressed="true"] { color:#fff8f0;background:var(--tinta);border-color:var(--tinta); }
+.navidad-season .carta { background:rgba(255,253,248,.93);border-color:#dce4db; }
+.navidad-season .carta:hover { border-color:var(--dorado);box-shadow:0 15px 35px rgba(23,59,50,.13),0 0 0 1px rgba(216,189,130,.25); }
+.navidad-season .carta-num,.navidad-season .carta-precio { color:var(--rosa); }
+.navidad-season .carta-tag { background:#f1e4d2;color:#713d3e; }
+.navidad-season .ficha { background:var(--papel);color:var(--tinta); }
+.navidad-season .ficha-cerrar { background:#e6eee7;color:var(--tinta); }
+.navidad-season .ficha-num,.navidad-season .ficha-fam { color:var(--rosa); }
+.navidad-season .nota-img { background:#eaf0e9;border-color:#d8e1d8; }
+.navidad-season .similares-lista button { border-color:#d7e0d6; }
+.navidad-season .similares-lista button:hover { border-color:var(--rosa);color:var(--rosa); }
+.navidad-particle { position:fixed;top:-35px;z-index:10000;pointer-events:none;opacity:0;text-shadow:0 2px 10px rgba(16,47,41,.24);animation-name:navidad-caida;animation-timing-function:linear; }
+@keyframes navidad-caida {
+  0% { transform:translate3d(0,-25px,0) rotate(0deg);opacity:0; }
+  10% { opacity:.9; } 85% { opacity:.8; }
+  100% { transform:translate3d(var(--drift,20px),110vh,0) rotate(360deg);opacity:0; }
+}
+.invierno { position:relative;isolation:isolate;overflow:hidden;padding:clamp(64px,8vw,112px) 0;background:linear-gradient(145deg,#102f29 0%,#174536 46%,#243f37 100%);color:#fff8ec; }
+.invierno::before,.invierno::after { content:"";position:absolute;z-index:-1;border:1px solid rgba(216,189,130,.19);border-radius:50%;pointer-events:none; }
+.invierno::before { width:520px;height:520px;right:-170px;top:-170px;box-shadow:0 0 0 35px rgba(216,189,130,.025),0 0 0 80px rgba(216,189,130,.025); }
+.invierno::after { width:340px;height:340px;left:-170px;bottom:-170px; }
+.invierno-luz { position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(216,189,130,.15),transparent 48%);pointer-events:none; }
+.invierno-in { position:relative; }
+.invierno-eyebrow { color:#e8d5a4;text-align:center;text-transform:uppercase;letter-spacing:.24em;font-size:11px;margin-bottom:18px; }
+.invierno h2 { text-align:center;color:#fff8ec;max-width:800px;margin:0 auto;font-size:clamp(2.8rem,7vw,5.6rem); }
+.invierno-intro { max-width:660px;margin:22px auto 32px;text-align:center;color:#e4e8dc;font-size:clamp(15px,2vw,18px); }
+.invierno-filtros { display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:0 auto 34px; }
+.invierno-filtros button { padding:10px 16px;border:1px solid rgba(241,230,205,.36);border-radius:999px;background:rgba(255,255,255,.035);color:#f7efdf;font:500 12px var(--f-texto);cursor:pointer;transition:all .2s; }
+.invierno-filtros button:hover,.invierno-filtros button[aria-pressed="true"] { background:#e8d5a4;color:#173b32;border-color:#e8d5a4; }
+.invierno-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px; }
+.invierno-card { min-width:0; }
+.invierno-card-btn { display:flex;flex-direction:column;align-items:stretch;width:100%;height:100%;min-height:350px;padding:18px;border:1px solid rgba(241,230,205,.18);border-radius:5px;background:linear-gradient(160deg,rgba(255,250,240,.09),rgba(255,250,240,.025));color:#fff8ec;text-align:left;cursor:pointer;transition:transform .3s,border-color .3s,background .3s; }
+.invierno-card-btn:hover { transform:translateY(-5px);border-color:rgba(232,213,164,.72);background:rgba(255,250,240,.09); }
+.invierno-card-top { display:flex;justify-content:space-between;align-items:center;color:#e8d5a4;font-size:10px;letter-spacing:.14em; }
+.invierno-flake { font-size:19px; }
+.invierno-bottle { position:relative;align-self:center;width:74px;height:112px;margin:13px 0 12px;display:flex;justify-content:center;align-items:center; }
+.invierno-bottle img { height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 12px 12px rgba(0,0,0,.2)); }
+.invierno-bottle i { position:absolute;left:23%;right:23%;top:32%;bottom:8%;background:var(--tono,#e9d8aa);opacity:.38;mix-blend-mode:multiply;pointer-events:none; }
+.invierno-mood { color:#e8d5a4;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 6px; }
+.invierno-card strong { font-family:var(--f-display);font-size:clamp(1.35rem,2.5vw,1.8rem);font-weight:400;line-height:1.12; }
+.invierno-notes { margin-top:9px;color:#d8e3d8;font-size:12px; }
+.invierno-card-link { margin-top:auto;padding-top:17px;color:#e8d5a4;font-size:11px;letter-spacing:.04em; }
+.invierno-note { text-align:center;color:#d8e3d8;font-size:13px;margin:26px auto 0; }
+.invierno-cta { display:flex;width:max-content;max-width:100%;margin:24px auto 0;gap:14px;align-items:center;border-bottom:1px solid #e8d5a4;padding:0 0 6px;color:#fff8ec;text-decoration:none;font-size:13px; }
+.invierno-cta:hover { color:#e8d5a4; }
+@media (max-width:760px) {
+  .invierno-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:11px; }
+  .invierno-card-btn { padding:14px;min-height:330px; }
+  .navidad-bar { gap:9px 14px;min-height:70px;padding:10px 12px; }
+  .navidad-copy strong { font-size:9px;letter-spacing:.14em; }
+  .navidad-copy small { font-size:11px;max-width:220px; }
+  .navidad-sparkle-end { display:none; }
+}
+@media (max-width:420px) {
+  .invierno-grid { grid-template-columns:1fr 1fr; }
+  .invierno-card-btn { min-height:315px;padding:11px; }
+  .invierno-card strong { font-size:1.25rem; }
+  .invierno-notes { font-size:11px; }
+  .navidad-magic { padding:8px 12px;font-size:11px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .navidad-particle { animation:none!important;display:none!important; }
+  .invierno-card-btn,.navidad-magic { transition:none; }
+}
