@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<title>Bruma Scent</title>
+<title>Bruma Scent · Christmas Edition</title>
 <meta name="description" content="Bruma Scent: dupes de alta calidad inspirados en perfumes de alta gama. Conoce las notas de cada aroma y pide el tuyo por WhatsApp.">
 <meta property="og:title" content="Bruma Scent · Tu esencia, tu estilo">
 <meta property="og:description" content="Dupes de alta calidad inspirados en perfumes de alta gama.">
@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="estilos.css?v=53">
+<link rel="stylesheet" href="estilos.css?v=54">
 </head>
 <body>
 
@@ -28,7 +28,7 @@
       <a href="hombre.html">Hombre</a>
       <a href="unisex.html">Unisex</a>
       <a href="hogar.html">Hogar</a>
-      <a href="#como-pedir">Cómo pedir</a>
+      <a href="#aromas-invierno">Aromas de invierno</a>\n      <a href="#como-pedir">Cómo pedir</a>
     </nav>
     <a class="btn btn-sm js-contacto" href="#contacto">Pedir</a>
   </div>
@@ -97,6 +97,25 @@
 
   <!-- ===== AROMAS DESTACADOS: fila de frascos =====
        Los perfumes se eligen en productos.js (CONFIG.portada) -->
+  <!-- ===== EDICIÓN DE INVIERNO / NAVIDAD ===== -->
+  <section class="invierno" id="aromas-invierno" aria-labelledby="inviernoTit">
+    <div class="invierno-luz" aria-hidden="true"></div>
+    <div class="sec-in invierno-in">
+      <p class="invierno-eyebrow">✦ Una edición para recordar ✦</p>
+      <h2 id="inviernoTit">El invierno huele a magia.</h2>
+      <p class="invierno-intro">Aromas cálidos, envolventes y especiales para brindar, regalar y crear recuerdos. Encuentra el que combine con tu manera de vivir la temporada.</p>
+      <div class="invierno-filtros" id="inviernoFiltros" role="group" aria-label="Filtrar aromas de invierno">
+        <button type="button" data-invierno-filtro="Todos" aria-pressed="true">Todos los aromas</button>
+        <button type="button" data-invierno-filtro="Dulces y envolventes" aria-pressed="false">Dulces & cozy</button>
+        <button type="button" data-invierno-filtro="Elegantes y suaves" aria-pressed="false">Elegantes</button>
+        <button type="button" data-invierno-filtro="Intensos y misteriosos" aria-pressed="false">Intensos</button>
+      </div>
+      <div class="invierno-grid" id="inviernoGrid" aria-live="polite"></div>
+      <p class="invierno-note">¿No sabes cuál elegir? Toca cualquier aroma para descubrir sus notas y pedirlo por WhatsApp.</p>
+      <a class="invierno-cta" href="unisex.html">Explorar toda la colección <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
   <section class="vitrina" aria-labelledby="vitrinaTit">
     <div class="vitrina-in">
       <div class="vitrina-txt">
@@ -213,6 +232,6 @@
 
 <script src="productos.js?v=32"></script>
 <script src="notas.js?v=5"></script>
-<script src="app.js?v=22"></script>
+<script src="app.js?v=23"></script>
 </body>
 </html>
