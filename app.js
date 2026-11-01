@@ -276,39 +276,79 @@
     }).join("");
   }
 
-  /* ---------- edición Halloween interactiva ---------- */
-  function activarHalloween() {
-    document.body.classList.add("halloween-season");
-    if (document.getElementById("halloweenBar")) return;
-    var bar = document.createElement("aside");
-    bar.id = "halloweenBar";
-    bar.className = "halloween-bar";
-    bar.innerHTML = '<span class="halloween-moon" aria-hidden="true">☾</span><span class="halloween-copy"><strong>HALLOWEEN EDITION</strong><small>Un toque de magia, un aroma misterioso.</small></span><button type="button" class="halloween-magic" id="halloweenMagic" aria-pressed="false">✦ Invocar magia</button><span class="halloween-star" aria-hidden="true">✧</span>';
-    document.body.insertBefore(bar, document.body.firstChild);
-    var magic = document.getElementById("halloweenMagic");
-    magic.addEventListener("click", function () {
-      var activo = magic.getAttribute("aria-pressed") !== "true";
-      magic.setAttribute("aria-pressed", String(activo));
-      magic.textContent = activo ? "✧ Magia activada" : "✦ Invocar magia";
-      document.body.classList.toggle("halloween-magic-on", activo);
-      if (activo) {
-        var symbols = ["🦇", "✦", "☾", "✧", "🕸", "🦇", "✦", "✧", "🕷", "🦇"];
-        for (var i = 0; i < 24; i++) {
-          var particle = document.createElement("span");
-          particle.className = "halloween-particle";
-          particle.textContent = symbols[i % symbols.length];
-          particle.style.left = (4 + Math.random() * 92) + "%";
-          particle.style.animationDelay = (Math.random() * 0.65) + "s";
-          particle.style.fontSize = (22 + Math.random() * 22) + "px";
-          particle.style.color = ["#f0c58e", "#f6dce4", "#d8c1f0", "#ffffff"][i % 4];
-          particle.style.setProperty("--drift", ((Math.random() * 90) - 45) + "px");
-          document.body.appendChild(particle);
-          window.setTimeout(function (node) { if (node.parentNode) node.parentNode.removeChild(node); }, 5000, particle);
+  /* ---------- Navidad Bruma Scent: nieve interactiva y aromas de invierno ---------- */
+  function activarNavidad() {
+    document.body.classList.add("navidad-season");
+    if (!document.getElementById("navidadBar")) {
+      var bar = document.createElement("aside");
+      bar.id = "navidadBar";
+      bar.className = "navidad-bar";
+      bar.innerHTML = '<span class="navidad-sparkle" aria-hidden="true">✦</span><span class="navidad-copy"><strong>BRUMA SCENT · CHRISTMAS EDITION</strong><small>Una temporada para envolverlo todo en aroma.</small></span><button type="button" class="navidad-magic" id="navidadMagic" aria-pressed="false">❄ Crear magia</button><span class="navidad-sparkle navidad-sparkle-end" aria-hidden="true">✧</span>';
+      document.body.insertBefore(bar, document.body.firstChild);
+      var magic = document.getElementById("navidadMagic");
+      magic.addEventListener("click", function () {
+        var activo = magic.getAttribute("aria-pressed") !== "true";
+        magic.setAttribute("aria-pressed", String(activo));
+        magic.textContent = activo ? "✧ Magia activada" : "❄ Crear magia";
+        document.body.classList.toggle("navidad-nieve-activa", activo);
+        if (activo) {
+          var symbols = ["❄", "✦", "✧", "❅", "✶", "❄", "✧", "❅"];
+          for (var i = 0; i < 34; i++) {
+            var particle = document.createElement("span");
+            particle.className = "navidad-particle";
+            particle.textContent = symbols[i % symbols.length];
+            particle.style.left = (2 + Math.random() * 96) + "%";
+            particle.style.animationDelay = (Math.random() * 2.2) + "s";
+            particle.style.animationDuration = (5.5 + Math.random() * 5) + "s";
+            particle.style.fontSize = (12 + Math.random() * 20) + "px";
+            particle.style.color = ["#fffaf0", "#e4d3a3", "#d5e8e4"][i % 3];
+            particle.style.setProperty("--drift", ((Math.random() * 100) - 50) + "px");
+            document.body.appendChild(particle);
+            window.setTimeout(function (node) { if (node.parentNode) node.parentNode.removeChild(node); }, 11500, particle);
+          }
         }
-      }
+      });
+    }
+  }
+
+  var AROMAS_INVIERNO = [
+    {num:64, tipo:"Dulces y envolventes", etiqueta:"Vainilla · gamuza · incienso", mood:"El abrazo de invierno"},
+    {num:34, tipo:"Dulces y envolventes", etiqueta:"Rosa · praliné · vainilla", mood:"Noche de celebración"},
+    {num:51, tipo:"Dulces y envolventes", etiqueta:"Caramelo · pistacho · sándalo", mood:"Dulzura sofisticada"},
+    {num:130, tipo:"Intensos y misteriosos", etiqueta:"Tabaco · vainilla · cacao", mood:"Noche junto a la chimenea"},
+    {num:139, tipo:"Intensos y misteriosos", etiqueta:"Mirra · oud · pachulí", mood:"Lujo profundo"},
+    {num:121, tipo:"Intensos y misteriosos", etiqueta:"Canela · cuero · tabaco", mood:"Una estela inolvidable"},
+    {num:43, tipo:"Elegantes y suaves", etiqueta:"Lavanda · vainilla · sándalo", mood:"Elegancia de cashmere"},
+    {num:116, tipo:"Elegantes y suaves", etiqueta:"Benjuí · ámbar · maderas", mood:"Luz dorada"},
+    {num:55, tipo:"Elegantes y suaves", etiqueta:"Té matcha · higo · cedro", mood:"Invierno minimalista"}
+  ];
+
+  function pintarAromasInvierno(filtro) {
+    var grid = $("#inviernoGrid");
+    if (!grid) return;
+    var tipo = filtro || "Todos";
+    var seleccion = AROMAS_INVIERNO.filter(function (x) { return tipo === "Todos" || x.tipo === tipo; });
+    grid.innerHTML = seleccion.map(function (x) {
+      var p = PERFUMES.find(function (o) { return o.num === x.num; });
+      if (!p) return "";
+      return '<article class="invierno-card"><button type="button" class="invierno-card-btn" data-invierno-num="' + p.num + '" aria-label="Ver ' + esc(p.nombre) + '"><span class="invierno-card-top"><span class="invierno-num">N.º ' + num2(p.num) + '</span><span class="invierno-flake" aria-hidden="true">✦</span></span><span class="invierno-bottle" style="--tono:' + tono(p) + '"><img src="img/botella-neutra.webp" alt="" loading="lazy"><i></i></span><span class="invierno-mood">' + esc(x.mood) + '</span><strong>' + esc(p.nombre) + '</strong><span class="invierno-notes">' + esc(x.etiqueta) + '</span><span class="invierno-card-link">Descubrir aroma ↗</span></button></article>';
+    }).join("");
+    document.querySelectorAll("[data-invierno-filtro]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.inviernoFiltro === tipo));
     });
   }
-  activarHalloween();
+  activarNavidad();
+  pintarAromasInvierno("Todos");
+  var inviernoFiltros = $("#inviernoFiltros");
+  if (inviernoFiltros) inviernoFiltros.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-invierno-filtro]");
+    if (b) pintarAromasInvierno(b.dataset.inviernoFiltro);
+  });
+  var inviernoGrid = $("#inviernoGrid");
+  if (inviernoGrid) inviernoGrid.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-invierno-num]");
+    if (b) abrir(b.dataset.inviernoNum);
+  });
 
   /* ---------- arranque ---------- */
   pintarContacto();
