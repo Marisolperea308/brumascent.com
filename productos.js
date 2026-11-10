@@ -784,26 +784,6 @@ window.PERFUMES = [
     masPedido: false
   },
   {
-    fotoReferencia: "https://media.ulta.com/i/ulta/2553366?fmt=auto&h=800&w=800",
-    num: 38,
-    nombre: "Libre",
-    inspiradoEn: "Libre",
-    marca: "Yves Saint Laurent",
-    genero: "mujer",
-    familia: "Oriental",
-    tono: "#e9a560",
-    ocasion: "Día y noche",
-    destacadas: ["Lavanda", "Flor de azahar", "Vainilla", "Almizcle"],
-    salida: ["Lavanda", "Mandarina", "Grosella negra", "Petitgrain"],
-    corazon: ["Lavanda", "Flor de azahar", "Jazmín"],
-    fondo: ["Vainilla", "Almizcle", "Cedro", "Ámbar"],
-    descripcion: "El contraste perfecto entre la frescura de la lavanda y la sensualidad del azahar, sellado con una vainilla cálida. Moderna, segura de sí misma y elegante.",
-    precio: "",
-    disponible: true,
-    nuevo: false,
-    masPedido: false
-  },
-  {
     num: 39,
     nombre: "L'Interdit",
     inspiradoEn: "L'Interdit",
