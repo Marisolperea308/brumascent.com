@@ -2396,4 +2396,44 @@ window.PERFUMES = [
     masPedido: false
   },
 
-]; 
+
+  {
+    num: 155,
+    nombre: "Libre Le Parfum",
+    inspiradoEn: "Libre Le Parfum",
+    marca: "Yves Saint Laurent",
+    genero: "mujer",
+    familia: "Floral ambarino especiado",
+    tono: "#a94b2b",
+    ocasion: "Otoño/invierno, noche y ocasiones especiales",
+    destacadas: ["Azafrán", "Miel", "Vainilla", "Jengibre", "Lavanda", "Flor de azahar", "Haba tonka"],
+    salida: ["Bergamota", "Mandarina", "Jengibre", "Azafrán"],
+    corazon: ["Lavanda", "Flor de azahar"],
+    fondo: ["Vetiver", "Haba tonka", "Miel", "Vainilla bourbon"],
+    descripcion: "Una interpretación cálida y especiada de Libre. La bergamota y la mandarina iluminan una salida de jengibre y azafrán; la lavanda y la flor de azahar forman un corazón floral elegante, mientras la miel, la haba tonka, el vetiver y la vainilla bourbon dejan una estela dulce, envolvente y sofisticada.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+  {
+    num: 156,
+    nombre: "Libre Eau de Parfum",
+    inspiradoEn: "Libre Eau de Parfum",
+    marca: "Yves Saint Laurent",
+    genero: "mujer",
+    familia: "Floral aromático",
+    tono: "#e9d6a6",
+    ocasion: "Día y noche, todo el año",
+    destacadas: ["Lavanda", "Flor de azahar", "Vainilla", "Mandarina", "Jazmín", "Almizcle"],
+    salida: ["Lavanda", "Mandarina", "Grosella negra", "Petitgrain"],
+    corazon: ["Lavanda", "Flor de azahar", "Jazmín"],
+    fondo: ["Vainilla", "Almizcle", "Cedro", "Ámbar"],
+    descripcion: "El icónico contraste entre la lavanda aromática y la sensual flor de azahar, con una salida luminosa de mandarina y grosella negra. La vainilla aporta calidez y el almizcle, el cedro y el ámbar dejan una estela elegante, limpia y duradera.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
+];
