@@ -322,7 +322,13 @@
     {num:116, tipo:"Elegantes y suaves", etiqueta:"Benjuí · ámbar · maderas", mood:"Luz dorada"},
     {num:55, tipo:"Elegantes y suaves", etiqueta:"Té matcha · higo · cedro", mood:"Invierno minimalista"},
     {num:155, tipo:"Dulces y envolventes", etiqueta:"Azafrán · miel · vainilla · haba tonka", mood:"El lujo de las noches de invierno"},
-    {num:156, tipo:"Elegantes y suaves", etiqueta:"Lavanda · azahar · vainilla · almizcle", mood:"Un clásico para cualquier ocasión"}
+    {num:156, tipo:"Elegantes y suaves", etiqueta:"Lavanda · azahar · vainilla · almizcle", mood:"Un clásico para cualquier ocasión"},
+    {num:157, tipo:"Dulces y envolventes", etiqueta:"Kiwi · lichi · chocolate blanco · quequito", mood:"Dulzura divertida"},
+    {num:158, tipo:"Dulces y envolventes", etiqueta:"Vainilla bourbon · jazmín · benjuí", mood:"Noche magnética"},
+    {num:159, tipo:"Elegantes y suaves", etiqueta:"Amapola · iris · higo · haba tonka", mood:"Flores aterciopeladas"},
+    {num:160, tipo:"Intensos y misteriosos", etiqueta:"Canela · oud · pimienta rosa · vetiver", mood:"Maderas especiadas"},
+    {num:161, tipo:"Intensos y misteriosos", etiqueta:"Whisky · castaña · iris · cedro", mood:"Elegancia de invierno"},
+    {num:162, tipo:"Elegantes y suaves", etiqueta:"Jengibre · cardamomo · azahar · pachulí", mood:"Frescura especiada"}
   ];
 
   function pintarAromasInvierno(filtro) {
