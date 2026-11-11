@@ -97,6 +97,47 @@
 
   <!-- ===== AROMAS DESTACADOS: fila de frascos =====
        Los perfumes se eligen en productos.js (CONFIG.portada) -->
+
+  <!-- ===== BUSCADOR INTELIGENTE DE PERFUMES ===== -->
+  <section class="buscador-aroma" id="encuentra-tu-aroma" aria-labelledby="buscadorTit">
+    <div class="sec-in buscador-aroma-in">
+      <p class="buscador-eyebrow">✦ Tu gusto tiene una esencia ✦</p>
+      <h2 id="buscadorTit">Cuéntanos qué aromas te enamoran.</h2>
+      <p class="buscador-intro">Describe cómo te gusta oler, elige algunas notas o sensaciones y descubre las inspiraciones de Bruma Scent que hacen match contigo.</p>
+      <form id="buscadorPerfume" class="buscador-form">
+        <label class="buscador-label" for="gustoTexto">¿Cómo te gusta que huela tu perfume?</label>
+        <textarea id="gustoTexto" rows="3" placeholder="Ej. Me gustan los perfumes dulces, con vainilla y flores blancas, que huelan elegantes y duren mucho."></textarea>
+        <span class="buscador-ayuda">Puedes escribir con tus propias palabras: notas, recuerdos, estilos o perfumes que ya te gustan.</span>
+        <fieldset class="buscador-preferencias">
+          <legend>También puedes elegir tus favoritos</legend>
+          <div class="buscador-chips" id="gustoChips">
+            <button type="button" data-gusto="dulce">Dulces y gourmand</button>
+            <button type="button" data-gusto="fresco">Frescos y cítricos</button>
+            <button type="button" data-gusto="floral">Florales</button>
+            <button type="button" data-gusto="vainilla">Vainilla y cremosos</button>
+            <button type="button" data-gusto="amaderado">Maderas y oud</button>
+            <button type="button" data-gusto="ambar">Ámbar y cálidos</button>
+            <button type="button" data-gusto="especiado">Especiados</button>
+            <button type="button" data-gusto="limpio">Limpios y suaves</button>
+            <button type="button" data-gusto="frutal">Frutales</button>
+          </div>
+        </fieldset>
+        <div class="buscador-controles">
+          <label for="gustoGenero">¿Para quién buscas?</label>
+          <select id="gustoGenero">
+            <option value="todos">Me gustan todos</option>
+            <option value="mujer">Para dama</option>
+            <option value="hombre">Para caballero</option>
+            <option value="unisex">Unisex</option>
+          </select>
+          <button class="buscador-submit" type="submit">Descubrir mis aromas <span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
+      <div id="resultadoGustos" class="resultado-gustos" aria-live="polite"></div>
+      <p class="buscador-disclaimer">Nuestra recomendación se basa en las notas, familias y descripciones de las fragancias del catálogo. Es una guía para descubrir aromas, no una prueba exacta de compatibilidad olfativa.</p>
+    </div>
+  </section>
+
   <!-- ===== EDICIÓN DE INVIERNO / NAVIDAD ===== -->
   <section class="invierno" id="aromas-invierno" aria-labelledby="inviernoTit">
     <div class="invierno-luz" aria-hidden="true"></div>
