@@ -373,25 +373,25 @@
   };
   var GUSTOS_SELECCIONADOS = [];
   function prepararTextoPerfume(p) {
-    return [p.nombre,p.marca,p.inspiradoEn,p.familia,p.ocasion,p.descripcion].concat(p.destacadas||[],p.salida||[],p.corazon||[],p.fondo||[]).join(" ").toLowerCase().normalize("NFD").replace(/\\p{Diacritic}/g,"");
+    return [p.nombre,p.marca,p.inspiradoEn,p.familia,p.ocasion,p.descripcion].concat(p.destacadas||[],p.salida||[],p.corazon||[],p.fondo||[]).join(" ").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu,"");
   }
   function tokensDeGusto(texto) {
-    var limpio=String(texto||"").toLowerCase().normalize("NFD").replace(/\\p{Diacritic}/g,"");
+    var limpio=String(texto||"").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu,"");
     var encontrados=[];
     Object.keys(BUSQUEDA_GUSTOS).forEach(function(clave){
       var sinonimos=BUSQUEDA_GUSTOS[clave];
-      if(sinonimos.some(function(palabra){return limpio.indexOf(palabra.normalize("NFD").replace(/\\p{Diacritic}/g,""))>=0;})) encontrados.push(clave);
+      if(sinonimos.some(function(palabra){return limpio.indexOf(palabra.normalize("NFD").replace(/\p{Diacritic}/gu,""))>=0;})) encontrados.push(clave);
     });
     return encontrados;
   }
   function buscarMiAroma(texto,genero) {
     var gustos=GUSTOS_SELECCIONADOS.concat(tokensDeGusto(texto)).filter(function(v,i,a){return a.indexOf(v)===i;});
-    var palabras=String(texto||"").toLowerCase().normalize("NFD").replace(/\\p{Diacritic}/g,"").split(/[^a-z0-9]+/).filter(function(w){return w.length>3;});
+    var palabras=String(texto||"").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu,"").split(/[^a-z0-9]+/).filter(function(w){return w.length>3;});
     var resultados=PERFUMES.filter(function(p){return p.disponible!==false&&!esAmbiental(p)&&(genero==="todos"||generoDe(p)===genero||((genero==="mujer"||genero==="hombre")&&generoDe(p)==="unisex"));}).map(function(p){
-      var corpus=prepararTextoPerfume(p).normalize("NFD").replace(/\\p{Diacritic}/g,"");
+      var corpus=prepararTextoPerfume(p).normalize("NFD").replace(/\p{Diacritic}/gu,"");
       var puntos=0,razones=[];
       gustos.forEach(function(g){
-        var hits=BUSQUEDA_GUSTOS[g].filter(function(w){return corpus.indexOf(w.normalize("NFD").replace(/\\p{Diacritic}/g,""))>=0;});
+        var hits=BUSQUEDA_GUSTOS[g].filter(function(w){return corpus.indexOf(w.normalize("NFD").replace(/\p{Diacritic}/gu,""))>=0;});
         if(hits.length){puntos+=Math.min(hits.length,3)*2;razones.push(hits.slice(0,2).join(" y "));}
       });
       palabras.forEach(function(w){if(corpus.indexOf(w)>=0)puntos+=1;});
