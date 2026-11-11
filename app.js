@@ -358,6 +358,74 @@
     if (b) abrir(b.dataset.inviernoNum);
   });
 
+
+  /* ---------- buscador de gustos olfativos ---------- */
+  var BUSQUEDA_GUSTOS = {
+    dulce: ["dulce","gourmand","vainilla","caramelo","praline","praliné","chocolate","miel","tonka","quequito","pastel","cremoso","crema","azucar","azúcar"],
+    fresco: ["fresco","fresca","cítrico","citrico","bergamota","limon","limón","mandarina","naranja","toronja","jengibre","acuatico","acuático","marino"],
+    floral: ["floral","florales","rosa","jazmin","jazmín","azahar","lavanda","iris","violeta","orquidea","orquídea","tuberosa","peonia","peonía"],
+    vainilla: ["vainilla","cremoso","cremosa","tonka","benjui","benjuí","leche","almendra","avainillado"],
+    amaderado: ["madera","amaderado","amaderada","oud","sándalo","sandalo","cedro","vetiver","pachuli","pachulí","guayaco","incienso","cuero"],
+    ambar: ["ámbar","ambar","ambarado","resina","mirra","labdanum","benjui","benjuí","balsamico","balsámico"],
+    especiado: ["especiado","especiada","canela","pimienta","cardamomo","azafran","azafrán","clavo","nuez moscada","whisky","tabaco"],
+    limpio: ["limpio","limpia","suave","almizcle","musk","algodon","algodón","jabón","jabon","talco","aireado","transparente"],
+    frutal: ["frutal","frutales","fruta","frutas","frambuesa","pera","manzana","kiwi","lichi","litchi","membrillo","higo","cassis","grosella","durazno","melocoton","melocotón"]
+  };
+  var GUSTOS_SELECCIONADOS = [];
+  function prepararTextoPerfume(p) {
+    return [p.nombre,p.marca,p.inspiradoEn,p.familia,p.ocasion,p.descripcion].concat(p.destacadas||[],p.salida||[],p.corazon||[],p.fondo||[]).join(" ").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"");
+  }
+  function tokensDeGusto(texto) {
+    var limpio=String(texto||"").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"");
+    var encontrados=[];
+    Object.keys(BUSQUEDA_GUSTOS).forEach(function(clave){
+      var sinonimos=BUSQUEDA_GUSTOS[clave];
+      if(sinonimos.some(function(palabra){return limpio.indexOf(palabra.normalize("NFD").replace(/[\\u0300-\\u036f]/g,""))>=0;})) encontrados.push(clave);
+    });
+    return encontrados;
+  }
+  function buscarMiAroma(texto,genero) {
+    var gustos=GUSTOS_SELECCIONADOS.concat(tokensDeGusto(texto)).filter(function(v,i,a){return a.indexOf(v)===i;});
+    var palabras=String(texto||"").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").split(/[^a-z0-9]+/).filter(function(w){return w.length>3;});
+    var resultados=PERFUMES.filter(function(p){return p.disponible!==false&&!esAmbiental(p)&&(genero==="todos"||generoDe(p)===genero||((genero==="mujer"||genero==="hombre")&&generoDe(p)==="unisex"));}).map(function(p){
+      var corpus=prepararTextoPerfume(p).normalize("NFD").replace(/[\\u0300-\\u036f]/g,"");
+      var puntos=0,razones=[];
+      gustos.forEach(function(g){
+        var hits=BUSQUEDA_GUSTOS[g].filter(function(w){return corpus.indexOf(w.normalize("NFD").replace(/[\\u0300-\\u036f]/g,""))>=0;});
+        if(hits.length){puntos+=Math.min(hits.length,3)*2;razones.push(hits.slice(0,2).join(" y "));}
+      });
+      palabras.forEach(function(w){if(corpus.indexOf(w)>=0)puntos+=1;});
+      return {p:p,puntos:puntos,razones:razones};
+    }).filter(function(x){return x.puntos>0;}).sort(function(a,b){return b.puntos-a.puntos;}).slice(0,6);
+    return {gustos:gustos,resultados:resultados};
+  }
+  var formularioGustos=$("#buscadorPerfume");
+  if(formularioGustos){
+    var chipsGustos=$("#gustoChips");
+    chipsGustos.addEventListener("click",function(e){
+      var b=e.target.closest("[data-gusto]");if(!b)return;
+      var g=b.dataset.gusto,idx=GUSTOS_SELECCIONADOS.indexOf(g);
+      if(idx>=0)GUSTOS_SELECCIONADOS.splice(idx,1);else GUSTOS_SELECCIONADOS.push(g);
+      b.setAttribute("aria-pressed",String(GUSTOS_SELECCIONADOS.indexOf(g)>=0));
+    });
+    formularioGustos.addEventListener("submit",function(e){
+      e.preventDefault();
+      var texto=$("#gustoTexto").value, genero=$("#gustoGenero").value, datos=buscarMiAroma(texto,genero),dest=$("#resultadoGustos");
+      if(!datos.gustos.length&&!String(texto).trim()){
+        dest.innerHTML='<div class="resultado-vacio">Cuéntanos qué notas o estilos disfrutas, o selecciona al menos una de las opciones para encontrar tus aromas.</div>';return;
+      }
+      if(!datos.resultados.length){
+        dest.innerHTML='<div class="resultado-vacio">Aún no encontramos coincidencias claras. Prueba con otras notas o sensaciones, por ejemplo: vainilla, cítricos, flores, maderas o aromas dulces.</div>';return;
+      }
+      dest.innerHTML='<h3 class="resultado-titulo">Estas inspiraciones podrían encantarte</h3><p class="resultado-sub">Encontramos '+datos.resultados.length+' coincidencias en nuestro catálogo según tus preferencias.</p><div class="resultado-grid">'+datos.resultados.map(function(x){
+        var p=x.p,razon=x.razones.length?'Coincide contigo por: '+x.razones.join(', '):'Tiene notas y descripciones relacionadas con lo que escribiste.';
+        return '<article class="resultado-card"><span class="resultado-num">BRUMA SCENT · N.º '+num2(p.num)+'</span><h3>'+esc(p.nombre)+'</h3><span class="resultado-marca">'+esc(p.marca||"")+'</span><p class="resultado-match">'+esc(razon)+'</p><button type="button" class="resultado-link" data-gusto-num="'+p.num+'">Ver notas y detalles ↗</button></article>';
+      }).join("")+'</div>';
+      dest.querySelectorAll("[data-gusto-num]").forEach(function(b){b.addEventListener("click",function(){abrir(b.dataset.gustoNum);});});
+      dest.scrollIntoView({behavior:"smooth",block:"nearest"});
+    });
+  }
+
   /* ---------- arranque ---------- */
   pintarContacto();
   pintarPortada();
