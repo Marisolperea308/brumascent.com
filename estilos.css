@@ -965,3 +965,16 @@ body.navidad-season::before{background:#173b32}
 .bruma-shipping-total{margin:12px 0 0;color:#68766f;font-size:.9rem}
 .bruma-cart-pay:disabled{opacity:.48;cursor:not-allowed}
 @media(max-width:520px){.bruma-shipping-form{flex-direction:column}.bruma-shipping-form button{width:100%}}
+
+
+/* Formulario de datos del comprador */
+.bruma-customer-box{margin:18px 0;padding:18px;border:1px solid rgba(32,61,51,.18);border-radius:14px;background:#fffdf8;text-align:left}
+.bruma-customer-box h3{margin:0 0 5px;color:#203d33;font-size:1.05rem}
+.bruma-customer-box>p{margin:0 0 14px;color:#78827b;font-size:.82rem;line-height:1.45}
+.bruma-customer-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.bruma-customer-grid label{display:grid;gap:5px;color:#52665d;font-size:.78rem;font-weight:600}
+.bruma-customer-grid input{box-sizing:border-box;width:100%;min-width:0;padding:11px;border:1px solid #d9ded8;border-radius:7px;background:#fff;color:#203d33;font:inherit;font-size:.88rem}
+.bruma-customer-grid input:focus{outline:2px solid rgba(32,61,51,.18);border-color:#203d33}
+.bruma-customer-wide{grid-column:1/-1}
+.bruma-customer-box>small{display:block;margin-top:12px;color:#78827b;font-size:.72rem;line-height:1.4}
+@media(max-width:520px){.bruma-customer-grid{grid-template-columns:1fr}.bruma-customer-wide{grid-column:auto}}
