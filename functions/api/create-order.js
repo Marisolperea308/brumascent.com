@@ -134,8 +134,27 @@ export async function onRequestPost({ request, env }) {
   }
   const result = await mpResponse.json().catch(() => ({}));
   if (!mpResponse.ok || !result.checkout_url) {
-    console.error("Mercado Pago order error", mpResponse.status, result);
-    return reply({ error: "Mercado Pago no pudo crear el pago. Revisa la configuración e inténtalo de nuevo." }, 502, origin);
+    // Mostrar solo el diagnóstico técnico de Mercado Pago, sin datos del comprador ni credenciales.
+    const causes = Array.isArray(result.cause) ? result.cause.map(item => {
+      const code = item && item.code != null ? String(item.code) : "";
+      const description = item && item.description ? String(item.description) : "";
+      return [code, description].filter(Boolean).join(": ").slice(0, 180);
+    }).filter(Boolean).slice(0, 3) : [];
+    const detail = [
+      result.message ? String(result.message) : "",
+      result.error ? String(result.error) : "",
+      ...causes
+    ].filter(Boolean).join(" · ").slice(0, 420);
+    console.error("Mercado Pago order error", mpResponse.status, {
+      status: result.status || "",
+      error: result.error || "",
+      message: result.message || "",
+      cause: causes
+    });
+    return reply({
+      error: "Mercado Pago rechazó la solicitud (HTTP " + mpResponse.status + ").",
+      detail: detail || "La respuesta no incluyó detalles. Revisa el Access Token y los permisos de la aplicación."
+    }, 502, origin);
   }
   return reply({ checkout_url: result.checkout_url, order_id: result.id }, 200, origin);
 }
