@@ -358,7 +358,7 @@
         var host=destino.hostname.toLowerCase();
         var dominioSeguro=["mercadopago.com.mx","mercadopago.com"] .some(function(d){return host===d || host.endsWith("."+d);});
         if(destino.protocol!=="https:" || !dominioSeguro) {
-          throw new Error("Mercado Pago respondió con un dominio de pago inesperado. No continúes; estamos revisándolo.");
+          throw new Error("Dominio recibido: "+host+". No continúes; estamos revisándolo.");
         }
         window.location.assign(destino.href);
       } catch(error) {
