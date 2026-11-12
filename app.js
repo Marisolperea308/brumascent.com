@@ -271,6 +271,9 @@
 
   /* ---------- carrito Bruma Scent ---------- */
   var carrito = [];
+  var opcionesEnvio = [];
+  var envioSeleccionado = null;
+  var codigoPostalCotizado = "";
   try { carrito = JSON.parse(localStorage.getItem("brumaCarrito") || "[]"); } catch (e) { carrito = []; }
   function precioNumero(p) {
     var v = String(p.precio || CONFIG.precioGeneral || "$250").replace(/[^0-9.,]/g, "").replace(",", ".");
@@ -291,9 +294,14 @@
     lista.innerHTML = carrito.map(function(x){
       return '<li class="bruma-cart-row"><div class="bruma-cart-info"><strong>'+esc(x.nombre)+'</strong><small>N.º '+num2(x.num)+' · '+dinero(x.precio)+'</small></div><div class="bruma-cart-qty"><button type="button" data-cart-action="menos" data-num="'+x.num+'" aria-label="Restar">−</button><span>'+x.cantidad+'</span><button type="button" data-cart-action="mas" data-num="'+x.num+'" aria-label="Sumar">+</button><button type="button" class="bruma-cart-remove" data-cart-action="quitar" data-num="'+x.num+'" aria-label="Eliminar">×</button></div></li>';
     }).join("");
-    total.textContent = dinero(totalCarrito());
+    var costoEnvio = envioSeleccionado ? Number(envioSeleccionado.price) : 0;
+    total.textContent = dinero(totalCarrito() + costoEnvio);
+    var desglose = document.getElementById("brumaShippingTotal");
+    if (desglose) desglose.textContent = envioSeleccionado ? "Envío: " + dinero(costoEnvio) : "Envío: por cotizar";
     var wa = document.getElementById("brumaCartWhatsapp");
     if (wa) wa.disabled = carrito.length === 0;
+    var pay = document.getElementById("brumaCartPay");
+    if (pay) pay.disabled = carrito.length === 0 || !envioSeleccionado;
   }
   function agregarAlCarrito(num) {
     var p = PERFUMES.find(function(x){return x.num===Number(num);});
@@ -320,7 +328,7 @@
     document.body.appendChild(launcher);
     var dialog=document.createElement("dialog");
     dialog.id="brumaCartDialog";dialog.className="bruma-cart-dialog";
-    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" id="brumaCartPay" aria-describedby="brumaPayNote">Pagar en línea con Mercado Pago</button><p class="bruma-cart-note" id="brumaPayNote">Pago seguro en Mercado Pago. Por ahora estamos en etapa de prueba.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
+    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><section class="bruma-shipping-box"><h3>Envío a domicilio</h3><label for="brumaZipCode">Código postal de entrega</label><div class="bruma-shipping-form"><input id="brumaZipCode" type="text" inputmode="numeric" maxlength="5" placeholder="Ej. 64000" autocomplete="postal-code"><button type="button" id="brumaQuoteShipping">Cotizar envío</button></div><div id="brumaShippingOptions" class="bruma-shipping-options" aria-live="polite"></div><p id="brumaShippingTotal" class="bruma-shipping-total">Envío: por cotizar</p></section><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" id="brumaCartPay" aria-describedby="brumaPayNote" disabled>Pagar productos + envío con Mercado Pago</button><p class="bruma-cart-note" id="brumaPayNote">Calcula el envío y selecciona una paquetería para habilitar el pago.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
     document.body.appendChild(dialog);
     launcher.addEventListener("click",abrirCarrito);
     document.getElementById("brumaCartClose").addEventListener("click",function(){dialog.close();});
@@ -332,6 +340,38 @@
       if(b.dataset.cartAction==="menos")x.cantidad--;
       if(b.dataset.cartAction==="quitar"||x.cantidad<=0)carrito=carrito.filter(function(i){return i.num!==n;});
       guardarCarrito();renderCarrito();
+    });
+    document.getElementById("brumaQuoteShipping").addEventListener("click", async function(){
+      var input=document.getElementById("brumaZipCode");
+      var zip=String(input.value||"").replace(/\\D/g,"");
+      var optionsBox=document.getElementById("brumaShippingOptions");
+      var notice=document.getElementById("brumaCartNotice");
+      if(!/^\\d{5}$/.test(zip)){optionsBox.innerHTML="";envioSeleccionado=null;renderCarrito();if(notice){notice.hidden=false;notice.textContent="Escribe un código postal válido de 5 dígitos.";}return;}
+      var btn=this;btn.disabled=true;btn.textContent="Cotizando…";optionsBox.textContent="Consultando tarifas disponibles…";
+      try{
+        var response=await fetch("/api/pakke-rates",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({zipCode:zip})});
+        var data=await response.json();
+        if(!response.ok||!Array.isArray(data.options))throw new Error(data.error||"No pudimos obtener tarifas de Pakke.");
+        opcionesEnvio=data.options;codigoPostalCotizado=zip;envioSeleccionado=null;
+        optionsBox.innerHTML=opcionesEnvio.map(function(o,i){
+          return '<label class="bruma-shipping-option"><input type="radio" name="brumaShippingChoice" value="'+i+'"><span><strong>'+esc(o.courierName)+' · '+esc(o.serviceName)+'</strong><small>'+(o.deliveryDays?esc(o.deliveryDays)+" · ":"")+dinero(o.price)+'</small></span></label>';
+        }).join("");
+        optionsBox.querySelectorAll('input[name="brumaShippingChoice"]').forEach(function(radio){
+          radio.addEventListener("change",function(){
+            envioSeleccionado=opcionesEnvio[Number(this.value)];
+            var payNote=document.getElementById("brumaPayNote");
+            if(payNote)payNote.textContent="Envío seleccionado. El importe se verificará nuevamente con Pakke antes de abrir Mercado Pago.";
+            renderCarrito();
+          });
+        });
+        if(notice){notice.hidden=false;notice.textContent="Elige la paquetería que prefieras para continuar.";}
+      }catch(error){
+        optionsBox.textContent="";
+        if(notice){notice.hidden=false;notice.textContent=error.message||"No se pudo cotizar el envío.";}
+      }finally{btn.disabled=false;btn.textContent="Cotizar envío";}
+    });
+    document.getElementById("brumaZipCode").addEventListener("input",function(){
+      if(String(this.value).replace(/\\D/g,"")!==codigoPostalCotizado){envioSeleccionado=null;opcionesEnvio=[];document.getElementById("brumaShippingOptions").innerHTML="";renderCarrito();}
     });
     document.getElementById("brumaCartWhatsapp").addEventListener("click",function(){
       if(!carrito.length)return;
@@ -346,10 +386,11 @@
       var aviso=document.getElementById("brumaCartNotice");
       if(aviso){aviso.hidden=false;aviso.textContent="Estamos preparando tu pago seguro.";}
       try {
-        var respuesta=await fetch("https://brumascent-com.pages.dev/api/create-order",{
+        if(!envioSeleccionado || !codigoPostalCotizado) throw new Error("Primero calcula y selecciona una paquetería para tu envío.");
+      var respuesta=await fetch("/api/create-order",{
           method:"POST",
           headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({items:carrito.map(function(x){return {num:x.num,quantity:x.cantidad};})})
+          body:JSON.stringify({items:carrito.map(function(x){return {num:x.num,quantity:x.cantidad};}),shipping:{zipCode:codigoPostalCotizado,courierCode:envioSeleccionado.courierCode,serviceId:envioSeleccionado.serviceId}})
         });
         var datos=await respuesta.json();
         if(!respuesta.ok || !datos.checkout_url) throw new Error(datos.error || ("No se pudo iniciar el pago (HTTP "+respuesta.status+")."));
