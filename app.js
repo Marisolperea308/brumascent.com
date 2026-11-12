@@ -352,8 +352,13 @@
           body:JSON.stringify({items:carrito.map(function(x){return {num:x.num,quantity:x.cantidad};})})
         });
         var datos=await respuesta.json();
-        if(!respuesta.ok || !datos.checkout_url) throw new Error(datos.error || "No se pudo iniciar el pago.");
-        window.location.href=datos.checkout_url;
+        if(!respuesta.ok || !datos.checkout_url) throw new Error(datos.error || ("No se pudo iniciar el pago (HTTP "+respuesta.status+")."));
+        var destino;
+        try { destino=new URL(datos.checkout_url); } catch(_) { throw new Error("Mercado Pago respondió con un enlace de pago no válido. Estamos revisando la conexión."); }
+        if(destino.protocol!=="https:" || !/(^|\\.)mercadopago\\.com(\\.mx)?$/.test(destino.hostname)) {
+          throw new Error("Mercado Pago respondió con un dominio de pago inesperado. No continúes; estamos revisándolo.");
+        }
+        window.location.assign(destino.href);
       } catch(error) {
         if(aviso){aviso.hidden=false;aviso.textContent=error.message || "No se pudo conectar con Mercado Pago. Intenta de nuevo.";}
         boton.disabled=false;boton.textContent="Pagar en línea con Mercado Pago";
