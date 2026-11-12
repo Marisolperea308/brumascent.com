@@ -156,5 +156,43 @@ export async function onRequestPost({ request, env }) {
       detail: detail || "La respuesta no incluyó detalles. Revisa el Access Token y los permisos de la aplicación."
     }, 502, origin);
   }
+  // Guardar el pedido en D1 para que Bruma Scent pueda consultar sus ventas.
+  // El pago queda pendiente hasta que Mercado Pago confirme su resultado.
+  if (env.DB) {
+    const reference = String(payload.external_reference);
+    const courier = String(chosen.CourierName || courierCode) + " · " + String(chosen.CourierServiceName || serviceId);
+    try {
+      await env.DB.prepare(
+        "INSERT INTO pedidos (id, referencia, mercado_pago_id, estado, nombre, correo, telefono, calle, numero_exterior, colonia, ciudad, estado_domicilio, codigo_postal, referencias_entrega, productos, paqueteria, envio, total, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      ).bind(
+        reference,
+        reference,
+        String(result.id || ""),
+        "pendiente",
+        firstName + " " + lastName,
+        email,
+        phone,
+        street,
+        streetNumber,
+        neighborhood,
+        city,
+        state,
+        zip,
+        references,
+        JSON.stringify(body.items.map(row => {
+          const product = CATALOG.find(p => p.num === Number(row.num));
+          return { num: Number(row.num), nombre: product ? product.name : "", cantidad: Number(row.quantity), precio: product ? product.price : 0 };
+        })),
+        courier,
+        shippingPrice,
+        total,
+        new Date().toISOString()
+      ).run();
+    } catch (dbError) {
+      console.error("No se pudo guardar el pedido en D1", dbError && dbError.message ? dbError.message : "Error de base de datos");
+    }
+  } else {
+    console.error("No se pudo guardar el pedido: falta el binding DB en Cloudflare.");
+  }
   return reply({ checkout_url: result.checkout_url, order_id: result.id }, 200, origin);
 }
