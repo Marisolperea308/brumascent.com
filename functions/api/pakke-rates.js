@@ -23,12 +23,14 @@ export async function onRequestOptions({ request }) {
   return new Response(null, { status: 204, headers: cors(request.headers.get("Origin") || "") });
 }
 export async function onRequestPost({ request, env }) {
+  console.info("Pakke rates: POST recibido");
   const origin = request.headers.get("Origin") || "";
   if (!ALLOWED_ORIGINS.has(origin)) return reply({ error: "Origen no autorizado." }, 403, origin);
   if (!env.PAKKE_API_KEY) return reply({ error: "Falta configurar PAKKE_API_KEY en Cloudflare." }, 500, origin);
   let body;
   try { body = await request.json(); } catch (_) { return reply({ error: "Solicitud inválida." }, 400, origin); }
   const zip = String(body.zipCode || "").replace(/\D/g, "");
+  console.info("Pakke rates: validando código postal", zip.length === 5 ? "válido" : "inválido");
   if (!/^\d{5}$/.test(zip)) return reply({ error: "Escribe un código postal mexicano de 5 dígitos." }, 400, origin);
   let response;
   try {
@@ -50,6 +52,7 @@ export async function onRequestPost({ request, env }) {
   } catch (_) {
     return reply({ error: "No pudimos conectar con Pakke. Intenta de nuevo." }, 502, origin);
   }
+  console.info("Pakke rates: respuesta HTTP", response.status);
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
     console.error("Pakke rates error", response.status, data);
@@ -70,6 +73,7 @@ export async function onRequestPost({ request, env }) {
     price: Number(r.TotalPrice),
     bestOption: Boolean(r.BestOption)
   })).sort((a, b) => a.price - b.price);
+  console.info("Pakke rates: servicios recibidos", options.length);
   if (!options.length) return reply({ error: "Pakke no encontró servicios disponibles para ese código postal." }, 404, origin);
   return reply({ options }, 200, origin);
 }
