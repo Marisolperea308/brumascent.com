@@ -328,7 +328,22 @@
     document.body.appendChild(launcher);
     var dialog=document.createElement("dialog");
     dialog.id="brumaCartDialog";dialog.className="bruma-cart-dialog";
-    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><section class="bruma-shipping-box"><h3>Envío a domicilio</h3><label for="brumaZipCode">Código postal de entrega</label><div class="bruma-shipping-form"><input id="brumaZipCode" type="text" inputmode="numeric" maxlength="5" placeholder="Ej. 64000" autocomplete="postal-code"><button type="button" id="brumaQuoteShipping">Cotizar envío</button></div><div id="brumaShippingOptions" class="bruma-shipping-options" aria-live="polite"></div><p id="brumaShippingTotal" class="bruma-shipping-total">Envío: por cotizar</p></section><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" id="brumaCartPay" aria-describedby="brumaPayNote" disabled>Pagar productos + envío con Mercado Pago</button><p class="bruma-cart-note" id="brumaPayNote">Calcula el envío y selecciona una paquetería para habilitar el pago.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
+    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><section class="bruma-shipping-box"><h3>Envío a domicilio</h3><label for="brumaZipCode">Código postal de entrega</label><div class="bruma-shipping-form"><input id="brumaZipCode" type="text" inputmode="numeric" maxlength="5" placeholder="Ej. 64000" autocomplete="postal-code"><button type="button" id="brumaQuoteShipping">Cotizar envío</button></div><div id="brumaShippingOptions" class="bruma-shipping-options" aria-live="polite"></div><p id="brumaShippingTotal" class="bruma-shipping-total">Envío: por cotizar</p></section><section class="bruma-customer-box" id="brumaCustomerBox">
+      <h3>Datos para tu entrega</h3>
+      <p>Completa tus datos antes de continuar al pago seguro.</p>
+      <div class="bruma-customer-grid">
+        <label>Nombre completo<input id="brumaCustomerName" type="text" autocomplete="name" maxlength="100" required placeholder="Nombre y apellidos"></label>
+        <label>Correo electrónico<input id="brumaCustomerEmail" type="email" autocomplete="email" maxlength="120" required placeholder="correo@ejemplo.com"></label>
+        <label>Celular (10 dígitos)<input id="brumaCustomerPhone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" required placeholder="8112345678"></label>
+        <label>Calle<input id="brumaCustomerStreet" type="text" autocomplete="address-line1" maxlength="120" required placeholder="Nombre de la calle"></label>
+        <label>Número exterior<input id="brumaCustomerNumber" type="text" maxlength="20" required placeholder="Ej. 123"></label>
+        <label>Colonia<input id="brumaCustomerNeighborhood" type="text" autocomplete="address-level3" maxlength="80" required placeholder="Tu colonia"></label>
+        <label>Ciudad o municipio<input id="brumaCustomerCity" type="text" autocomplete="address-level2" maxlength="80" required placeholder="Tu ciudad"></label>
+        <label>Estado<input id="brumaCustomerState" type="text" autocomplete="address-level1" maxlength="60" required placeholder="Tu estado"></label>
+        <label class="bruma-customer-wide">Referencias para la entrega (opcional)<input id="brumaCustomerReferences" type="text" maxlength="160" placeholder="Entre calles, color de fachada, etc."></label>
+      </div>
+      <small>El código postal será el mismo que utilizaste para cotizar el envío.</small>
+    </section><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" id="brumaCartPay" aria-describedby="brumaPayNote" disabled>Pagar productos + envío con Mercado Pago</button><p class="bruma-cart-note" id="brumaPayNote">Calcula el envío y selecciona una paquetería para habilitar el pago.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
     document.body.appendChild(dialog);
     launcher.addEventListener("click",abrirCarrito);
     document.getElementById("brumaCartClose").addEventListener("click",function(){dialog.close();});
@@ -401,25 +416,45 @@
     document.getElementById("brumaCartPay").addEventListener("click", async function(){
       if(!carrito.length) return;
       var boton=this;
-      boton.disabled=true; boton.textContent="Conectando con Mercado Pago…";
       var aviso=document.getElementById("brumaCartNotice");
+      var nombreCliente=String(document.getElementById("brumaCustomerName").value||"").trim().replace(/\s+/g," ");
+      var partesNombre=nombreCliente.split(" ");
+      var correoCliente=String(document.getElementById("brumaCustomerEmail").value||"").trim();
+      var telefonoCliente=String(document.getElementById("brumaCustomerPhone").value||"").replace(/\D/g,"");
+      var calleCliente=String(document.getElementById("brumaCustomerStreet").value||"").trim();
+      var numeroCliente=String(document.getElementById("brumaCustomerNumber").value||"").trim();
+      var coloniaCliente=String(document.getElementById("brumaCustomerNeighborhood").value||"").trim();
+      var ciudadCliente=String(document.getElementById("brumaCustomerCity").value||"").trim();
+      var estadoCliente=String(document.getElementById("brumaCustomerState").value||"").trim();
+      var referenciasCliente=String(document.getElementById("brumaCustomerReferences").value||"").trim();
+      if(partesNombre.length<2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correoCliente) || telefonoCliente.length!==10 || !calleCliente || !numeroCliente || !coloniaCliente || !ciudadCliente || !estadoCliente){
+        if(aviso){aviso.hidden=false;aviso.textContent="Completa tus datos: nombre y apellidos, correo válido, celular de 10 dígitos y domicilio.";}
+        document.getElementById("brumaCustomerBox").scrollIntoView({behavior:"smooth",block:"center"});
+        return;
+      }
+      var customerData={
+        firstName:partesNombre.shift(),lastName:partesNombre.join(" "),email:correoCliente,phone:telefonoCliente,
+        street:calleCliente,streetNumber:numeroCliente,neighborhood:coloniaCliente,city:ciudadCliente,state:estadoCliente,references:referenciasCliente
+      };
+      boton.disabled=true; boton.textContent="Conectando con Mercado Pago…";
       if(aviso){aviso.hidden=false;aviso.textContent="Estamos preparando tu pago seguro.";}
       try {
         if(!envioSeleccionado || !codigoPostalCotizado) throw new Error("Primero calcula y selecciona una paquetería para tu envío.");
-      var respuesta=await fetch("/api/create-order",{
-          method:"POST",
-          headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({items:carrito.map(function(x){return {num:x.num,quantity:x.cantidad};}),shipping:{zipCode:codigoPostalCotizado,courierCode:envioSeleccionado.courierCode,serviceId:envioSeleccionado.serviceId}})
+        var respuesta=await fetch("/api/create-order",{
+          method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({
+            items:carrito.map(function(x){return {num:x.num,quantity:x.cantidad};}),
+            shipping:{zipCode:codigoPostalCotizado,courierCode:envioSeleccionado.courierCode,serviceId:envioSeleccionado.serviceId},
+            customer:customerData
+          })
         });
         var datos=await respuesta.json();
         if(!respuesta.ok || !datos.checkout_url) throw new Error(datos.error || ("No se pudo iniciar el pago (HTTP "+respuesta.status+")."));
         var destino;
         try { destino=new URL(datos.checkout_url); } catch(_) { throw new Error("Mercado Pago respondió con un enlace de pago no válido. Estamos revisando la conexión."); }
         var host=destino.hostname.toLowerCase();
-        var dominioSeguro=["mercadopago.com.mx","mercadopago.com"] .some(function(d){return host===d || host.endsWith("."+d);});
-        if(destino.protocol!=="https:" || !dominioSeguro) {
-          throw new Error("Dominio recibido: "+host+". No continúes; estamos revisándolo.");
-        }
+        var dominioSeguro=["mercadopago.com.mx","mercadopago.com"].some(function(d){return host===d || host.endsWith("."+d);});
+        if(destino.protocol!=="https:" || !dominioSeguro) throw new Error("El enlace recibido no pertenece a Mercado Pago. No continúes; estamos revisándolo.");
         window.location.assign(destino.href);
       } catch(error) {
         if(aviso){aviso.hidden=false;aviso.textContent=error.message || "No se pudo conectar con Mercado Pago. Intenta de nuevo.";}
