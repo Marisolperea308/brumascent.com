@@ -42,8 +42,7 @@ export async function onRequestPost({ request, env }) {
     items.push({
       title: product.name,
       quantity,
-      unit_price: product.price.toFixed(2),
-      currency_id: "MXN"
+      unit_price: product.price.toFixed(2)
     });
   }
   const total = items.reduce((sum, item) => sum + Number(item.unit_price) * item.quantity, 0);
