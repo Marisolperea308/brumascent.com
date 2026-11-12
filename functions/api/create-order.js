@@ -45,6 +45,21 @@ export async function onRequestPost({ request, env }) {
       unit_price: product.price.toFixed(2)
     });
   }
+  const customer = body.customer || {};
+  const email = String(customer.email || "").trim();
+  const firstName = String(customer.firstName || "").trim();
+  const lastName = String(customer.lastName || "").trim();
+  const phone = String(customer.phone || "").replace(/\D/g, "");
+  const street = String(customer.street || "").trim();
+  const streetNumber = String(customer.streetNumber || "").trim();
+  const neighborhood = String(customer.neighborhood || "").trim();
+  const city = String(customer.city || "").trim();
+  const state = String(customer.state || "").trim();
+  const references = String(customer.references || "").trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !firstName || !lastName ||
+      !/^\d{10}$/.test(phone) || !street || !streetNumber || !neighborhood || !city || !state) {
+    return reply({ error: "Completa correctamente tus datos de contacto y domicilio antes de pagar." }, 400, origin);
+  }
   // Revalidar en Pakke la opción de envío elegida para no aceptar importes manipulados desde el navegador.
   const shipping = body.shipping || {};
   const zip = String(shipping.zipCode || "").replace(/\D/g, "");
@@ -86,6 +101,19 @@ export async function onRequestPost({ request, env }) {
     total_amount: total.toFixed(2),
     external_reference: "BRUMA-" + crypto.randomUUID(),
     description: "Pedido en línea Bruma Scent",
+    payer: {
+      email,
+      first_name: firstName,
+      last_name: lastName,
+      phone: { area_code: "52", number: phone },
+      address: {
+        zip_code: zip,
+        street_name: street + (references ? " · Referencias: " + references : ""),
+        street_number: streetNumber,
+        neighborhood,
+        city: city + ", " + state
+      }
+    },
     items
   };
   let mpResponse;
