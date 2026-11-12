@@ -53,7 +53,12 @@ export async function onRequestPost({ request, env }) {
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
     console.error("Pakke rates error", response.status, data);
-    return reply({ error: "Pakke no pudo cotizar este código postal. Verifica el código e inténtalo de nuevo." }, 502, origin);
+    const upstreamError = data && (data.message || data.error?.message || data.details || data.error?.details || data.error);
+    const safeDetail = typeof upstreamError === "string" ? upstreamError : "";
+    return reply({
+      error: "Pakke rechazó la cotización (HTTP " + response.status + ").",
+      detail: safeDetail.slice(0, 240) || "La respuesta de Pakke no incluyó una explicación legible."
+    }, 502, origin);
   }
   const rates = Array.isArray(data.Pakke) ? data.Pakke : [];
   const options = rates.filter(r => Number(r.TotalPrice) >= 0 && r.CourierCode && r.CourierServiceId).map(r => ({
