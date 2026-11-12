@@ -355,7 +355,9 @@
         if(!respuesta.ok || !datos.checkout_url) throw new Error(datos.error || ("No se pudo iniciar el pago (HTTP "+respuesta.status+")."));
         var destino;
         try { destino=new URL(datos.checkout_url); } catch(_) { throw new Error("Mercado Pago respondió con un enlace de pago no válido. Estamos revisando la conexión."); }
-        if(destino.protocol!=="https:" || !/(^|\\.)mercadopago\\.com(\\.mx)?$/.test(destino.hostname)) {
+        var host=destino.hostname.toLowerCase();
+        var dominioSeguro=["mercadopago.com.mx","mercadopago.com"] .some(function(d){return host===d || host.endsWith("."+d);});
+        if(destino.protocol!=="https:" || !dominioSeguro) {
           throw new Error("Mercado Pago respondió con un dominio de pago inesperado. No continúes; estamos revisándolo.");
         }
         window.location.assign(destino.href);
