@@ -346,7 +346,7 @@
       var aviso=document.getElementById("brumaCartNotice");
       if(aviso){aviso.hidden=false;aviso.textContent="Estamos preparando tu pago seguro.";}
       try {
-        var respuesta=await fetch("/api/create-order",{
+        var respuesta=await fetch("https://brumascent-com.pages.dev/api/create-order",{
           method:"POST",
           headers:{"Content-Type":"application/json"},
           body:JSON.stringify({items:carrito.map(function(x){return {num:x.num,quantity:x.cantidad};})})
