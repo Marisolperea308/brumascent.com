@@ -60,38 +60,15 @@ export async function onRequestPost({ request, env }) {
       !/^\d{10}$/.test(phone) || !street || !streetNumber || !neighborhood || !city || !state) {
     return reply({ error: "Completa correctamente tus datos de contacto y domicilio antes de pagar." }, 400, origin);
   }
-  // Revalidar en Pakke la opción de envío elegida para no aceptar importes manipulados desde el navegador.
+  // Envío nacional con tarifa fija; la guía se compra manualmente fuera de la tienda.
   const shipping = body.shipping || {};
   const zip = String(shipping.zipCode || "").replace(/\D/g, "");
-  const courierCode = String(shipping.courierCode || "");
-  const serviceId = String(shipping.serviceId || "");
-  if (!/^\d{5}$/.test(zip) || !courierCode || !serviceId) {
-    return reply({ error: "Primero calcula y selecciona una opción de envío." }, 400, origin);
+  if (!/^\d{5}$/.test(zip)) {
+    return reply({ error: "Escribe un código postal mexicano válido de 5 dígitos." }, 400, origin);
   }
-  if (!env.PAKKE_API_KEY) return reply({ error: "Falta configurar PAKKE_API_KEY en Cloudflare." }, 500, origin);
-  let pakkeResponse;
-  try {
-    pakkeResponse = await fetch("https://seller.pakke.mx/api/v1/Shipments/rates", {
-      method: "POST",
-      headers: { "Authorization": env.PAKKE_API_KEY, "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify({
-        ZipCodeFrom: "64988", ZipCodeTo: zip,
-        Parcel: { Weight: 1, Width: 10, Height: 10, Length: 10 },
-        CouponCode: null, InsuredAmount: 0
-      })
-    });
-  } catch (_) {
-    return reply({ error: "No pudimos verificar el envío con Pakke. Intenta de nuevo." }, 502, origin);
-  }
-  const pakkeData = await pakkeResponse.json().catch(() => ({}));
-  const chosen = (Array.isArray(pakkeData.Pakke) ? pakkeData.Pakke : []).find(r =>
-    String(r.CourierCode) === courierCode && String(r.CourierServiceId) === serviceId
-  );
-  if (!pakkeResponse.ok || !chosen || !Number.isFinite(Number(chosen.TotalPrice)) || Number(chosen.TotalPrice) < 0) {
-    return reply({ error: "La tarifa de envío cambió o ya no está disponible. Vuelve a cotizar." }, 409, origin);
-  }
-  const shippingPrice = Number(chosen.TotalPrice);
-  items.push({ title: "Envío " + String(chosen.CourierName || courierCode) + " · " + String(chosen.CourierServiceName || serviceId), quantity: 1, unit_price: shippingPrice.toFixed(2) });
+  const shippingPrice = 220;
+  const courier = "Envío nacional (tarifa fija)";
+  items.push({ title: courier, quantity: 1, unit_price: shippingPrice.toFixed(2) });
   const total = items.reduce((sum, item) => sum + Number(item.unit_price) * item.quantity, 0);
   const idempotencyKey = crypto.randomUUID();
   const payload = {
@@ -160,7 +137,7 @@ export async function onRequestPost({ request, env }) {
   // El pago queda pendiente hasta que Mercado Pago confirme su resultado.
   if (env.DB) {
     const reference = String(payload.external_reference);
-    const courier = String(chosen.CourierName || courierCode) + " · " + String(chosen.CourierServiceName || serviceId);
+
     try {
       await env.DB.prepare(
         "INSERT INTO pedidos (id, referencia, mercado_pago_id, estado, nombre, correo, telefono, calle, numero_exterior, colonia, ciudad, estado_domicilio, codigo_postal, referencias_entrega, productos, paqueteria, envio, total, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
