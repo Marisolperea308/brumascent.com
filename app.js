@@ -268,6 +268,90 @@
   });
   }
 
+
+  /* ---------- carrito Bruma Scent ---------- */
+  var carrito = [];
+  try { carrito = JSON.parse(localStorage.getItem("brumaCarrito") || "[]"); } catch (e) { carrito = []; }
+  function precioNumero(p) {
+    var v = String(p.precio || CONFIG.precioGeneral || "$250").replace(/[^0-9.,]/g, "").replace(",", ".");
+    var n = Number(v); return isFinite(n) && n > 0 ? n : 250;
+  }
+  function dinero(n) { return "$" + Number(n).toLocaleString("es-MX", {maximumFractionDigits:2}) + " MXN"; }
+  function guardarCarrito() { try { localStorage.setItem("brumaCarrito", JSON.stringify(carrito)); } catch (e) {} }
+  function totalCarrito() { return carrito.reduce(function(t,x){return t+x.precio*x.cantidad;},0); }
+  function renderCarrito() {
+    var count = carrito.reduce(function(t,x){return t+x.cantidad;},0);
+    var badge = document.getElementById("brumaCartCount");
+    if (badge) badge.textContent = count;
+    var lista = document.getElementById("brumaCartItems");
+    var total = document.getElementById("brumaCartTotal");
+    var vacio = document.getElementById("brumaCartEmpty");
+    if (!lista) return;
+    vacio.hidden = carrito.length > 0;
+    lista.innerHTML = carrito.map(function(x){
+      return '<li class="bruma-cart-row"><div class="bruma-cart-info"><strong>'+esc(x.nombre)+'</strong><small>N.º '+num2(x.num)+' · '+dinero(x.precio)+'</small></div><div class="bruma-cart-qty"><button type="button" data-cart-action="menos" data-num="'+x.num+'" aria-label="Restar">−</button><span>'+x.cantidad+'</span><button type="button" data-cart-action="mas" data-num="'+x.num+'" aria-label="Sumar">+</button><button type="button" class="bruma-cart-remove" data-cart-action="quitar" data-num="'+x.num+'" aria-label="Eliminar">×</button></div></li>';
+    }).join("");
+    total.textContent = dinero(totalCarrito());
+    var wa = document.getElementById("brumaCartWhatsapp");
+    if (wa) wa.disabled = carrito.length === 0;
+  }
+  function agregarAlCarrito(num) {
+    var p = PERFUMES.find(function(x){return x.num===Number(num);});
+    if (!p || p.disponible === false) return;
+    var item = carrito.find(function(x){return x.num===p.num;});
+    if (item) item.cantidad += 1;
+    else carrito.push({num:p.num,nombre:p.nombre,precio:precioNumero(p),cantidad:1});
+    guardarCarrito(); renderCarrito();
+    var aviso=document.getElementById("brumaCartNotice");
+    if(aviso){aviso.textContent=p.nombre+" se agregó a tu carrito.";aviso.hidden=false;}
+  }
+  function abrirCarrito() {
+    var d=document.getElementById("brumaCartDialog");
+    if(d && d.showModal) d.showModal();
+    else if(d) d.setAttribute("open","");
+    renderCarrito();
+  }
+  function crearCarrito() {
+    if(document.getElementById("brumaCartLauncher")) return;
+    var launcher=document.createElement("button");
+    launcher.type="button";launcher.id="brumaCartLauncher";launcher.className="bruma-cart-launcher";
+    launcher.setAttribute("aria-label","Abrir carrito de compras");
+    launcher.innerHTML='🛍 <span>Mi carrito</span><b id="brumaCartCount">0</b>';
+    document.body.appendChild(launcher);
+    var dialog=document.createElement("dialog");
+    dialog.id="brumaCartDialog";dialog.className="bruma-cart-dialog";
+    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" disabled aria-describedby="brumaPayNote">Pagar en línea · Próximamente</button><p class="bruma-cart-note" id="brumaPayNote">Estamos preparando el pago seguro con Mercado Pago.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
+    document.body.appendChild(dialog);
+    launcher.addEventListener("click",abrirCarrito);
+    document.getElementById("brumaCartClose").addEventListener("click",function(){dialog.close();});
+    dialog.addEventListener("click",function(e){if(e.target===dialog)dialog.close();});
+    dialog.addEventListener("click",function(e){
+      var b=e.target.closest("[data-cart-action]");if(!b)return;
+      var n=Number(b.dataset.num),x=carrito.find(function(i){return i.num===n;});if(!x)return;
+      if(b.dataset.cartAction==="mas")x.cantidad++;
+      if(b.dataset.cartAction==="menos")x.cantidad--;
+      if(b.dataset.cartAction==="quitar"||x.cantidad<=0)carrito=carrito.filter(function(i){return i.num!==n;});
+      guardarCarrito();renderCarrito();
+    });
+    document.getElementById("brumaCartWhatsapp").addEventListener("click",function(){
+      if(!carrito.length)return;
+      var lineas=carrito.map(function(x){return "• "+x.cantidad+" × "+x.nombre+" (N.º "+num2(x.num)+") — "+dinero(x.precio*x.cantidad);});
+      var mensaje="Hola Bruma Scent, quiero realizar este pedido:\\n\\n"+lineas.join("\\n")+"\\n\\nTotal: "+dinero(totalCarrito())+"\\n¿Me confirmas disponibilidad y opciones de entrega?";
+      window.open("https://wa.me/"+String(CONFIG.whatsapp||"528115888283").replace(/\\D/g,"")+"?text="+encodeURIComponent(mensaje),"_blank","noopener");
+    });
+    renderCarrito();
+  }
+  var fichaAdd=document.createElement("button");
+  fichaAdd.type="button";fichaAdd.id="fichaAgregarCarrito";fichaAdd.className="btn btn-ancho bruma-add-cart";
+  fichaAdd.textContent="Agregar al carrito";
+  var fichaPedirEl=document.getElementById("fichaPedir");
+  if(fichaPedirEl && fichaPedirEl.parentNode) fichaPedirEl.parentNode.insertBefore(fichaAdd,fichaPedirEl);
+  fichaAdd.addEventListener("click",function(){
+    var m=String(document.getElementById("fichaNum").textContent).match(/\\d+/);
+    if(m){agregarAlCarrito(Number(m[0]));abrirCarrito();}
+  });
+  crearCarrito();
+
   /* ---------- preguntas ---------- */
   function pintarPreguntas() {
     if (!$("#faq")) return;
