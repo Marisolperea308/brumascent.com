@@ -343,10 +343,10 @@
     });
     document.getElementById("brumaQuoteShipping").addEventListener("click", async function(){
       var input=document.getElementById("brumaZipCode");
-      var zip=String(input.value||"").replace(/\\D/g,"");
+      var zip=String(input.value||"").replace(/\D/g,"");
       var optionsBox=document.getElementById("brumaShippingOptions");
       var notice=document.getElementById("brumaCartNotice");
-      if(!/^\\d{5}$/.test(zip)){optionsBox.innerHTML="";envioSeleccionado=null;renderCarrito();if(notice){notice.hidden=false;notice.textContent="Escribe un código postal válido de 5 dígitos.";}return;}
+      if(!/^\d{5}$/.test(zip)){optionsBox.innerHTML="";envioSeleccionado=null;renderCarrito();if(notice){notice.hidden=false;notice.textContent="Escribe un código postal válido de 5 dígitos.";}return;}
       var btn=this;btn.disabled=true;btn.textContent="Cotizando…";optionsBox.textContent="Consultando tarifas disponibles…";
       try{
         var response=await fetch("/api/pakke-rates",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({zipCode:zip})});
@@ -371,7 +371,7 @@
       }finally{btn.disabled=false;btn.textContent="Cotizar envío";}
     });
     document.getElementById("brumaZipCode").addEventListener("input",function(){
-      if(String(this.value).replace(/\\D/g,"")!==codigoPostalCotizado){envioSeleccionado=null;opcionesEnvio=[];document.getElementById("brumaShippingOptions").innerHTML="";renderCarrito();}
+      if(String(this.value).replace(/\D/g,"")!==codigoPostalCotizado){envioSeleccionado=null;opcionesEnvio=[];document.getElementById("brumaShippingOptions").innerHTML="";renderCarrito();}
     });
     document.getElementById("brumaCartWhatsapp").addEventListener("click",function(){
       if(!carrito.length)return;
