@@ -47,10 +47,10 @@ export async function onRequestPost({ request, env }) {
   }
   // Revalidar en Pakke la opción de envío elegida para no aceptar importes manipulados desde el navegador.
   const shipping = body.shipping || {};
-  const zip = String(shipping.zipCode || "").replace(/\\D/g, "");
+  const zip = String(shipping.zipCode || "").replace(/\D/g, "");
   const courierCode = String(shipping.courierCode || "");
   const serviceId = String(shipping.serviceId || "");
-  if (!/^\\d{5}$/.test(zip) || !courierCode || !serviceId) {
+  if (!/^\d{5}$/.test(zip) || !courierCode || !serviceId) {
     return reply({ error: "Primero calcula y selecciona una opción de envío." }, 400, origin);
   }
   if (!env.PAKKE_API_KEY) return reply({ error: "Falta configurar PAKKE_API_KEY en Cloudflare." }, 500, origin);
