@@ -43,7 +43,7 @@ export async function onRequestPost({ request, env }) {
         ZipCodeFrom: ZIP_ORIGEN,
         ZipCodeTo: zip,
         Parcel: { Weight: 1, Width: 10, Height: 10, Length: 10 },
-        CouponCode: null,
+        CouponCode: "",
         InsuredAmount: 0
       })
     });
