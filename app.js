@@ -320,7 +320,7 @@
     document.body.appendChild(launcher);
     var dialog=document.createElement("dialog");
     dialog.id="brumaCartDialog";dialog.className="bruma-cart-dialog";
-    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" disabled aria-describedby="brumaPayNote">Pagar en línea · Próximamente</button><p class="bruma-cart-note" id="brumaPayNote">Estamos preparando el pago seguro con Mercado Pago.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
+    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" id="brumaCartPay" aria-describedby="brumaPayNote">Pagar en línea con Mercado Pago</button><p class="bruma-cart-note" id="brumaPayNote">Pago seguro en Mercado Pago. Por ahora estamos en etapa de prueba.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
     document.body.appendChild(dialog);
     launcher.addEventListener("click",abrirCarrito);
     document.getElementById("brumaCartClose").addEventListener("click",function(){dialog.close();});
@@ -338,6 +338,26 @@
       var lineas=carrito.map(function(x){return "• "+x.cantidad+" × "+x.nombre+" (N.º "+num2(x.num)+") — "+dinero(x.precio*x.cantidad);});
       var mensaje="Hola Bruma Scent, quiero realizar este pedido:\n\n"+lineas.join("\n")+"\n\nTotal: "+dinero(totalCarrito())+"\n¿Me confirmas disponibilidad y opciones de entrega?";
       window.open("https://wa.me/"+String(CONFIG.whatsapp||"528115888283").replace(/\D/g,"")+"?text="+encodeURIComponent(mensaje),"_blank","noopener");
+    });
+    document.getElementById("brumaCartPay").addEventListener("click", async function(){
+      if(!carrito.length) return;
+      var boton=this;
+      boton.disabled=true; boton.textContent="Conectando con Mercado Pago…";
+      var aviso=document.getElementById("brumaCartNotice");
+      if(aviso){aviso.hidden=false;aviso.textContent="Estamos preparando tu pago seguro.";}
+      try {
+        var respuesta=await fetch("/api/create-order",{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({items:carrito.map(function(x){return {num:x.num,quantity:x.cantidad};})})
+        });
+        var datos=await respuesta.json();
+        if(!respuesta.ok || !datos.checkout_url) throw new Error(datos.error || "No se pudo iniciar el pago.");
+        window.location.href=datos.checkout_url;
+      } catch(error) {
+        if(aviso){aviso.hidden=false;aviso.textContent=error.message || "No se pudo conectar con Mercado Pago. Intenta de nuevo.";}
+        boton.disabled=false;boton.textContent="Pagar en línea con Mercado Pago";
+      }
     });
     renderCarrito();
   }
