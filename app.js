@@ -346,6 +346,7 @@
     });
   }
   activarNavidad();
+  activarPromoBuenFin();
   pintarAromasInvierno("Todos");
   var inviernoFiltros = $("#inviernoFiltros");
   if (inviernoFiltros) inviernoFiltros.addEventListener("click", function (e) {
@@ -424,6 +425,20 @@
       dest.querySelectorAll("[data-gusto-num]").forEach(function(b){b.addEventListener("click",function(){abrir(b.dataset.gustoNum);});});
       dest.scrollIntoView({behavior:"smooth",block:"nearest"});
     });
+  }
+
+
+  /* ---------- Promoción especial Buen Fin Bruma Scent ---------- */
+  function activarPromoBuenFin() {
+    if (estado.genero === "hogar" || document.getElementById("promoBuenFin")) return;
+    var bar = document.createElement("aside");
+    bar.id = "promoBuenFin";
+    bar.className = "promo-buenfin";
+    bar.setAttribute("aria-label", "Promoción especial Buen Fin Bruma Scent");
+    bar.innerHTML = '<div class="promo-buenfin-inner"><span class="promo-buenfin-kicker">BRUMA SCENT · ESPECIAL BUEN FIN</span><strong class="promo-buenfin-price">3 PERFUMES POR <b>$600</b></strong><span class="promo-buenfin-dates">12 AL 16 DE NOVIEMBRE</span><span class="promo-buenfin-note">Arma tu trío de aromas favoritos · No aplica en aromatizantes navideños</span><a class="promo-buenfin-cta" href="mujer.html">Elegir mis perfumes ↗</a></div>';
+    var seasonal = document.getElementById("navidadBar");
+    if (seasonal && seasonal.parentNode) seasonal.parentNode.insertBefore(bar, seasonal.nextSibling);
+    else document.body.insertBefore(bar, document.body.firstChild);
   }
 
   /* ---------- arranque ---------- */
