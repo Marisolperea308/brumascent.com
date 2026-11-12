@@ -352,7 +352,26 @@
         var response=await fetch("/api/pakke-rates",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({zipCode:zip})});
         var data=await response.json();
         if(!response.ok||!Array.isArray(data.options))throw new Error(data.error||"No pudimos obtener tarifas de Pakke.");
-        opcionesEnvio=data.options;codigoPostalCotizado=zip;envioSeleccionado=null;
+        var paqueteriasPermitidas = ["fedex", "estafeta", "dhl"];
+        var opcionesFiltradas = data.options.filter(function(o) {
+          var nombre = String(o.courierName || "").toLowerCase();
+          return paqueteriasPermitidas.some(function(p) {
+            return nombre.includes(p);
+          });
+        });
+        opcionesEnvio = paqueteriasPermitidas.map(function(p) {
+          var servicios = opcionesFiltradas.filter(function(o) {
+            return String(o.courierName || "").toLowerCase().includes(p);
+          });
+          if (!servicios.length) return null;
+          return servicios.reduce(function(menor, actual) {
+            return Number(actual.price) < Number(menor.price) ? actual : menor;
+          });
+        }).filter(function(o) {
+          return o !== null;
+        });
+        codigoPostalCotizado = zip;
+        envioSeleccionado = null;
         optionsBox.innerHTML=opcionesEnvio.map(function(o,i){
           return '<label class="bruma-shipping-option"><input type="radio" name="brumaShippingChoice" value="'+i+'"><span><strong>'+esc(o.courierName)+' · '+esc(o.serviceName)+'</strong><small>'+(o.deliveryDays?esc(o.deliveryDays)+" · ":"")+dinero(o.price)+'</small></span></label>';
         }).join("");
