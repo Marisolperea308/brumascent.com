@@ -336,8 +336,8 @@
     document.getElementById("brumaCartWhatsapp").addEventListener("click",function(){
       if(!carrito.length)return;
       var lineas=carrito.map(function(x){return "• "+x.cantidad+" × "+x.nombre+" (N.º "+num2(x.num)+") — "+dinero(x.precio*x.cantidad);});
-      var mensaje="Hola Bruma Scent, quiero realizar este pedido:\\n\\n"+lineas.join("\\n")+"\\n\\nTotal: "+dinero(totalCarrito())+"\\n¿Me confirmas disponibilidad y opciones de entrega?";
-      window.open("https://wa.me/"+String(CONFIG.whatsapp||"528115888283").replace(/\\D/g,"")+"?text="+encodeURIComponent(mensaje),"_blank","noopener");
+      var mensaje="Hola Bruma Scent, quiero realizar este pedido:\n\n"+lineas.join("\n")+"\n\nTotal: "+dinero(totalCarrito())+"\n¿Me confirmas disponibilidad y opciones de entrega?";
+      window.open("https://wa.me/"+String(CONFIG.whatsapp||"528115888283").replace(/\D/g,"")+"?text="+encodeURIComponent(mensaje),"_blank","noopener");
     });
     renderCarrito();
   }
@@ -347,7 +347,7 @@
   var fichaPedirEl=document.getElementById("fichaPedir");
   if(fichaPedirEl && fichaPedirEl.parentNode) fichaPedirEl.parentNode.insertBefore(fichaAdd,fichaPedirEl);
   fichaAdd.addEventListener("click",function(){
-    var m=String(document.getElementById("fichaNum").textContent).match(/\\d+/);
+    var m=String(document.getElementById("fichaNum").textContent).match(/\d+/);
     if(m){agregarAlCarrito(Number(m[0]));abrirCarrito();}
   });
   crearCarrito();
