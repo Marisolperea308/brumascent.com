@@ -108,10 +108,12 @@ export async function onRequestPost({ request, env }) {
       phone: { area_code: "52", number: phone },
       address: {
         zip_code: zip,
-        street_name: street + (references ? " · Referencias: " + references : ""),
+        street_name: street,
         street_number: streetNumber,
         neighborhood,
-        city: city + ", " + state
+        city,
+        state,
+        complement: references
       }
     },
     items
