@@ -387,7 +387,7 @@
       }catch(error){
         console.error("Bruma Pakke quote error:", error && error.name, error && error.message);
         optionsBox.textContent="";
-        if(notice){notice.hidden=false;notice.textContent="Error al cotizar ("+(error && error.name ? error.name : "Error")+"): "+(error && error.message ? error.message : "No se pudo obtener respuesta del servidor.");}
+        if(notice){notice.hidden=false;notice.textContent="Error al cotizar ("+(error && error.name ? error.name : "Error")+"): "+(error && error.message ? error.message : "No se pudo obtener respuesta del servidor.")+(error && error.stack ? " | "+String(error.stack).slice(0,260) : "");}
       }finally{btn.disabled=false;btn.textContent="Cotizar envío";}
     });
     document.getElementById("brumaZipCode").addEventListener("input",function(){
