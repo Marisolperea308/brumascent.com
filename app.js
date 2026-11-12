@@ -294,7 +294,7 @@
     lista.innerHTML = carrito.map(function(x){
       return '<li class="bruma-cart-row"><div class="bruma-cart-info"><strong>'+esc(x.nombre)+'</strong><small>N.º '+num2(x.num)+' · '+dinero(x.precio)+'</small></div><div class="bruma-cart-qty"><button type="button" data-cart-action="menos" data-num="'+x.num+'" aria-label="Restar">−</button><span>'+x.cantidad+'</span><button type="button" data-cart-action="mas" data-num="'+x.num+'" aria-label="Sumar">+</button><button type="button" class="bruma-cart-remove" data-cart-action="quitar" data-num="'+x.num+'" aria-label="Eliminar">×</button></div></li>';
     }).join("");
-    var costoEnvio = 220;
+    var costoEnvio = carrito.length ? 220 : 0;
     total.textContent = dinero(totalCarrito() + costoEnvio);
     var desglose = document.getElementById("brumaShippingTotal");
     if (desglose) desglose.textContent = "Envío nacional: " + dinero(costoEnvio);
