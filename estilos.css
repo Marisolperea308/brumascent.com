@@ -947,7 +947,7 @@ body.navidad-season::before{background:#173b32}
 @media(max-width:600px){.bruma-cart-launcher{right:13px;bottom:14px;padding:12px 14px}.bruma-cart-dialog{max-height:86vh}.bruma-cart-items{max-height:38vh}.bruma-cart-head{padding:19px 19px 14px}.bruma-cart-items{padding:0 19px}.bruma-cart-total{margin-left:19px;margin-right:19px}.bruma-cart-whatsapp,.bruma-cart-pay{width:calc(100% - 38px);margin-left:19px;margin-right:19px}.bruma-cart-note,.bruma-cart-notice{margin-left:19px;margin-right:19px}}
 
 
-/* Cotizador de envíos Pakke en el carrito */
+/* Opciones de entrega y tarifa fija de envío en el carrito */
 .bruma-shipping-box{margin:22px 0;padding:18px;border:1px solid rgba(32,61,51,.18);border-radius:14px;background:#fbfaf6;text-align:left}
 .bruma-shipping-box h3{margin:0 0 12px;color:#203d33;font-family:inherit;font-size:1.05rem}
 .bruma-shipping-box>label{display:block;margin-bottom:7px;color:#68766f;font-size:.88rem}
@@ -978,3 +978,7 @@ body.navidad-season::before{background:#173b32}
 .bruma-customer-wide{grid-column:1/-1}
 .bruma-customer-box>small{display:block;margin-top:12px;color:#78827b;font-size:.72rem;line-height:1.4}
 @media(max-width:520px){.bruma-customer-grid{grid-template-columns:1fr}.bruma-customer-wide{grid-column:auto}}
+
+.bruma-delivery-select{box-sizing:border-box;width:100%;margin:0 0 12px;padding:12px;border:1px solid #cbd3cc;border-radius:8px;background:#fff;color:#203d33;font:inherit;font-size:.9rem}
+#brumaZipField[hidden],#brumaShippingAddressFields[hidden]{display:none!important}
+#brumaZipField input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #cbd3cc;border-radius:8px;background:#fff;color:#203d33;font:inherit}
