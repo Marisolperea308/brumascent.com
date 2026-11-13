@@ -282,6 +282,12 @@
   function dinero(n) { return "$" + Number(n).toLocaleString("es-MX", {maximumFractionDigits:2}) + " MXN"; }
   function guardarCarrito() { try { localStorage.setItem("brumaCarrito", JSON.stringify(carrito)); } catch (e) {} }
   function totalCarrito() { return carrito.reduce(function(t,x){return t+x.precio*x.cantidad;},0); }
+  function cantidadPerfumesCarrito() {
+    return carrito.reduce(function(total,x){ return total + (Number(x.num) < 200 ? x.cantidad : 0); },0);
+  }
+  function descuentoPromoCarrito() {
+    return Math.floor(cantidadPerfumesCarrito() / 3) * 150;
+  }
   function renderCarrito() {
     var count = carrito.reduce(function(t,x){return t+x.cantidad;},0);
     var badge = document.getElementById("brumaCartCount");
@@ -297,9 +303,18 @@
     var entrega = document.getElementById("brumaDeliveryMethod");
     var metodoEntrega = entrega ? entrega.value : "envio";
     var subtotal = totalCarrito();
-    var envioGratis = metodoEntrega === "envio" && subtotal >= 2000;
+    var descuentoPromo = descuentoPromoCarrito();
+    var totalProductos = subtotal - descuentoPromo;
+    var promoDetalle = document.getElementById("brumaPromoTotal");
+    if (promoDetalle) {
+      promoDetalle.hidden = descuentoPromo <= 0;
+      promoDetalle.textContent = descuentoPromo > 0
+        ? "Promoción 3 perfumes por $600: −" + dinero(descuentoPromo)
+        : "";
+    }
+    var envioGratis = metodoEntrega === "envio" && totalProductos >= 2000;
     var costoEnvio = metodoEntrega === "pickup" || envioGratis || !carrito.length ? 0 : 220;
-    total.textContent = dinero(subtotal + costoEnvio);
+    total.textContent = dinero(totalProductos + costoEnvio);
     var desglose = document.getElementById("brumaShippingTotal");
     if (desglose) desglose.textContent = metodoEntrega === "pickup"
       ? "Pickup / recoger en persona: Gratis"
@@ -345,7 +360,7 @@
     document.body.appendChild(launcher);
     var dialog=document.createElement("dialog");
     dialog.id="brumaCartDialog";dialog.className="bruma-cart-dialog";
-    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><section class="bruma-shipping-box"><h3>Forma de entrega</h3><label for="brumaDeliveryMethod">¿Cómo quieres recibir tu pedido?</label><select id="brumaDeliveryMethod" class="bruma-delivery-select"><option value="envio">Envío nacional · $220 MXN</option><option value="pickup">Pickup / recoger en persona · Gratis</option></select><div id="brumaZipField"><label for="brumaZipCode">Código postal de entrega</label><input id="brumaZipCode" type="text" inputmode="numeric" maxlength="5" placeholder="Ej. 64000" autocomplete="postal-code"></div><p id="brumaShippingTotal" class="bruma-shipping-total">Envío nacional: $220 MXN</p><small>El envío nacional cuesta $220 MXN y es gratis en compras desde $2,000 MXN. Si eliges pickup, coordinaremos la entrega por WhatsApp.</small></section><section class="bruma-customer-box" id="brumaCustomerBox"><h3>Datos para tu pedido</h3><p>Completa tus datos antes de continuar al pago seguro.</p><div class="bruma-customer-grid"><label>Nombre completo<input id="brumaCustomerName" type="text" autocomplete="name" maxlength="100" required placeholder="Nombre y apellidos"></label><label>Correo electrónico<input id="brumaCustomerEmail" type="email" autocomplete="email" maxlength="120" required placeholder="correo@ejemplo.com"></label><label>Celular (10 dígitos)<input id="brumaCustomerPhone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" required placeholder="8112345678"></label><div class="bruma-customer-wide"><label>Ciudad o municipio<input id="brumaCustomerCity" type="text" autocomplete="address-level2" maxlength="80" placeholder="Monterrey"></label><label>Estado<input id="brumaCustomerState" type="text" autocomplete="address-level1" maxlength="60" placeholder="Nuevo León"></label></div><div id="brumaShippingAddressFields" class="bruma-customer-wide"><div class="bruma-customer-grid"><label>Calle<input id="brumaCustomerStreet" type="text" autocomplete="address-line1" maxlength="120" placeholder="Nombre de la calle"></label><label>Número exterior<input id="brumaCustomerNumber" type="text" maxlength="20" placeholder="Ej. 123"></label><label>Colonia<input id="brumaCustomerNeighborhood" type="text" autocomplete="address-level3" maxlength="80" placeholder="Tu colonia"></label><label class="bruma-customer-wide">Referencias para la entrega (opcional)<input id="brumaCustomerReferences" type="text" maxlength="160" placeholder="Entre calles, color de fachada, etc."></label></div></div></div><small>Indica tu ciudad y estado. Pickup está disponible únicamente en Monterrey, Nuevo León; para envío nacional también necesitaremos tu domicilio y código postal.</small></section><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" id="brumaCartPay" aria-describedby="brumaPayNote" disabled>Pagar productos + envío con Mercado Pago</button><p class="bruma-cart-note" id="brumaPayNote">Envío nacional $220 MXN; gratis en compras desde $2,000 MXN.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
+    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><section class="bruma-shipping-box"><h3>Forma de entrega</h3><label for="brumaDeliveryMethod">¿Cómo quieres recibir tu pedido?</label><select id="brumaDeliveryMethod" class="bruma-delivery-select"><option value="envio">Envío nacional · $220 MXN</option><option value="pickup">Pickup / recoger en persona · Gratis</option></select><div id="brumaZipField"><label for="brumaZipCode">Código postal de entrega</label><input id="brumaZipCode" type="text" inputmode="numeric" maxlength="5" placeholder="Ej. 64000" autocomplete="postal-code"></div><p id="brumaShippingTotal" class="bruma-shipping-total">Envío nacional: $220 MXN</p><small>El envío nacional cuesta $220 MXN y es gratis en compras desde $2,000 MXN. Si eliges pickup, coordinaremos la entrega por WhatsApp.</small></section><section class="bruma-customer-box" id="brumaCustomerBox"><h3>Datos para tu pedido</h3><p>Completa tus datos antes de continuar al pago seguro.</p><div class="bruma-customer-grid"><label>Nombre completo<input id="brumaCustomerName" type="text" autocomplete="name" maxlength="100" required placeholder="Nombre y apellidos"></label><label>Correo electrónico<input id="brumaCustomerEmail" type="email" autocomplete="email" maxlength="120" required placeholder="correo@ejemplo.com"></label><label>Celular (10 dígitos)<input id="brumaCustomerPhone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" required placeholder="8112345678"></label><div class="bruma-customer-wide"><label>Ciudad o municipio<input id="brumaCustomerCity" type="text" autocomplete="address-level2" maxlength="80" placeholder="Monterrey"></label><label>Estado<input id="brumaCustomerState" type="text" autocomplete="address-level1" maxlength="60" placeholder="Nuevo León"></label></div><div id="brumaShippingAddressFields" class="bruma-customer-wide"><div class="bruma-customer-grid"><label>Calle<input id="brumaCustomerStreet" type="text" autocomplete="address-line1" maxlength="120" placeholder="Nombre de la calle"></label><label>Número exterior<input id="brumaCustomerNumber" type="text" maxlength="20" placeholder="Ej. 123"></label><label>Colonia<input id="brumaCustomerNeighborhood" type="text" autocomplete="address-level3" maxlength="80" placeholder="Tu colonia"></label><label class="bruma-customer-wide">Referencias para la entrega (opcional)<input id="brumaCustomerReferences" type="text" maxlength="160" placeholder="Entre calles, color de fachada, etc."></label></div></div></div><small>Indica tu ciudad y estado. Pickup está disponible únicamente en Monterrey, Nuevo León; para envío nacional también necesitaremos tu domicilio y código postal.</small></section><p id="brumaPromoTotal" class="bruma-cart-note" hidden></p><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" id="brumaCartPay" aria-describedby="brumaPayNote" disabled>Pagar productos + envío con Mercado Pago</button><p class="bruma-cart-note" id="brumaPayNote">Envío nacional $220 MXN; gratis en compras desde $2,000 MXN.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
     document.body.appendChild(dialog);
     launcher.addEventListener("click",abrirCarrito);
     document.getElementById("brumaDeliveryMethod").addEventListener("change",function(){
@@ -368,9 +383,9 @@
       if(!carrito.length)return;
       var lineas=carrito.map(function(x){return "• "+x.cantidad+" × "+x.nombre+" (N.º "+num2(x.num)+") — "+dinero(x.precio*x.cantidad);});
       var metodo=document.getElementById("brumaDeliveryMethod").value;
-      var subtotal=totalCarrito(), envio=metodo==="pickup"||subtotal>=2000?0:220;
+      var subtotal=totalCarrito(), descuento=descuentoPromoCarrito(), productosConPromo=subtotal-descuento, envio=metodo==="pickup"||productosConPromo>=2000?0:220;
       var detalleEntrega=metodo==="pickup"?"Pickup / recoger en persona: Gratis":envio===0?"Envío nacional: Gratis (compra desde $2,000 MXN)":"Envío nacional: "+dinero(envio);
-      var mensaje="Hola Bruma Scent, quiero realizar este pedido:\n\n"+lineas.join("\n")+"\n\nProductos: "+dinero(subtotal)+"\n"+detalleEntrega+"\nTotal: "+dinero(subtotal+envio)+"\n¿Me confirmas disponibilidad y los detalles de entrega?";
+      var mensaje="Hola Bruma Scent, quiero realizar este pedido:\n\n"+lineas.join("\n")+"\n\nProductos: "+dinero(subtotal)+(descuento>0?"\nPromoción 3 perfumes por $600: -"+dinero(descuento):"")+"\n"+detalleEntrega+"\nTotal: "+dinero(productosConPromo+envio)+"\n¿Me confirmas disponibilidad y los detalles de entrega?";
       window.open("https://wa.me/"+String(CONFIG.whatsapp||"528115888283").replace(/\D/g,"")+"?text="+encodeURIComponent(mensaje),"_blank","noopener");
     });
     document.getElementById("brumaCartPay").addEventListener("click", async function(){
