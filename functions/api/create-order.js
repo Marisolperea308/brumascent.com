@@ -92,7 +92,6 @@ export async function onRequestPost({ request, env }) {
       email,
       first_name: firstName,
       last_name: lastName,
-      phone: { area_code: "52", number: phone },
       ...(deliveryMethod === "envio" ? { address: {
         zip_code: zip,
         street_name: street,
@@ -122,11 +121,18 @@ export async function onRequestPost({ request, env }) {
   const result = await mpResponse.json().catch(() => ({}));
   if (!mpResponse.ok || !result.checkout_url) {
     // Mostrar solo el diagnóstico técnico de Mercado Pago, sin datos del comprador ni credenciales.
-    const causes = Array.isArray(result.cause) ? result.cause.map(item => {
-      const code = item && item.code != null ? String(item.code) : "";
-      const description = item && item.description ? String(item.description) : "";
-      return [code, description].filter(Boolean).join(": ").slice(0, 180);
-    }).filter(Boolean).slice(0, 3) : [];
+    const causes = Array.isArray(result.cause)
+      ? result.cause.map(item => {
+          if (item && typeof item === "object") {
+            const code = item.code != null ? String(item.code) : "";
+            const description = item.description ? String(item.description) : "";
+            return [code, description].filter(Boolean).join(": ");
+          }
+          return String(item || "");
+        }).filter(Boolean).slice(0, 3)
+      : result.cause && typeof result.cause === "object"
+        ? [JSON.stringify(result.cause)]
+        : result.cause ? [String(result.cause)] : [];
     const detail = [
       result.message ? String(result.message) : "",
       result.error ? String(result.error) : "",
