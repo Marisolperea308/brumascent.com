@@ -294,10 +294,21 @@
     lista.innerHTML = carrito.map(function(x){
       return '<li class="bruma-cart-row"><div class="bruma-cart-info"><strong>'+esc(x.nombre)+'</strong><small>N.º '+num2(x.num)+' · '+dinero(x.precio)+'</small></div><div class="bruma-cart-qty"><button type="button" data-cart-action="menos" data-num="'+x.num+'" aria-label="Restar">−</button><span>'+x.cantidad+'</span><button type="button" data-cart-action="mas" data-num="'+x.num+'" aria-label="Sumar">+</button><button type="button" class="bruma-cart-remove" data-cart-action="quitar" data-num="'+x.num+'" aria-label="Eliminar">×</button></div></li>';
     }).join("");
-    var costoEnvio = carrito.length ? 220 : 0;
-    total.textContent = dinero(totalCarrito() + costoEnvio);
+    var entrega = document.getElementById("brumaDeliveryMethod");
+    var metodoEntrega = entrega ? entrega.value : "envio";
+    var subtotal = totalCarrito();
+    var envioGratis = metodoEntrega === "envio" && subtotal >= 2000;
+    var costoEnvio = metodoEntrega === "pickup" || envioGratis || !carrito.length ? 0 : 220;
+    total.textContent = dinero(subtotal + costoEnvio);
     var desglose = document.getElementById("brumaShippingTotal");
-    if (desglose) desglose.textContent = "Envío nacional: " + dinero(costoEnvio);
+    if (desglose) desglose.textContent = metodoEntrega === "pickup"
+      ? "Pickup / recoger en persona: Gratis"
+      : envioGratis ? "Envío nacional: Gratis por compra desde $2,000 MXN"
+      : "Envío nacional: " + dinero(costoEnvio);
+    var notaPago = document.getElementById("brumaPayNote");
+    if (notaPago) notaPago.textContent = metodoEntrega === "pickup"
+      ? "Recoge tu pedido; coordinaremos los detalles por WhatsApp."
+      : "Envío nacional $220 MXN; gratis en compras desde $2,000 MXN.";
     var wa = document.getElementById("brumaCartWhatsapp");
     if (wa) wa.disabled = carrito.length === 0;
     var pay = document.getElementById("brumaCartPay");
@@ -328,9 +339,15 @@
     document.body.appendChild(launcher);
     var dialog=document.createElement("dialog");
     dialog.id="brumaCartDialog";dialog.className="bruma-cart-dialog";
-    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><section class="bruma-shipping-box"><h3>Envío nacional</h3><label for="brumaZipCode">Código postal de entrega</label><input id="brumaZipCode" type="text" inputmode="numeric" maxlength="5" placeholder="Ej. 64000" autocomplete="postal-code"><p id="brumaShippingTotal" class="bruma-shipping-total">Envío nacional: $220 MXN</p><small>Tarifa fija para envíos dentro de México. Tu guía se prepara después de confirmar el pedido.</small></section><section class="bruma-customer-box" id="brumaCustomerBox">       <h3>Datos para tu entrega</h3>       <p>Completa tus datos antes de continuar al pago seguro.</p>       <div class="bruma-customer-grid">         <label>Nombre completo<input id="brumaCustomerName" type="text" autocomplete="name" maxlength="100" required placeholder="Nombre y apellidos"></label>         <label>Correo electrónico<input id="brumaCustomerEmail" type="email" autocomplete="email" maxlength="120" required placeholder="correo@ejemplo.com"></label>         <label>Celular (10 dígitos)<input id="brumaCustomerPhone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" required placeholder="8112345678"></label>         <label>Calle<input id="brumaCustomerStreet" type="text" autocomplete="address-line1" maxlength="120" required placeholder="Nombre de la calle"></label>         <label>Número exterior<input id="brumaCustomerNumber" type="text" maxlength="20" required placeholder="Ej. 123"></label>         <label>Colonia<input id="brumaCustomerNeighborhood" type="text" autocomplete="address-level3" maxlength="80" required placeholder="Tu colonia"></label>         <label>Ciudad o municipio<input id="brumaCustomerCity" type="text" autocomplete="address-level2" maxlength="80" required placeholder="Tu ciudad"></label>         <label>Estado<input id="brumaCustomerState" type="text" autocomplete="address-level1" maxlength="60" required placeholder="Tu estado"></label>         <label class="bruma-customer-wide">Referencias para la entrega (opcional)<input id="brumaCustomerReferences" type="text" maxlength="160" placeholder="Entre calles, color de fachada, etc."></label>       </div>       <small>Usaremos este código postal para registrar tu dirección de entrega.</small>     </section><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" id="brumaCartPay" aria-describedby="brumaPayNote" disabled>Pagar productos + envío con Mercado Pago</button><p class="bruma-cart-note" id="brumaPayNote">Envío nacional con tarifa fija de $220 MXN.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
+    dialog.innerHTML='<div class="bruma-cart-head"><div><small>BRUMA SCENT</small><h2>Tu carrito</h2></div><button type="button" id="brumaCartClose" aria-label="Cerrar">×</button></div><p class="bruma-cart-empty" id="brumaCartEmpty">Tu carrito está esperando sus primeros aromas.</p><ul id="brumaCartItems" class="bruma-cart-items"></ul><section class="bruma-shipping-box"><h3>Forma de entrega</h3><label for="brumaDeliveryMethod">¿Cómo quieres recibir tu pedido?</label><select id="brumaDeliveryMethod" class="bruma-delivery-select"><option value="envio">Envío nacional · $220 MXN</option><option value="pickup">Pickup / recoger en persona · Gratis</option></select><div id="brumaZipField"><label for="brumaZipCode">Código postal de entrega</label><input id="brumaZipCode" type="text" inputmode="numeric" maxlength="5" placeholder="Ej. 64000" autocomplete="postal-code"></div><p id="brumaShippingTotal" class="bruma-shipping-total">Envío nacional: $220 MXN</p><small>El envío nacional cuesta $220 MXN y es gratis en compras desde $2,000 MXN. Si eliges pickup, coordinaremos la entrega por WhatsApp.</small></section><section class="bruma-customer-box" id="brumaCustomerBox"><h3>Datos para tu pedido</h3><p>Completa tus datos antes de continuar al pago seguro.</p><div class="bruma-customer-grid"><label>Nombre completo<input id="brumaCustomerName" type="text" autocomplete="name" maxlength="100" required placeholder="Nombre y apellidos"></label><label>Correo electrónico<input id="brumaCustomerEmail" type="email" autocomplete="email" maxlength="120" required placeholder="correo@ejemplo.com"></label><label>Celular (10 dígitos)<input id="brumaCustomerPhone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" required placeholder="8112345678"></label><div id="brumaShippingAddressFields" class="bruma-customer-wide"><div class="bruma-customer-grid"><label>Calle<input id="brumaCustomerStreet" type="text" autocomplete="address-line1" maxlength="120" placeholder="Nombre de la calle"></label><label>Número exterior<input id="brumaCustomerNumber" type="text" maxlength="20" placeholder="Ej. 123"></label><label>Colonia<input id="brumaCustomerNeighborhood" type="text" autocomplete="address-level3" maxlength="80" placeholder="Tu colonia"></label><label>Ciudad o municipio<input id="brumaCustomerCity" type="text" autocomplete="address-level2" maxlength="80" placeholder="Tu ciudad"></label><label>Estado<input id="brumaCustomerState" type="text" autocomplete="address-level1" maxlength="60" placeholder="Tu estado"></label><label class="bruma-customer-wide">Referencias para la entrega (opcional)<input id="brumaCustomerReferences" type="text" maxlength="160" placeholder="Entre calles, color de fachada, etc."></label></div></div></div><small>Para envío necesitaremos tu domicilio y código postal. Para pickup solo pediremos tus datos de contacto.</small></section><div class="bruma-cart-total"><span>Total</span><strong id="brumaCartTotal">$0 MXN</strong></div><button type="button" class="bruma-cart-whatsapp" id="brumaCartWhatsapp">Enviar pedido por WhatsApp</button><button type="button" class="bruma-cart-pay" id="brumaCartPay" aria-describedby="brumaPayNote" disabled>Pagar productos + envío con Mercado Pago</button><p class="bruma-cart-note" id="brumaPayNote">Envío nacional $220 MXN; gratis en compras desde $2,000 MXN.</p><p class="bruma-cart-notice" id="brumaCartNotice" hidden aria-live="polite"></p>';
     document.body.appendChild(dialog);
     launcher.addEventListener("click",abrirCarrito);
+    document.getElementById("brumaDeliveryMethod").addEventListener("change",function(){
+      var pickup=this.value==="pickup";
+      document.getElementById("brumaZipField").hidden=pickup;
+      document.getElementById("brumaShippingAddressFields").hidden=pickup;
+      renderCarrito();
+    });
     document.getElementById("brumaCartClose").addEventListener("click",function(){dialog.close();});
     dialog.addEventListener("click",function(e){if(e.target===dialog)dialog.close();});
     dialog.addEventListener("click",function(e){
@@ -344,7 +361,10 @@
     document.getElementById("brumaCartWhatsapp").addEventListener("click",function(){
       if(!carrito.length)return;
       var lineas=carrito.map(function(x){return "• "+x.cantidad+" × "+x.nombre+" (N.º "+num2(x.num)+") — "+dinero(x.precio*x.cantidad);});
-      var mensaje="Hola Bruma Scent, quiero realizar este pedido:\n\n"+lineas.join("\n")+"\n\nProductos: "+dinero(totalCarrito())+"\nEnvío nacional: "+dinero(220)+"\nTotal: "+dinero(totalCarrito()+220)+"\n¿Me confirmas disponibilidad?";
+      var metodo=document.getElementById("brumaDeliveryMethod").value;
+      var subtotal=totalCarrito(), envio=metodo==="pickup"||subtotal>=2000?0:220;
+      var detalleEntrega=metodo==="pickup"?"Pickup / recoger en persona: Gratis":envio===0?"Envío nacional: Gratis (compra desde $2,000 MXN)":"Envío nacional: "+dinero(envio);
+      var mensaje="Hola Bruma Scent, quiero realizar este pedido:\n\n"+lineas.join("\n")+"\n\nProductos: "+dinero(subtotal)+"\n"+detalleEntrega+"\nTotal: "+dinero(subtotal+envio)+"\n¿Me confirmas disponibilidad y los detalles de entrega?";
       window.open("https://wa.me/"+String(CONFIG.whatsapp||"528115888283").replace(/\D/g,"")+"?text="+encodeURIComponent(mensaje),"_blank","noopener");
     });
     document.getElementById("brumaCartPay").addEventListener("click", async function(){
@@ -361,7 +381,10 @@
       var ciudadCliente=String(document.getElementById("brumaCustomerCity").value||"").trim();
       var estadoCliente=String(document.getElementById("brumaCustomerState").value||"").trim();
       var referenciasCliente=String(document.getElementById("brumaCustomerReferences").value||"").trim();
-      if(partesNombre.length<2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correoCliente) || telefonoCliente.length!==10 || !calleCliente || !numeroCliente || !coloniaCliente || !ciudadCliente || !estadoCliente){
+      var metodoEntrega=document.getElementById("brumaDeliveryMethod").value;
+      var requiereDomicilio=metodoEntrega==="envio";
+      if(partesNombre.length<2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correoCliente) || telefonoCliente.length!==10 ||
+        (requiereDomicilio && (!calleCliente || !numeroCliente || !coloniaCliente || !ciudadCliente || !estadoCliente))){
         if(aviso){aviso.hidden=false;aviso.textContent="Completa tus datos: nombre y apellidos, correo válido, celular de 10 dígitos y domicilio.";}
         document.getElementById("brumaCustomerBox").scrollIntoView({behavior:"smooth",block:"center"});
         return;
@@ -374,12 +397,12 @@
       if(aviso){aviso.hidden=false;aviso.textContent="Estamos preparando tu pago seguro.";}
       try {
         var codigoPostal = String(document.getElementById("brumaZipCode").value || "").replace(/\D/g,"");
-       if(!/^\d{5}$/.test(codigoPostal)) throw new Error("Escribe un código postal válido de 5 dígitos.");
+       if(requiereDomicilio && !/^\d{5}$/.test(codigoPostal)) throw new Error("Escribe un código postal válido de 5 dígitos.");
         var respuesta=await fetch("/api/create-order",{
           method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({
             items:carrito.map(function(x){return {num:x.num,quantity:x.cantidad};}),
-            shipping:{zipCode:codigoPostal},
+            shipping:{method:metodoEntrega,zipCode:codigoPostal},
             customer:customerData
           })
         });
