@@ -63,6 +63,11 @@ export async function onRequestPost({ request, env }) {
   const deliveryMethod = shipping.method === "pickup" ? "pickup" : shipping.method === "envio" ? "envio" : "";
   if (!deliveryMethod) return reply({ error: "Selecciona una forma de entrega válida." }, 400, origin);
   const zip = String(shipping.zipCode || "").replace(/\D/g, "");
+  const normalizedCity = city.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim();
+  const normalizedState = state.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim();
+  if (deliveryMethod === "pickup" && !(normalizedCity === "monterrey" && (normalizedState === "nuevo leon" || normalizedState === "nl"))) {
+    return reply({ error: "Pickup está disponible únicamente en Monterrey, Nuevo León. Selecciona envío nacional para otra ubicación." }, 400, origin);
+  }
   if (deliveryMethod === "envio" && (!street || !streetNumber || !neighborhood || !city || !state)) {
     return reply({ error: "Completa tu domicilio para el envío." }, 400, origin);
   }
