@@ -133,9 +133,19 @@ export async function onRequestPost({ request, env }) {
       : result.cause && typeof result.cause === "object"
         ? [JSON.stringify(result.cause)]
         : result.cause ? [String(result.cause)] : [];
+    const apiErrors = Array.isArray(result.errors)
+      ? result.errors.map(item => {
+          if (!item || typeof item !== "object") return String(item || "");
+          const code = item.code != null ? String(item.code) : "";
+          const description = item.description ? String(item.description) : "";
+          const path = item.path ? String(item.path) : "";
+          return [path, code, description].filter(Boolean).join(": ");
+        }).filter(Boolean).slice(0, 5)
+      : [];
     const detail = [
       result.message ? String(result.message) : "",
       result.error ? String(result.error) : "",
+      ...apiErrors,
       ...causes
     ].filter(Boolean).join(" · ").slice(0, 420);
     console.error("Mercado Pago order error", mpResponse.status, {
