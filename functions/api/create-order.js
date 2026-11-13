@@ -88,7 +88,7 @@ export async function onRequestPost({ request, env }) {
       first_name: firstName,
       last_name: lastName,
       phone: { area_code: "52", number: phone },
-      address: {
+      ...(deliveryMethod === "envio" ? { address: {
         zip_code: zip,
         street_name: street,
         street_number: streetNumber,
@@ -96,7 +96,7 @@ export async function onRequestPost({ request, env }) {
         city,
         state,
         complement: references
-      }
+      } } : {})
     },
     items
   };
