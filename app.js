@@ -419,7 +419,13 @@
           })
         });
         etapaPago="leyendo la respuesta del servidor";
-        var datos=await respuesta.json();
+        var textoRespuesta=await respuesta.text();
+        var datos={};
+        try { datos=textoRespuesta ? JSON.parse(textoRespuesta) : {}; }
+        catch(parseError) {
+          var fragmento=String(textoRespuesta||"").replace(/\\s+/g," ").slice(0,180);
+          throw new Error("El servidor respondió HTTP "+respuesta.status+" con un formato inesperado"+(fragmento ? ": "+fragmento : "."));
+        }
         if(!respuesta.ok || !datos.checkout_url) throw new Error([datos.error,datos.detail].filter(Boolean).join(" — ") || ("No se pudo iniciar el pago (HTTP "+respuesta.status+")."));
         etapaPago="validando el enlace seguro de Mercado Pago";
         var destino;
