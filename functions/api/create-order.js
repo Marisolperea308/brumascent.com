@@ -88,20 +88,6 @@ export async function onRequestPost({ request, env }) {
     total_amount: total.toFixed(2),
     external_reference: "BRUMA-" + crypto.randomUUID(),
     description: "Pedido en línea Bruma Scent",
-    payer: {
-      email,
-      first_name: firstName,
-      last_name: lastName,
-      ...(deliveryMethod === "envio" ? { address: {
-        zip_code: zip,
-        street_name: street,
-        street_number: streetNumber,
-        neighborhood,
-        city,
-        state,
-        complement: references
-      } } : {})
-    },
     items
   };
   let mpResponse;
