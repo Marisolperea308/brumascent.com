@@ -56,19 +56,24 @@ export async function onRequestPost({ request, env }) {
   const city = String(customer.city || "").trim();
   const state = String(customer.state || "").trim();
   const references = String(customer.references || "").trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !firstName || !lastName ||
-      !/^\d{10}$/.test(phone) || !street || !streetNumber || !neighborhood || !city || !state) {
-    return reply({ error: "Completa correctamente tus datos de contacto y domicilio antes de pagar." }, 400, origin);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !firstName || !lastName || !/^\d{10}$/.test(phone)) {
+    return reply({ error: "Completa correctamente tu nombre, correo y celular antes de pagar." }, 400, origin);
   }
-  // Envío nacional con tarifa fija; la guía se compra manualmente fuera de la tienda.
   const shipping = body.shipping || {};
+  const deliveryMethod = shipping.method === "pickup" ? "pickup" : shipping.method === "envio" ? "envio" : "";
+  if (!deliveryMethod) return reply({ error: "Selecciona una forma de entrega válida." }, 400, origin);
   const zip = String(shipping.zipCode || "").replace(/\D/g, "");
-  if (!/^\d{5}$/.test(zip)) {
+  if (deliveryMethod === "envio" && (!street || !streetNumber || !neighborhood || !city || !state)) {
+    return reply({ error: "Completa tu domicilio para el envío." }, 400, origin);
+  }
+  if (deliveryMethod === "envio" && !/^\d{5}$/.test(zip)) {
     return reply({ error: "Escribe un código postal mexicano válido de 5 dígitos." }, 400, origin);
   }
-  const shippingPrice = 220;
-  const courier = "Envío nacional (tarifa fija)";
-  items.push({ title: courier, quantity: 1, unit_price: shippingPrice.toFixed(2) });
+  const productsSubtotal = items.reduce((sum, item) => sum + Number(item.unit_price) * item.quantity, 0);
+  const shippingPrice = deliveryMethod === "pickup" || productsSubtotal >= 2000 ? 0 : 220;
+  const courier = deliveryMethod === "pickup" ? "Pickup / recoger en persona" :
+    shippingPrice === 0 ? "Envío nacional gratis (compra desde $2,000)" : "Envío nacional (tarifa fija)";
+  if (shippingPrice > 0) items.push({ title: courier, quantity: 1, unit_price: shippingPrice.toFixed(2) });
   const total = items.reduce((sum, item) => sum + Number(item.unit_price) * item.quantity, 0);
   const idempotencyKey = crypto.randomUUID();
   const payload = {
@@ -149,13 +154,13 @@ export async function onRequestPost({ request, env }) {
         firstName + " " + lastName,
         email,
         phone,
-        street,
-        streetNumber,
-        neighborhood,
-        city,
-        state,
-        zip,
-        references,
+        deliveryMethod === "envio" ? street : "",
+        deliveryMethod === "envio" ? streetNumber : "",
+        deliveryMethod === "envio" ? neighborhood : "",
+        deliveryMethod === "envio" ? city : "",
+        deliveryMethod === "envio" ? state : "",
+        deliveryMethod === "envio" ? zip : "",
+        deliveryMethod === "envio" ? references : "",
         JSON.stringify(body.items.map(row => {
           const product = CATALOG.find(p => p.num === Number(row.num));
           return { num: Number(row.num), nombre: product ? product.name : "", cantidad: Number(row.quantity), precio: product ? product.price : 0 };
