@@ -325,7 +325,7 @@
       ? "Recoge tu pedido; coordinaremos los detalles por WhatsApp."
       : "Envío nacional $220 MXN; gratis en compras desde $2,000 MXN.";
     var opcionEnvio = entrega && entrega.options ? entrega.options[0] : null;
-    if (opcionEnvio) opcionEnvio.textContent = subtotal >= 2000 ? "Envío nacional · Gratis" : "Envío nacional · $220 MXN";
+    if (opcionEnvio) opcionEnvio.textContent = totalProductos >= 2000 ? "Envío nacional · Gratis" : "Envío nacional · $220 MXN";
     var botonPagar = document.getElementById("brumaCartPay");
     if (botonPagar) botonPagar.textContent = metodoEntrega === "pickup"
       ? "Pagar pedido con Mercado Pago"
@@ -636,7 +636,7 @@
     bar.id = "promoBuenFin";
     bar.className = "promo-buenfin";
     bar.setAttribute("aria-label", "Promoción especial Buen Fin Bruma Scent");
-    bar.innerHTML = '<div class="promo-buenfin-inner"><span class="promo-buenfin-kicker">BRUMA SCENT · ESPECIAL BUEN FIN</span><strong class="promo-buenfin-price">3 PERFUMES POR <b>$600</b></strong><span class="promo-buenfin-dates">12 AL 16 DE NOVIEMBRE</span><span class="promo-buenfin-note">Arma tu trío de aromas favoritos · No aplica en aromatizantes navideños</span><a class="promo-buenfin-cta" href="mujer.html">Elegir mis perfumes ↗</a></div>';
+    bar.innerHTML = '<div class="promo-buenfin-inner"><span class="promo-buenfin-kicker">BRUMA SCENT · ESPECIAL BUEN FIN</span><strong class="promo-buenfin-price">3 PERFUMES POR <b>$600</b></strong><span class="promo-buenfin-dates">12 AL 16 DE NOVIEMBRE</span><span class="promo-buenfin-note">Promoción exclusiva en perfumes · Aromatizantes no participan</span><a class="promo-buenfin-cta" href="mujer.html">Elegir mis perfumes ↗</a></div>';
     var seasonal = document.getElementById("navidadBar");
     if (seasonal && seasonal.parentNode) seasonal.parentNode.insertBefore(bar, seasonal.nextSibling);
     else document.body.insertBefore(bar, document.body.firstChild);
