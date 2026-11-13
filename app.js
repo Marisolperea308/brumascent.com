@@ -410,7 +410,7 @@
         var codigoPostal = String(document.getElementById("brumaZipCode").value || "").replace(/\D/g,"");
        if(requiereDomicilio && !/^\d{5}$/.test(codigoPostal)) throw new Error("Escribe un código postal válido de 5 dígitos.");
         etapaPago="conectando con el servidor de Bruma Scent";
-        var respuesta=await fetch("/api/create-order",{
+        var respuesta=await fetch("https://brumascent-com.pages.dev/api/create-order",{
           method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({
             items:carrito.map(function(x){return {num:x.num,quantity:x.cantidad};}),
