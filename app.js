@@ -389,8 +389,11 @@
       var referenciasCliente=String(document.getElementById("brumaCustomerReferences").value||"").trim();
       var metodoEntrega=document.getElementById("brumaDeliveryMethod").value;
       var requiereDomicilio=metodoEntrega==="envio";
+      var ciudadNormalizada=ciudadCliente.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").trim();
+      var estadoNormalizado=estadoCliente.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").trim();
+      var pickupPermitido=ciudadNormalizada==="monterrey" && (estadoNormalizado==="nuevo leon" || estadoNormalizado==="nl");
       if(partesNombre.length<2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correoCliente) || telefonoCliente.length!==10 ||
-        (requiereDomicilio && (!calleCliente || !numeroCliente || !coloniaCliente || !ciudadCliente || !estadoCliente))){
+        (!ciudadCliente || !estadoCliente) || (metodoEntrega==="pickup" && !pickupPermitido) || (requiereDomicilio && (!calleCliente || !numeroCliente || !coloniaCliente))){
         if(aviso){aviso.hidden=false;aviso.textContent="Completa nombre, correo, celular, ciudad y estado. Pickup solo está disponible en Monterrey, Nuevo León; para envío agrega tu domicilio.";}
         document.getElementById("brumaCustomerBox").scrollIntoView({behavior:"smooth",block:"center"});
         return;
