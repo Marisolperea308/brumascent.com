@@ -416,7 +416,7 @@
           })
         });
         var datos=await respuesta.json();
-        if(!respuesta.ok || !datos.checkout_url) throw new Error(datos.error || ("No se pudo iniciar el pago (HTTP "+respuesta.status+")."));
+        if(!respuesta.ok || !datos.checkout_url) throw new Error([datos.error,datos.detail].filter(Boolean).join(" — ") || ("No se pudo iniciar el pago (HTTP "+respuesta.status+")."));
         var destino;
         try { destino=new URL(datos.checkout_url); } catch(_) { throw new Error("Mercado Pago respondió con un enlace de pago no válido. Estamos revisando la conexión."); }
         var host=destino.hostname.toLowerCase();
