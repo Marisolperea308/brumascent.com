@@ -32,6 +32,12 @@ export async function onRequestPost({ request, env }) {
   if (!Array.isArray(body.items) || body.items.length < 1 || body.items.length > 30) {
     return reply({ error: "El carrito está vacío o contiene demasiados productos." }, 400, origin);
   }
+  const perfumeUnits = body.items.reduce((sum, row) => {
+    const product = CATALOG.find(p => p.num === Number(row.num));
+    const quantity = Number(row.quantity);
+    return sum + (product && product.num < 200 && Number.isInteger(quantity) && quantity > 0 ? quantity : 0);
+  }, 0);
+  let discountedPerfumeUnits = Math.floor(perfumeUnits / 3) * 3;
   const items = [];
   for (const row of body.items) {
     const product = CATALOG.find(p => p.num === Number(row.num));
@@ -39,11 +45,28 @@ export async function onRequestPost({ request, env }) {
     if (!product || !product.available || !Number.isInteger(quantity) || quantity < 1 || quantity > 20) {
       return reply({ error: "Hay un producto o cantidad no válida en tu carrito. Actualiza la página e inténtalo de nuevo." }, 400, origin);
     }
-    items.push({
-      title: product.name,
-      quantity,
-      unit_price: product.price.toFixed(2)
-    });
+    if (product.num < 200 && discountedPerfumeUnits > 0) {
+      const promoQuantity = Math.min(quantity, discountedPerfumeUnits);
+      discountedPerfumeUnits -= promoQuantity;
+      items.push({
+        title: product.name + " (Promoción 3 perfumes por $600)",
+        quantity: promoQuantity,
+        unit_price: "200.00"
+      });
+      if (quantity > promoQuantity) {
+        items.push({
+          title: product.name,
+          quantity: quantity - promoQuantity,
+          unit_price: product.price.toFixed(2)
+        });
+      }
+    } else {
+      items.push({
+        title: product.name,
+        quantity,
+        unit_price: product.price.toFixed(2)
+      });
+    }
   }
   const customer = body.customer || {};
   const email = String(customer.email || "").trim();
