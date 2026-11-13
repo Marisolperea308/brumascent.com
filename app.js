@@ -309,6 +309,12 @@
     if (notaPago) notaPago.textContent = metodoEntrega === "pickup"
       ? "Recoge tu pedido; coordinaremos los detalles por WhatsApp."
       : "Envío nacional $220 MXN; gratis en compras desde $2,000 MXN.";
+    var opcionEnvio = entrega && entrega.options ? entrega.options[0] : null;
+    if (opcionEnvio) opcionEnvio.textContent = subtotal >= 2000 ? "Envío nacional · Gratis" : "Envío nacional · $220 MXN";
+    var botonPagar = document.getElementById("brumaCartPay");
+    if (botonPagar) botonPagar.textContent = metodoEntrega === "pickup"
+      ? "Pagar pedido con Mercado Pago"
+      : "Pagar productos + envío con Mercado Pago";
     var wa = document.getElementById("brumaCartWhatsapp");
     if (wa) wa.disabled = carrito.length === 0;
     var pay = document.getElementById("brumaCartPay");
