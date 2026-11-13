@@ -376,6 +376,7 @@
     document.getElementById("brumaCartPay").addEventListener("click", async function(){
       if(!carrito.length) return;
       var boton=this;
+      var etapaPago="validando datos";
       var aviso=document.getElementById("brumaCartNotice");
       var nombreCliente=String(document.getElementById("brumaCustomerName").value||"").trim().replace(/\s+/g," ");
       var partesNombre=nombreCliente.split(" ");
@@ -405,8 +406,10 @@
       boton.disabled=true; boton.textContent="Conectando con Mercado Pago…";
       if(aviso){aviso.hidden=false;aviso.textContent="Estamos preparando tu pago seguro.";}
       try {
+        etapaPago="validando código postal";
         var codigoPostal = String(document.getElementById("brumaZipCode").value || "").replace(/\D/g,"");
        if(requiereDomicilio && !/^\d{5}$/.test(codigoPostal)) throw new Error("Escribe un código postal válido de 5 dígitos.");
+        etapaPago="conectando con el servidor de Bruma Scent";
         var respuesta=await fetch("/api/create-order",{
           method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({
@@ -415,16 +418,20 @@
             customer:customerData
           })
         });
+        etapaPago="leyendo la respuesta del servidor";
         var datos=await respuesta.json();
         if(!respuesta.ok || !datos.checkout_url) throw new Error([datos.error,datos.detail].filter(Boolean).join(" — ") || ("No se pudo iniciar el pago (HTTP "+respuesta.status+")."));
+        etapaPago="validando el enlace seguro de Mercado Pago";
         var destino;
-        try { destino=new URL(datos.checkout_url); } catch(_) { throw new Error("Mercado Pago respondió con un enlace de pago no válido. Estamos revisando la conexión."); }
+        try { destino=new URL(datos.checkout_url); } catch(_) { throw new Error("El servidor respondió, pero el enlace de Mercado Pago no tiene un formato válido."); }
         var host=destino.hostname.toLowerCase();
         var dominioSeguro=["mercadopago.com.mx","mercadopago.com"].some(function(d){return host===d || host.endsWith("."+d);});
         if(destino.protocol!=="https:" || !dominioSeguro) throw new Error("El enlace recibido no pertenece a Mercado Pago. No continúes; estamos revisándolo.");
-        window.location.assign(destino.href);
+        etapaPago="abriendo el checkout de Mercado Pago";
+        window.location.href=destino.href;
       } catch(error) {
-        if(aviso){aviso.hidden=false;aviso.textContent=error.message || "No se pudo conectar con Mercado Pago. Intenta de nuevo.";}
+        console.error("Bruma Scent checkout:", etapaPago, error);
+        if(aviso){aviso.hidden=false;aviso.textContent="Error al "+etapaPago+": "+(error.message || "No se pudo conectar. Intenta de nuevo.");}
         boton.disabled=false;boton.textContent="Pagar en línea con Mercado Pago";
       }
     });
