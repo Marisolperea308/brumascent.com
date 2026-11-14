@@ -27,6 +27,7 @@ export async function onRequestPost({ request, env }) {
   const origin = request.headers.get("Origin") || "";
   if (!ALLOWED_ORIGINS.has(origin)) return reply({ error: "Origen no autorizado." }, 403, origin);
   if (!env.MP_ACCESS_TOKEN) return reply({ error: "Falta configurar MP_ACCESS_TOKEN en Cloudflare." }, 500, origin);
+  if (!env.DB) return reply({ error: "No está disponible el registro de pedidos. Intenta nuevamente en unos minutos." }, 503, origin);
   let body;
   try { body = await request.json(); } catch (_) { return reply({ error: "Solicitud inválida." }, 400, origin); }
   if (!Array.isArray(body.items) || body.items.length < 1 || body.items.length > 30) {
@@ -202,9 +203,7 @@ export async function onRequestPost({ request, env }) {
       ).run();
     } catch (dbError) {
       console.error("No se pudo guardar el pedido en D1", dbError && dbError.message ? dbError.message : "Error de base de datos");
+      return reply({ error: "No pudimos registrar tu pedido de forma segura. No continúes con el pago; intenta nuevamente en unos minutos." }, 503, origin);
     }
-  } else {
-    console.error("No se pudo guardar el pedido: falta el binding DB en Cloudflare.");
-  }
   return reply({ checkout_url: result.checkout_url, order_id: result.id }, 200, origin);
 }
