@@ -205,5 +205,7 @@ export async function onRequestPost({ request, env }) {
       console.error("No se pudo guardar el pedido en D1", dbError && dbError.message ? dbError.message : "Error de base de datos");
       return reply({ error: "No pudimos registrar tu pedido de forma segura. No continúes con el pago; intenta nuevamente en unos minutos." }, 503, origin);
     }
+  }
   return reply({ checkout_url: result.checkout_url, order_id: result.id }, 200, origin);
 }
+
