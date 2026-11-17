@@ -31,7 +31,7 @@ async function verifySignature(request, dataId, secret) {
   const manifest = manifestParts.map(part => part + ";").join("");
   const key = await crypto.subtle.importKey(
     "raw",
-    new TextEncoder().encode(secret),
+    new TextEncoder().encode(String(secret).trim()),
     { name: "HMAC", hash: "SHA-256" },
     false,
     ["sign"]
