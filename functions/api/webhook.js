@@ -21,9 +21,14 @@ async function verifySignature(request, dataId, secret) {
     const index = part.indexOf("=");
     return index < 0 ? ["", ""] : [part.slice(0, index).trim(), part.slice(index + 1).trim()];
   }));
-  if (!parts.ts || !parts.v1 || !dataId) return false;
+  if (!parts.ts || !parts.v1) return false;
 
-  const manifest = `id:${String(dataId).toLowerCase()};request-id:${requestId};ts:${parts.ts};`;
+  // Mercado Pago requiere omitir del manifest los pares cuyos valores no llegaron.
+  const manifestParts = [];
+  if (dataId) manifestParts.push(`id:${String(dataId).toLowerCase()}`);
+  if (requestId) manifestParts.push(`request-id:${requestId}`);
+  manifestParts.push(`ts:${parts.ts}`);
+  const manifest = manifestParts.map(part => part + ";").join("");
   const key = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(secret),
@@ -51,7 +56,9 @@ export async function onRequestPost({ request, env }) {
   const orderId = String(url.searchParams.get("data.id") || body.data?.id || "");
   if (!orderId) return json({ error: "Falta el identificador de la order." }, 400);
 
-  const valid = await verifySignature(request, orderId, env.MP_WEBHOOK_SECRET);
+  // La firma se calcula con data.id de la URL; el body solo sirve como respaldo para consultar la order.
+  const signatureDataId = url.searchParams.get("data.id") || "";
+  const valid = await verifySignature(request, signatureDataId, env.MP_WEBHOOK_SECRET);
   if (!valid) return json({ error: "Firma no válida." }, 401);
 
   // Consultamos la order directamente en Mercado Pago; no confiamos en el estado del webhook.
