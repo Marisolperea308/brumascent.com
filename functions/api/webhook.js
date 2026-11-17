@@ -25,7 +25,7 @@ async function verifySignature(request, dataId, secret) {
 
   // Mercado Pago exige conservar exactamente data.id al construir el manifest.
   const manifestParts = [];
-  if (dataId) manifestParts.push(`id:${String(dataId).toLowerCase()}`);
+  if (dataId) manifestParts.push(`id:${String(dataId)}`);
   if (requestId) manifestParts.push(`request-id:${requestId}`);
   manifestParts.push(`ts:${parts.ts}`);
   const manifest = manifestParts.map(part => part + ";").join("");
