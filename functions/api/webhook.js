@@ -58,8 +58,25 @@ export async function onRequestPost({ request, env }) {
 
   // La firma se calcula con data.id de la URL; el body solo sirve como respaldo para consultar la order.
   const signatureDataId = url.searchParams.get("data.id") || "";
+  const signatureHeader = request.headers.get("x-signature") || "";
+  const requestIdHeader = request.headers.get("x-request-id") || "";
   const valid = await verifySignature(request, signatureDataId, env.MP_WEBHOOK_SECRET);
-  if (!valid) return json({ error: "Firma no válida." }, 401);
+  if (!valid) {
+    const signatureParts = Object.fromEntries(signatureHeader.split(",").map(part => {
+      const index = part.indexOf("=");
+      return index < 0 ? ["", ""] : [part.slice(0, index).trim(), part.slice(index + 1).trim()];
+    }));
+    console.error("MP_WEBHOOK_SIGNATURE_DIAGNOSTIC", JSON.stringify({
+      hasSignature: Boolean(signatureHeader),
+      hasTimestamp: Boolean(signatureParts.ts),
+      hasV1: Boolean(signatureParts.v1),
+      hasQueryDataId: Boolean(signatureDataId),
+      hasRequestId: Boolean(requestIdHeader),
+      hasSecret: Boolean(env.MP_WEBHOOK_SECRET),
+      eventType: body.type || url.searchParams.get("type") || null
+    }));
+    return json({ error: "Firma no válida." }, 401);
+  }
 
   // Consultamos la order directamente en Mercado Pago; no confiamos en el estado del webhook.
   const mpResponse = await fetch("https://api.mercadopago.com/v1/orders/" + encodeURIComponent(orderId), {
