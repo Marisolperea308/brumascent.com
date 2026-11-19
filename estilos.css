@@ -985,3 +985,7 @@ body.navidad-season::before{background:#173b32}
 
 /* El sello dorado conserva sus colores originales en todas las vistas */
 .inicio .top-in .marca .logo{filter:none!important}
+
+/* Ajuste fino del sello en portada: compacto y nítido en móvil */
+.inicio .top-in .marca .logo{width:108px!important;max-height:150px;object-fit:contain;filter:none!important}
+@media(max-width:720px){.inicio .top-in{min-height:76px;padding-top:12px;padding-bottom:6px}.inicio .top-in .marca .logo{width:82px!important;max-height:118px}}
