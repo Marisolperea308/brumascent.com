@@ -997,3 +997,28 @@ body.navidad-season::before{background:#173b32}
  .inicio .top-in{min-height:66px;padding-top:8px;padding-bottom:4px;gap:12px}
  .inicio .top-in .marca .logo{width:46px!important;max-height:70px}
 }
+
+
+/* AJUSTE RESPONSIVE NOVIEMBRE 2026: encabezado compacto y logo proporcionado */
+.pagina-catalogo .top-in{min-height:82px;padding-top:8px;padding-bottom:8px;gap:18px}
+.pagina-catalogo .top-in .marca{display:flex;align-items:center;flex:0 0 auto}
+.pagina-catalogo .top-in .marca .logo{display:block;width:76px;height:auto;max-height:68px;object-fit:contain;filter:none}
+@media(max-width:720px){
+  .pagina-catalogo .top-in{min-height:68px;padding:7px max(18px,env(safe-area-inset-right,0px)) 7px max(18px,env(safe-area-inset-left,0px));gap:12px}
+  .pagina-catalogo .top-in .marca .logo{width:54px;height:auto;max-height:54px}
+  .pagina-catalogo .top-in .btn{min-height:38px;padding:0 18px;font-size:13px}
+}
+/* Barra navideña más ligera en móvil: no debe empujar el catálogo hacia abajo */
+.navidad-bar{min-height:76px;padding:12px 20px;gap:12px;align-items:center}
+.navidad-copy{flex:1;min-width:0;line-height:1.3}
+.navidad-copy strong{display:block;font-size:11px;letter-spacing:.18em}
+.navidad-copy small{display:block;font-size:13px;line-height:1.3}
+.navidad-magic{white-space:nowrap;padding:10px 14px}
+@media(max-width:600px){
+ .navidad-bar{min-height:68px;padding:10px 14px;gap:9px}
+ .navidad-copy strong{font-size:9px;letter-spacing:.12em}
+ .navidad-copy small{font-size:11px;max-width:190px}
+ .navidad-magic{padding:8px 10px;font-size:11px}
+ .navidad-sparkle-end{display:none}
+}
+/* Fin del ajuste responsive */
