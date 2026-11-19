@@ -171,8 +171,9 @@
     $("#rejilla").innerHTML = lista.map(function (p) {
       return '<li><button type="button" class="carta" data-num="' + p.num + '" aria-label="Ver notas de ' + esc(p.nombre) + '">' +
         '<span class="carta-top"><span class="carta-num">N.º ' + num2(p.num) + '</span><span class="carta-tag">' + esc(etiqueta(p)) + '</span></span>' +
-        '<span class="carta-img">' + (p.foto ? '<img class="foto-producto" src="' + esc(p.foto) + '" alt="" loading="lazy">'
-          : '<span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" loading="lazy" width="173" height="520"><i></i></span>') + '</span>' +
+        '<span class="carta-img">' + (!esAmbiental(p) ? '<img class="foto-producto foto-bruma" src="img/bruma-fragancia.jpg" alt="Frasco Bruma Scent" loading="lazy" width="300" height="450">'
+          : (p.foto ? '<img class="foto-producto" src="' + esc(p.foto) + '" alt="" loading="lazy">'
+          : '<span class="frasco" style="--tono:' + tono(p) + '"><img src="img/botella-neutra-sm.webp" alt="" loading="lazy" width="173" height="520"><i></i></span>')) + '</span>' +
         '<span class="carta-txt"><span class="carta-insp">' + (esAmbiental(p) ? "Aroma para tu hogar" : "Inspirado en") + '</span><span class="carta-nombre">' + esc(p.nombre) + '</span>' +
         '<span class="carta-marca">' + esc(esAmbiental(p) ? (p.presentacion || "") : p.marca) + '</span>' +
         ((p.precio || CONFIG.precioGeneral) ? '<span class="carta-precio">' + esc(p.precio || CONFIG.precioGeneral) + '</span>' : '') +
@@ -202,8 +203,13 @@
     $("#fichaNum").textContent = "N.º " + num2(p.num);
     $("#fichaMarca").textContent = esAmbiental(p) ? (p.presentacion || "Aroma para tu hogar") : "Inspirado en " + p.inspiradoEn + " · " + p.marca;
     var foto = $("#fichaFoto");
-    if (foto) { foto.hidden = !p.foto; if (p.foto) foto.src = p.foto; }
-    $("#fichaFrasco").hidden = !!p.foto;
+    if (foto) {
+      var fotoPerfume = !esAmbiental(p);
+      foto.hidden = fotoPerfume ? false : !p.foto;
+      if (fotoPerfume) foto.src = "img/bruma-fragancia.jpg";
+      else if (p.foto) foto.src = p.foto;
+    }
+    $("#fichaFrasco").hidden = !esAmbiental(p) || !!p.foto;
     $("#fichaNombre").textContent = p.nombre;
     $("#fichaFrasco").style.setProperty("--tono", tono(p));
     $("#fichaFamilia").textContent = p.familia;
