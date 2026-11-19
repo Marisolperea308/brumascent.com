@@ -984,4 +984,4 @@ body.navidad-season::before{background:#173b32}
 #brumaZipField input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #cbd3cc;border-radius:8px;background:#fff;color:#203d33;font:inherit}
 
 /* El sello dorado conserva sus colores originales en todas las vistas */
-.top-in .marca .logo{filter:none!important}
+.inicio .top-in .marca .logo{filter:none!important}
