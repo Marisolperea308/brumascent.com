@@ -548,7 +548,6 @@
     });
   }
   activarNavidad();
-  activarPromoBuenFin();
   pintarAromasInvierno("Todos");
   var inviernoFiltros = $("#inviernoFiltros");
   if (inviernoFiltros) inviernoFiltros.addEventListener("click", function (e) {
