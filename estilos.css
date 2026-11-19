@@ -1022,3 +1022,21 @@ body.navidad-season::before{background:#173b32}
  .navidad-sparkle-end{display:none}
 }
 /* Fin del ajuste responsive */
+
+
+/* LOGO DEL PIE: conservar el dorado original y evitar que domine la pantalla */
+.pie .pie-marca{
+  display:block;
+  width:clamp(104px,18vw,176px);
+  max-height:220px;
+  height:auto;
+  justify-self:center;
+  object-fit:contain;
+  filter:none!important;
+  opacity:1;
+  margin-inline:auto;
+}
+@media(max-width:700px){
+  .pie .pie-marca{width:112px;max-height:164px}
+}
+/* Fin del ajuste del logo del pie */
