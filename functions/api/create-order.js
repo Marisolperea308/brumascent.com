@@ -87,7 +87,7 @@ export async function onRequestPost({ request, env }) {
   const deliveryMethod = shipping.method === "pickup" ? "pickup" : shipping.method === "envio" ? "envio" : "";
   if (!deliveryMethod) return reply({ error: "Selecciona una forma de entrega válida." }, 400, origin);
   const zip = String(shipping.zipCode || "").replace(/\D/g, "");
-  const normalizeLocation = value => String(value || "").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").replace(/[^a-z]/g, "").trim();
+  const normalizeLocation = value => String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]/g, "").trim();
   const normalizedCity = normalizeLocation(city);
   const normalizedState = normalizeLocation(state);
   if (deliveryMethod === "pickup" && !(normalizedCity === "monterrey" && (normalizedState === "nuevoleon" || normalizedState === "nl"))) {
