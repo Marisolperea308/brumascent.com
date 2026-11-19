@@ -989,3 +989,11 @@ body.navidad-season::before{background:#173b32}
 /* Ajuste fino del sello en portada: compacto y nítido en móvil */
 .inicio .top-in .marca .logo{width:108px!important;max-height:150px;object-fit:contain;filter:none!important}
 @media(max-width:720px){.inicio .top-in{min-height:76px;padding-top:12px;padding-bottom:6px}.inicio .top-in .marca .logo{width:82px!important;max-height:118px}}
+
+/* Logo oficial: tamaño de sello discreto en portada */
+.inicio .top-in .marca{display:flex;align-items:center;flex:0 0 auto}
+.inicio .top-in .marca .logo{display:block;width:64px!important;height:auto!important;max-height:96px;object-fit:contain;filter:none!important}
+@media(max-width:720px){
+ .inicio .top-in{min-height:66px;padding-top:8px;padding-bottom:4px;gap:12px}
+ .inicio .top-in .marca .logo{width:46px!important;max-height:70px}
+}
