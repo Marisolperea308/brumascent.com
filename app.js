@@ -405,7 +405,7 @@
       var referenciasCliente=String(document.getElementById("brumaCustomerReferences").value||"").trim();
       var metodoEntrega=document.getElementById("brumaDeliveryMethod").value;
       var requiereDomicilio=metodoEntrega==="envio";
-      var normalizarUbicacion=function(valor){return String(valor||"").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/[^a-z]/g,"").trim();};
+      var normalizarUbicacion=function(valor){return String(valor||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z]/g,"").trim();};
       var ciudadNormalizada=normalizarUbicacion(ciudadCliente);
       var estadoNormalizado=normalizarUbicacion(estadoCliente);
       var pickupPermitido=ciudadNormalizada==="monterrey" && (estadoNormalizado==="nuevoleon" || estadoNormalizado==="nl");
