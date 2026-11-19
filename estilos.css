@@ -1040,3 +1040,8 @@ body.navidad-season::before{background:#173b32}
   .pie .pie-marca{width:112px;max-height:164px}
 }
 /* Fin del ajuste del logo del pie */
+
+/* Fotografía unificada Bruma Scent en catálogo: fondo blanco y encuadre consistente */
+.carta-img{background:#fff!important;overflow:hidden}
+.carta-img .foto-bruma{width:auto;height:198px;max-width:88%;object-fit:contain;filter:none}
+.ficha-img .foto-bruma{height:min(460px,52vh);width:auto;max-width:100%;object-fit:contain;filter:none}
