@@ -911,7 +911,6 @@ body.navidad-season::before{background:#173b32}
 @media(max-width:700px){.resultado-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.buscador-controles{grid-template-columns:1fr}.buscador-submit{width:100%}}
 @media(max-width:420px){.resultado-grid{grid-template-columns:1fr}.resultado-card{min-height:0}}
 
-/* BRUMA SCENT · PROMOCIÓN ESPECIAL BUEN FIN */
 
 
 /* BRUMA SCENT · CARRITO DE COMPRAS */
