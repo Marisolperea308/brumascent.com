@@ -2532,4 +2532,44 @@ window.PERFUMES = [
     masPedido: false
   },
 
+
+  {
+    num: 203,
+    nombre: "Red Hibiscus",
+    inspiradoEn: "Red Hibiscus",
+    marca: "Jo Malone London",
+    genero: "mujer",
+    familia: "Floral ambarino",
+    tono: "#a51e27",
+    ocasion: "Día y noche, ocasiones especiales",
+    destacadas: ["Hibisco", "Orquídea", "Vainilla", "Jazmín", "Ámbar", "Mandarina"],
+    salida: [],
+    corazon: [],
+    fondo: [],
+    descripcion: "Una fragancia floral cálida y dulce, con notas de hibisco, orquídea y jazmín, acompañadas por vainilla, ámbar y un toque cítrico de mandarina.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+  {
+    num: 204,
+    nombre: "Peony & Blush Suede",
+    inspiradoEn: "Peony & Blush Suede",
+    marca: "Jo Malone London",
+    genero: "mujer",
+    familia: "Floral afrutado",
+    tono: "#e8a0b8",
+    ocasion: "Día, primavera y ocasiones especiales",
+    destacadas: ["Peonía", "Gamuza", "Manzana roja", "Rosa", "Jazmín", "Clavel"],
+    salida: [],
+    corazon: [],
+    fondo: [],
+    descripcion: "Una fragancia floral y afrutada que combina peonía y rosa con manzana roja, jazmín y clavel, sobre un matiz suave de gamuza.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
 ];
