@@ -2592,4 +2592,24 @@ window.PERFUMES = [
     masPedido: false
   },
 
+  {
+    num: 206,
+    nombre: "Libre Intense",
+    inspiradoEn: "Libre Intense",
+    marca: "Yves Saint Laurent",
+    genero: "mujer",
+    familia: "Floral",
+    tono: "#bd6b22",
+    ocasion: "Día y noche, otoño/invierno y ocasiones especiales",
+    destacadas: ["Vainilla", "Lavanda", "Haba tonka", "Flor de azahar", "Jazmín", "Mandarina"],
+    salida: ["Mandarina"],
+    corazon: ["Lavanda", "Flor de azahar", "Jazmín"],
+    fondo: ["Vainilla", "Haba tonka"],
+    descripcion: "Una fragancia floral cálida y envolvente. La mandarina aporta un destello cítrico que se funde con la lavanda y las flores blancas; al final, la vainilla y la haba tonka dejan una estela dulce, cremosa y sofisticada.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
 ];
