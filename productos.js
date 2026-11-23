@@ -2672,4 +2672,24 @@ window.PERFUMES = [
     masPedido: false
   },
 
+  {
+    num: 209,
+    nombre: "Khamrah",
+    inspiradoEn: "Khamrah",
+    marca: "Lattafa Perfumes",
+    genero: "unisex",
+    familia: "Oriental",
+    tono: "#c87520",
+    ocasion: "Noche, otoño/invierno y ocasiones especiales",
+    destacadas: ["Canela", "Vainilla", "Dátiles", "Praliné", "Haba tonka", "Nuez moscada"],
+    salida: ["Canela", "Nuez moscada", "Bergamota"],
+    corazon: ["Dátiles", "Praliné", "Nardos", "Mahonia"],
+    fondo: ["Vainilla", "Haba tonka", "Ámbar", "Benjuí", "Mirra", "Akigalawood"],
+    descripcion: "Una fragancia gourmand intensa y envolvente. La canela y la nuez moscada abren con un calor especiado que se mezcla con dátiles y praliné; la vainilla, la haba tonka y el ámbar dejan una estela dulce, cálida y seductora.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
 ];
