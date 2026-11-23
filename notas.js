@@ -7,6 +7,9 @@
    ========================================================= */
 window.FOTOS_NOTAS = {
   "_generica": { url: "https://images.unsplash.com/photo-1657901234353-e46efd785409", encuadre: "centro" },
+  "Humo": { url: "https://images.unsplash.com/photo-1788102264934-d1a3ca5125e1", encuadre: "centro" },
+  "Azúcar": { url: "https://images.unsplash.com/photo-1613228295977-3b5ac7533b36", encuadre: "centro" },
+  "Castaña": { url: "https://images.unsplash.com/photo-1767877609689-beff32b9c0ac", encuadre: "centro" },
   "Albaricoque": { url: "https://images.unsplash.com/photo-1767765562964-f1e750934d0f", encuadre: "centro" },
   "Aldehídos": { url: "https://images.unsplash.com/photo-1597075759290-5c29a23c8a16", encuadre: "centro" },
   "Alga roja": { url: "https://images.unsplash.com/photo-1648020928583-2b3f33152113", encuadre: "centro" },

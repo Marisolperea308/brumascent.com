@@ -2612,4 +2612,24 @@ window.PERFUMES = [
     masPedido: false
   },
 
+  {
+    num: 163,
+    nombre: "Stronger With You",
+    inspiradoEn: "Stronger With You",
+    marca: "Emporio Armani",
+    genero: "hombre",
+    familia: "Dulce",
+    tono: "#bd792e",
+    ocasion: "Día y noche, otoño/invierno y ocasiones especiales",
+    destacadas: ["Vainilla", "Castaña", "Azúcar", "Lavanda", "Salvia", "Humo"],
+    salida: ["Vainilla", "Castaña", "Azúcar"],
+    corazon: ["Lavanda", "Salvia"],
+    fondo: ["Humo"],
+    descripcion: "Una fragancia cálida, dulce y envolvente. La vainilla y la castaña se combinan con un toque azucarado; la lavanda y la salvia aportan un matiz aromático, mientras el humo deja una estela profunda y acogedora.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
 ];
