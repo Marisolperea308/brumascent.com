@@ -2692,4 +2692,24 @@ window.PERFUMES = [
     masPedido: false
   },
 
+  {
+    num: 210,
+    nombre: "Voce Viva",
+    inspiradoEn: "Voce Viva",
+    marca: "Valentino",
+    genero: "mujer",
+    familia: "Floral",
+    tono: "#e8c27d",
+    ocasion: "Día y noche, primavera y ocasiones especiales",
+    destacadas: ["Vainilla", "Azahar", "Mandarina", "Bergamota", "Haba tonka", "Gardenia"],
+    salida: ["Mandarina", "Bergamota"],
+    corazon: ["Azahar", "Gardenia"],
+    fondo: ["Vainilla", "Haba tonka", "Notas amaderadas"],
+    descripcion: "Una fragancia floral luminosa y femenina. La mandarina y la bergamota aportan una salida cítrica y chispeante; el azahar y la gardenia forman un corazón de flores blancas, mientras la vainilla y la haba tonka dejan un fondo dulce, cálido y elegante.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
 ];
