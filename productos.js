@@ -2652,4 +2652,24 @@ window.PERFUMES = [
     masPedido: false
   },
 
+  {
+    num: 208,
+    nombre: "Kenzo Amour",
+    inspiradoEn: "Kenzo Amour",
+    marca: "Kenzo",
+    genero: "mujer",
+    familia: "Oriental",
+    tono: "#9e2948",
+    ocasion: "Día y noche, otoño/invierno",
+    destacadas: ["Vainilla", "Arroz", "Frangipani", "Flor de cerezo", "Heliotropo", "Almizcle"],
+    salida: ["Arroz"],
+    corazon: ["Frangipani", "Flor de cerezo", "Heliotropo"],
+    fondo: ["Vainilla", "Almizcle", "Maderas suaves"],
+    descripcion: "Una fragancia cálida, delicada y envolvente. La nota cremosa de arroz se mezcla con flores suaves como el frangipani y la flor de cerezo; la vainilla, el heliotropo y el almizcle dejan una estela dulce, empolvada y reconfortante.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
 ];
