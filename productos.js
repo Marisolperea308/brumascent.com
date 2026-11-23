@@ -2572,4 +2572,24 @@ window.PERFUMES = [
     masPedido: false
   },
 
+  {
+    num: 205,
+    nombre: "Power of You",
+    inspiradoEn: "Power of You",
+    marca: "Emporio Armani",
+    genero: "mujer",
+    familia: "Floral frutal",
+    tono: "#9d174d",
+    ocasion: "Día, clima cálido y ocasiones especiales",
+    destacadas: ["Maracuyá", "Vainilla", "Naranja amarga", "Frangipani", "Notas solares", "Limón"],
+    salida: ["Maracuyá", "Naranja amarga", "Limón"],
+    corazon: ["Frangipani", "Notas solares"],
+    fondo: ["Vainilla"],
+    descripcion: "Una fragancia tropical, luminosa y adictiva. El maracuyá y los cítricos aportan una salida jugosa y chispeante; las notas solares y el frangipani evocan una piel cálida bajo el sol, mientras la vainilla deja un fondo dulce y envolvente.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
 ];

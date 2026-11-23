@@ -7,6 +7,7 @@
    ========================================================= */
 window.FOTOS_NOTAS = {
   "_generica": { url: "https://images.unsplash.com/photo-1657901234353-e46efd785409", encuadre: "centro" },
+  "Notas solares": { url: "https://images.unsplash.com/photo-1657901234353-e46efd785409", encuadre: "centro" },
   "Albaricoque": { url: "https://images.unsplash.com/photo-1767765562964-f1e750934d0f", encuadre: "centro" },
   "Aldehídos": { url: "https://images.unsplash.com/photo-1597075759290-5c29a23c8a16", encuadre: "centro" },
   "Alga roja": { url: "https://images.unsplash.com/photo-1648020928583-2b3f33152113", encuadre: "centro" },
