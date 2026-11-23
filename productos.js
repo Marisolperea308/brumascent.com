@@ -2712,4 +2712,24 @@ window.PERFUMES = [
     masPedido: false
   },
 
+  {
+    num: 211,
+    nombre: "Yum Boujee Marshmallow | 81",
+    inspiradoEn: "Yum Boujee Marshmallow | 81",
+    marca: "Kayali Fragrances",
+    genero: "mujer",
+    familia: "Dulce",
+    tono: "#e9b5b8",
+    ocasion: "Día y noche, todo el año",
+    destacadas: ["Malvavisco", "Fresa", "Crema", "Azúcar", "Vainilla", "Almizcle"],
+    salida: ["Fresa"],
+    corazon: ["Malvavisco", "Crema"],
+    fondo: ["Azúcar", "Vainilla", "Almizcle"],
+    descripcion: "Una fragancia gourmand, dulce y cremosa que combina la suavidad del malvavisco con fresa jugosa y crema. El azúcar y la vainilla aportan calidez, mientras el almizcle deja una sensación suave y envolvente.",
+    precio: "",
+    disponible: true,
+    nuevo: true,
+    masPedido: false
+  },
+
 ];
