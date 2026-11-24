@@ -23,9 +23,9 @@ async function verifySignature(request, dataId, secret) {
   }));
   if (!parts.ts || !parts.v1) return false;
 
-  // Para notificaciones de Orders, Mercado Pago requiere data.id en minúsculas al construir el manifest.
+  // Para Checkout API Orders, conservar data.id exactamente como llega en la query al construir el manifest.
   const manifestParts = [];
-  if (dataId) manifestParts.push(`id:${String(dataId).toLowerCase()}`);
+  if (dataId) manifestParts.push(`id:${String(dataId)}`);
   if (requestId) manifestParts.push(`request-id:${requestId}`);
   manifestParts.push(`ts:${parts.ts}`);
   const manifest = manifestParts.map(part => part + ";").join("");
@@ -56,7 +56,7 @@ export async function onRequestPost({ request, env }) {
   const orderId = String(url.searchParams.get("data.id") || body.data?.id || "");
   if (!orderId) return json({ error: "Falta el identificador de la order." }, 400);
 
-  // La firma se calcula con data.id de la URL en minúsculas; el body solo sirve como respaldo para consultar la order.
+  // La firma se calcula con el data.id original de la URL; el body solo sirve como respaldo para consultar la order.
   const signatureDataId = url.searchParams.get("data.id") || "";
   const signatureHeader = request.headers.get("x-signature") || "";
   const requestIdHeader = request.headers.get("x-request-id") || "";
