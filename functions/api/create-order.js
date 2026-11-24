@@ -77,9 +77,9 @@ export async function onRequestPost({ request, env }) {
     return reply({ error: "Escribe un código postal mexicano válido de 5 dígitos." }, 400, origin);
   }
   const productsSubtotal = items.reduce((sum, item) => sum + Number(item.unit_price) * item.quantity, 0);
-  const shippingPrice = deliveryMethod === "pickup" || productsSubtotal >= 2000 ? 0 : 220;
+  const shippingPrice = deliveryMethod === "pickup" || productsSubtotal >= 1999 ? 0 : 220;
   const courier = deliveryMethod === "pickup" ? "Pickup / recoger en persona" :
-    shippingPrice === 0 ? "Envío nacional gratis (compra desde $2,000)" : "Envío nacional (tarifa fija)";
+    shippingPrice === 0 ? "Envío nacional gratis (compra desde $1,999)" : "Envío nacional (tarifa fija)";
   if (shippingPrice > 0) items.push({ title: courier, quantity: 1, unit_price: shippingPrice.toFixed(2) });
   const total = items.reduce((sum, item) => sum + Number(item.unit_price) * item.quantity, 0);
   const idempotencyKey = crypto.randomUUID();
