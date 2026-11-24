@@ -36,7 +36,7 @@ export async function onRequestPost({ request, env }) {
   const perfumeUnits = body.items.reduce((sum, row) => {
     const product = CATALOG.find(p => p.num === Number(row.num));
     const quantity = Number(row.quantity);
-    return sum + (product && product.num < 200 && Number.isInteger(quantity) && quantity > 0 ? quantity : 0);
+    return sum + (product && (product.num < 200 || product.num === 203 || product.num === 204) && Number.isInteger(quantity) && quantity > 0 ? quantity : 0);
   }, 0);
   let discountedPerfumeUnits = Math.floor(perfumeUnits / 3) * 3;
   const items = [];
@@ -46,7 +46,7 @@ export async function onRequestPost({ request, env }) {
     if (!product || !product.available || !Number.isInteger(quantity) || quantity < 1 || quantity > 20) {
       return reply({ error: "Hay un producto o cantidad no válida en tu carrito. Actualiza la página e inténtalo de nuevo." }, 400, origin);
     }
-    if (product.num < 200 && discountedPerfumeUnits > 0) {
+    if ((product.num < 200 || product.num === 203 || product.num === 204) && discountedPerfumeUnits > 0) {
       const promoQuantity = Math.min(quantity, discountedPerfumeUnits);
       discountedPerfumeUnits -= promoQuantity;
       items.push({
