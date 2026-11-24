@@ -374,7 +374,7 @@
       if(!carrito.length)return;
       var lineas=carrito.map(function(x){return "• "+x.cantidad+" × "+x.nombre+" (N.º "+num2(x.num)+") — "+dinero(x.precio*x.cantidad);});
       var metodo=document.getElementById("brumaDeliveryMethod").value;
-      var productos=totalCarrito(), envio=metodo==="pickup"||productos>=2000?0:220;
+      var productos=totalCarrito(), envio=metodo==="pickup"||productos>=1999?0:220;
       var detalleEntrega=metodo==="pickup"?"Pickup / recoger en persona: Gratis":envio===0?"Envío nacional: Gratis (compra desde $1,999 MXN)":"Envío nacional: "+dinero(envio);
       var mensaje="Hola Bruma Scent, quiero realizar este pedido:\n\n"+lineas.join("\n")+"\n\nProductos: "+dinero(productos)+"\n"+detalleEntrega+"\nTotal: "+dinero(productos+envio)+"\n¿Me confirmas disponibilidad y los detalles de entrega?";
       window.open("https://wa.me/"+String(CONFIG.whatsapp||"528115888283").replace(/\D/g,"")+"?text="+encodeURIComponent(mensaje),"_blank","noopener");
