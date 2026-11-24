@@ -1269,7 +1269,7 @@ window.PERFUMES = [
     nombre: "Babycat",
     inspiradoEn: "Babycat (Le Vestiaire des Parfums)",
     marca: "Yves Saint Laurent",
-    genero: "mujer",
+    genero: "unisex",
     familia: "Dulce",
     tono: "#7a4a2a",
     ocasion: "Noche",
