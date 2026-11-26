@@ -1149,3 +1149,40 @@ body.navidad-season::before{background:#173b32}
   .nav a, .cuadro, .invierno-card-btn { transition: none !important; }
 }
 /* Fin de experiencia móvil navideña */
+
+
+/* Refinamiento móvil tras revisión visual en iPhone */
+@media (max-width: 720px) {
+  .top-in { padding-top: 6px; padding-bottom: 7px; gap: 5px 10px; }
+  .top .logo { width: 68px !important; height: 68px !important; object-fit: contain; }
+  .top-in > .btn { min-height: 42px; }
+  .nav { margin-top: 0; padding-top: 8px; padding-bottom: 9px; }
+
+  .cat-portada-in { padding-top: 28px; padding-bottom: 28px; }
+  .cat-volver { margin-bottom: 10px; }
+  .cat-portada h1 { margin: 8px 0 12px; }
+  .cat-portada-sub { margin: 0 0 14px; }
+  .cat-otro { font-size: 13px; line-height: 1.55; }
+
+  .catalogo { padding-top: 28px !important; padding-bottom: 112px !important; }
+  .cat-filtros { margin-top: 0; gap: 12px; }
+  .buscar { min-height: 54px; padding-inline: 12px; }
+  .buscar input { min-width: 0; width: 100%; }
+  .chips {
+    display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden;
+    gap: 8px; padding: 2px 2px 10px; margin-inline: -2px;
+    scroll-snap-type: x proximity; scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .chip { flex: 0 0 auto; scroll-snap-align: start; white-space: nowrap; }
+  .cat-cuenta { margin-top: 8px; }
+
+  /* Carrito compacto: deja libre el contenido y no tapa los filtros */
+  .bruma-cart-launcher {
+    right: 14px; bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    min-height: 50px; min-width: 54px; width: auto; padding: 0 13px;
+    border-radius: 999px; gap: 7px; box-shadow: 0 8px 24px rgba(13,43,35,.22);
+  }
+  .bruma-cart-launcher span { display: none; }
+  .bruma-cart-launcher b { min-width: 24px; min-height: 24px; }
+}
