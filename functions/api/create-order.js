@@ -86,7 +86,6 @@ export async function onRequestPost({ request, env }) {
   const payload = {
     type: "online",
     processing_mode: "manual",
-    capture_mode: "automatic_async",
     total_amount: total.toFixed(2),
     external_reference: "BRUMA-" + crypto.randomUUID(),
     description: "Pedido en línea Bruma Scent",
