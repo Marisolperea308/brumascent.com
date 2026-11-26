@@ -1215,3 +1215,71 @@ body.navidad-season::before{background:#173b32}
   .navidad-season .cat-portada-hogar .cat-portada-sub,
   .navidad-season .cat-portada-hogar .cat-volver { opacity: 1; }
 }
+
+
+/* =========================================================
+   BRUMA SCENT · AROMA FINDER
+   Página independiente; conserva los módulos de catálogo y carrito.
+   ========================================================= */
+.aroma-finder-page .top { position: relative; }
+.aroma-finder-page .cat-portada-unisex { background: linear-gradient(135deg,#173b32 0%,#244d40 55%,#6c343f 100%); }
+.aroma-finder-page .cat-portada-unisex h1,
+.aroma-finder-page .cat-portada-unisex .cat-portada-sub,
+.aroma-finder-page .cat-portada-unisex .cat-volver { color:#fff8ec; }
+.aroma-finder-page .cat-portada-in { max-width: 900px; text-align:center; padding-block: clamp(44px,8vw,88px); }
+.aroma-finder-page .cat-portada h1 { font-size:clamp(3rem,8vw,5.8rem); }
+.aroma-finder-page .cat-portada-sub { max-width: 620px; margin-inline:auto; }
+.aroma-finder-main { padding-block: clamp(42px,7vw,76px); }
+.aroma-finder-main .buscador-aroma-in { max-width: 850px; }
+.aroma-finder-main .buscador-form {
+  background:#fffdf8; border:1px solid #e4dccb; border-radius:22px;
+  padding:clamp(18px,4vw,34px); box-shadow:0 18px 48px rgba(23,59,50,.08);
+}
+.aroma-finder-main .buscador-form textarea,
+.aroma-finder-main .buscador-controles select {
+  width:100%; border:1px solid #d9ded5; border-radius:12px;
+  background:#fff; color:#173b32; padding:14px 15px; font:inherit;
+}
+.aroma-finder-main .buscador-form textarea { min-height:110px; resize:vertical; }
+.aroma-finder-main .buscador-chips { display:flex; flex-wrap:wrap; gap:9px; }
+.aroma-finder-main .buscador-chips button {
+  border:1px solid #d7dfd4; border-radius:999px; background:#f8f5ef;
+  color:#24483d; padding:10px 15px; font:inherit; cursor:pointer;
+}
+.aroma-finder-main .buscador-chips button[aria-pressed="true"] {
+  background:#173b32; border-color:#173b32; color:#fff8ec;
+}
+.aroma-finder-main .buscador-submit {
+  border:0; border-radius:999px; min-height:52px; padding:13px 24px;
+  background:#173b32; color:#fff8ec; font:inherit; font-weight:600; cursor:pointer;
+}
+.aroma-finder-main .resultado-gustos { margin-top:28px; }
+.aroma-finder-main .resultado-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.aroma-finder-main .resultado-card {
+  background:#fffdf8; border:1px solid #e3dac8; border-radius:18px;
+  padding:20px; min-width:0;
+}
+.aroma-finder-main .resultado-card h3 { color:#173b32; }
+.aroma-finder-main .resultado-link {
+  border:1px solid #c7ad74; border-radius:999px; padding:10px 15px;
+  background:transparent; color:#173b32; font:inherit; cursor:pointer;
+}
+.aroma-finder-teaser { padding:clamp(44px,7vw,78px) 0; background:linear-gradient(120deg,#173b32,#2c5548 62%,#663744); color:#fff8ec; text-align:center; }
+.aroma-finder-teaser-in { max-width:780px; }
+.aroma-finder-teaser .buscador-eyebrow { color:#e7d5a8; }
+.aroma-finder-teaser h2 { color:#fff8ec; font:clamp(2.4rem,6vw,4rem) var(--f-display); margin:12px 0; }
+.aroma-finder-teaser p:not(.buscador-eyebrow) { max-width:620px; margin:0 auto 24px; color:#f4eadb; }
+.aroma-finder-teaser-btn { background:#d8bd82; color:#173b32; border-color:#d8bd82; }
+@media(max-width:720px) {
+  .aroma-finder-page .cat-portada-in { padding-block:38px; }
+  .aroma-finder-page .cat-portada h1 { font-size:clamp(2.8rem,12vw,4rem); }
+  .aroma-finder-main { padding-block:32px 90px; }
+  .aroma-finder-main .buscador-form { padding:17px; border-radius:17px; }
+  .aroma-finder-main .buscador-chips { gap:7px; }
+  .aroma-finder-main .buscador-chips button { padding:9px 12px; font-size:13px; }
+  .aroma-finder-main .buscador-controles { display:grid; gap:10px; }
+  .aroma-finder-main .buscador-submit { width:100%; }
+  .aroma-finder-main .resultado-grid { grid-template-columns:1fr; }
+  .aroma-finder-teaser { padding-block:42px; }
+  .aroma-finder-teaser-btn { width:100%; min-height:48px; }
+}
