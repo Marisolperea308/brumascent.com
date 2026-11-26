@@ -25,7 +25,7 @@ async function verifySignature(request, dataId, secret) {
 
   // Para Checkout API Orders, conservar data.id exactamente como llega en la query al construir el manifest.
   const manifestParts = [];
-  if (dataId) manifestParts.push(`id:${String(dataId)}`);
+  if (dataId) manifestParts.push(`id:${String(dataId).toLowerCase()}`);
   if (requestId) manifestParts.push(`request-id:${requestId}`);
   manifestParts.push(`ts:${parts.ts}`);
   const manifest = manifestParts.map(part => part + ";").join("");
