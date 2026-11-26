@@ -74,7 +74,7 @@ window.PERFUMES = [
     corazon: ["Rosa damascena"],
     fondo: ["Madera de akigala", "Benjuí"],
     descripcion: "Un floral frutal vibrante donde la frambuesa jugosa y el lichi se encuentran con una rosa luminosa sobre un fondo amaderado y cálido. Moderno, coqueto y lleno de energía.",
-    precio: "$10",
+    precio: "$250",
     disponible: true,
     nuevo: false,
     masPedido: false
