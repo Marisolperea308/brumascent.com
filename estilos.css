@@ -1032,3 +1032,120 @@ body.navidad-season::before{background:#173b32}
 .carta-img{background:#fff!important;overflow:hidden}
 .carta-img .foto-bruma{width:auto;height:198px;max-width:88%;object-fit:contain;filter:none}
 .ficha-img .foto-bruma{height:min(460px,52vh);width:auto;max-width:100%;object-fit:contain;filter:none}
+
+
+/* =========================================================
+   BRUMA SCENT · EXPERIENCIA MÓVIL NAVIDEÑA
+   Ajustes visuales únicamente: no modifica carrito, pagos ni pedidos.
+   ========================================================= */
+@media (max-width: 720px) {
+  html { scroll-padding-top: 12px; }
+  body { font-size: 15px; line-height: 1.55; }
+  .sec-in, .top-in, .hero-in {
+    padding-left: max(18px, env(safe-area-inset-left, 0px));
+    padding-right: max(18px, env(safe-area-inset-right, 0px));
+  }
+
+  /* Encabezado compacto con navegación desplazable */
+  .top-in {
+    display: flex; flex-wrap: wrap; align-items: center;
+    min-height: 0; gap: 8px 12px; padding-top: 9px; padding-bottom: 9px;
+  }
+  .marca { margin-right: auto; }
+  .top-in .btn { min-height: 38px; padding: 0 16px; font-size: 12px; }
+  .nav {
+    display: flex !important; order: 3; flex: 0 0 calc(100% + 36px);
+    width: calc(100% + 36px); margin: 0 -18px -9px; padding: 9px 18px 11px;
+    gap: 8px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; border-top: 1px solid rgba(216,189,130,.22);
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a {
+    flex: 0 0 auto; padding: 7px 12px; border: 1px solid rgba(216,189,130,.36);
+    border-radius: 999px; background: rgba(255,250,240,.10);
+    color: inherit; font-size: 12px; line-height: 1.2; text-decoration: none;
+  }
+  .inicio .nav { background: rgba(16,47,41,.92); backdrop-filter: blur(12px); }
+  .inicio .nav a { color: #fff8ec; text-shadow: none; }
+  .pagina-catalogo .nav { background: #173b32; border-top-color: rgba(216,189,130,.28); }
+  .pagina-catalogo .nav a { color: #fff8ec; border-color: rgba(216,189,130,.34); }
+  .pagina-catalogo .nav a[aria-current="page"] { background: #d8bd82; color: #173b32; text-decoration: none; }
+
+  /* Portada navideña: lectura clara y llamadas a la acción amplias */
+  .portada picture { aspect-ratio: 4 / 4.6; }
+  .portada-txt { padding-left: 20px; padding-right: 20px; padding-bottom: 30px; }
+  .portada h1 { font-size: clamp(2.45rem, 11vw, 3.25rem); line-height: .98; }
+  .portada-pre { font-size: 10px; letter-spacing: .2em; }
+  .portada-sub { max-width: 32ch; font-size: 14px; line-height: 1.5; }
+  .portada-cta { width: 100%; gap: 8px; }
+  .portada-cta .btn { flex: 1 1 145px; min-height: 46px; padding-inline: 13px; font-size: 12px; }
+
+  /* Secciones y tarjetas: más aire, lectura y tacto */
+  .colecciones, .catalogo { padding-top: 48px; }
+  .colecciones-tit { margin-bottom: 20px; }
+  .cuadros { gap: 13px; }
+  .cuadro { border-radius: 18px; padding: 22px; }
+  .cuadro-nombre { font-size: clamp(2.15rem, 10vw, 3rem); }
+  .cuadro-frascos .frasco { height: 210px; }
+  .cuadro-ir { min-height: 42px; font-size: 13px; }
+  .cat-portada-in { padding-block: 34px 38px; gap: 8px; }
+  .cat-portada h1 { font-size: clamp(2.7rem, 12vw, 4rem); }
+  .cat-portada-sub { max-width: 30ch; font-size: 14px; }
+  .cat-cab { align-items: flex-start; }
+  .cat-cab h1, .cat-cab h2 { font-size: 2.2rem; }
+  .cat-filtros { gap: 12px; margin-top: 20px; }
+  .buscar { max-width: none; }
+  .buscar input { font-size: 16px; }
+  .chips { gap: 7px; }
+  .chip { padding: 9px 13px; font-size: 12px; }
+  .carta { min-width: 0; }
+  .carta-img .foto-bruma { height: 160px; max-width: 94%; }
+  .carta-nombre { font-size: 17px; }
+  .carta-precio { font-size: 15px; }
+  .carta .btn, .carta button { min-height: 42px; }
+
+  /* Invierno/navidad: tarjetas y buscador cómodos en pantallas estrechas */
+  .invierno { padding-block: 54px; }
+  .invierno h2 { font-size: clamp(2.35rem, 10vw, 3.5rem); }
+  .invierno-intro { font-size: 14px; margin: 16px auto 24px; }
+  .invierno-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px; }
+  .invierno-card-btn { min-height: 285px; padding: 12px; }
+  .invierno-bottle { height: 94px; margin: 10px 0; }
+  .invierno-card strong { font-size: 1.22rem; }
+  .invierno-notes { font-size: 11px; }
+  .buscador-aroma { padding-block: 52px; }
+  .buscador-aroma h2 { font-size: clamp(2.15rem, 9vw, 3rem); }
+  .buscador-form { padding: 18px; }
+  .buscador-form textarea { font-size: 16px; }
+  .buscador-controles select { min-height: 48px; font-size: 16px; }
+
+  /* Compra y carrito: botones grandes, formulario de una columna */
+  .bruma-cart-launcher { right: 12px; bottom: max(12px, env(safe-area-inset-bottom, 0px)); min-height: 48px; }
+  .bruma-cart-dialog { width: calc(100% - 16px); max-height: 90dvh; border-radius: 16px; }
+  .bruma-cart-head h2 { font-size: 26px; }
+  .bruma-cart-items { max-height: 32dvh; }
+  .bruma-cart-qty button { width: 34px; height: 34px; }
+  .bruma-cart-whatsapp, .bruma-cart-pay { min-height: 50px; font-size: 13px; }
+  .bruma-shipping-box, .bruma-customer-box { padding: 14px; border-radius: 12px; }
+  .bruma-customer-grid { grid-template-columns: 1fr; }
+  .bruma-customer-wide { grid-column: auto; }
+  .bruma-customer-grid input, .bruma-delivery-select, #brumaZipField input,
+  .bruma-shipping-form input { min-height: 46px; font-size: 16px; }
+  .bruma-shipping-form { flex-direction: column; }
+  .bruma-shipping-form button { min-height: 46px; }
+
+  /* Tipografía y pie */
+  .pie { padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
+  .pie a { overflow-wrap: anywhere; }
+}
+@media (max-width: 380px) {
+  .inicio .top-in .marca .logo { width: 42px !important; }
+  .top-in .btn { padding-inline: 12px; }
+  .portada h1 { font-size: 2.35rem; }
+  .invierno-grid { grid-template-columns: 1fr 1fr; }
+  .invierno-card-btn { min-height: 270px; padding: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav a, .cuadro, .invierno-card-btn { transition: none !important; }
+}
+/* Fin de experiencia móvil navideña */
