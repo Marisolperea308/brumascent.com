@@ -1327,3 +1327,44 @@ body.navidad-season::before{background:#173b32}
   .top-in .nav::-webkit-scrollbar { display:none; width:0; height:0; }
   .top-in .nav a { flex:0 0 auto; scroll-snap-align:start; }
 }
+
+
+/* Cómo pedir: guía clara, alto contraste y lectura cómoda en móvil */
+.pasos { background:linear-gradient(145deg,#f8f5ef 0%,#eaf0e9 58%,#f4e7e1 100%); color:#173b32; }
+.pasos .pasos-in { max-width:1120px; }
+.pasos-eyebrow { margin:0 0 14px; color:#967548; font-size:.76rem; font-weight:600; letter-spacing:.18em; text-align:center; }
+.pasos h2 { display:block; max-width:780px; margin:0 auto; color:#173b32; font:400 clamp(2.2rem,5vw,4.2rem)/1.04 var(--f-display); text-align:center; }
+.pasos h2::after { content:none; }
+.pasos-intro { max-width:680px; margin:18px auto 0; color:#52635b; font-size:1.08rem; line-height:1.7; text-align:center; }
+.pasos-lista { margin-top:42px; gap:18px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.pasos-lista::before { display:none; }
+.pasos-lista li { min-width:0; padding:24px 22px; border:1px solid #d8dfd5; border-radius:20px; background:rgba(255,253,248,.92); box-shadow:0 8px 24px rgba(23,59,50,.06); gap:9px; }
+.pasos-lista li::before { width:46px; height:46px; margin:0 0 4px; color:#173b32; background:#e8d5a4; border:1px solid #d4b977; box-shadow:none; font:600 1.25rem/1 var(--f-texto); }
+.pasos-lista strong { color:#173b32; font:600 1.08rem/1.3 var(--f-texto); }
+.pasos-lista span { max-width:none; color:#46574f; font-size:1rem; line-height:1.65; }
+.pasos-entrega { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:28px; }
+.pasos-entrega-card { display:flex; align-items:flex-start; gap:14px; padding:20px; border-radius:18px; background:#173b32; color:#fff8ec; }
+.pasos-entrega-icon { flex:0 0 auto; font-size:1.55rem; }
+.pasos-entrega-card strong { display:block; margin-bottom:5px; font-size:1rem; color:#e8d5a4; }
+.pasos-entrega-card p,.pasos-pago p { margin:0; color:#f5f1e8; font-size:.96rem; line-height:1.65; }
+.pasos-pago { margin-top:18px; padding:22px 24px; border:1px solid #d8bd82; border-radius:18px; background:#fffaf0; }
+.pasos-pago strong { display:block; margin-bottom:6px; color:#173b32; font-size:1.08rem; }
+.pasos-pago p { color:#46574f; }
+.pasos-whatsapp { display:flex; width:fit-content; max-width:100%; min-height:48px; align-items:center; justify-content:center; margin:24px auto 0; padding:12px 24px; border-radius:999px; background:#173b32; color:#fff8ec; text-align:center; text-decoration:none; font-weight:600; }
+.pasos-whatsapp:hover { background:#245746; color:#fff8ec; }
+@media(max-width:760px) {
+ .pasos { padding-block:54px; }
+ .pasos-eyebrow { font-size:.68rem; letter-spacing:.14em; }
+ .pasos h2 { font-size:clamp(2.05rem,9vw,2.8rem); line-height:1.06; }
+ .pasos-intro { font-size:1rem; line-height:1.65; }
+ .pasos-lista { grid-template-columns:1fr; margin-top:28px; gap:13px; }
+ .pasos-lista li { grid-template-columns:42px minmax(0,1fr); column-gap:13px; row-gap:5px; padding:17px 15px; border-radius:16px; }
+ .pasos-lista li::before { grid-row:1 / 3; width:40px; height:40px; font-size:1.1rem; }
+ .pasos-lista strong { font-size:1rem; }
+ .pasos-lista span { font-size:.94rem; line-height:1.6; }
+ .pasos-entrega { grid-template-columns:1fr; gap:11px; margin-top:20px; }
+ .pasos-entrega-card { padding:17px; }
+ .pasos-entrega-card p,.pasos-pago p { font-size:.93rem; }
+ .pasos-pago { padding:18px; }
+ .pasos-whatsapp { width:100%; font-size:.94rem; }
+}
