@@ -169,7 +169,7 @@
   function pintarRejilla() {
     var lista = filtrados();
     $("#rejilla").innerHTML = lista.map(function (p) {
-      return '<li><button type="button" class="carta" data-num="' + p.num + '" aria-label="Ver notas de ' + esc(p.nombre) + '">' +
+      return '<li class="carta-item"><button type="button" class="carta" data-num="' + p.num + '" aria-label="Ver ficha olfativa de ' + esc(p.nombre) + '">' +
         '<span class="carta-top"><span class="carta-num">N.º ' + num2(p.num) + '</span><span class="carta-tag">' + esc(etiqueta(p)) + '</span></span>' +
         '<span class="carta-img">' + (!esAmbiental(p) ? '<img class="foto-producto foto-bruma" src="img/bruma-fragancia.jpg" alt="Frasco Bruma Scent" loading="lazy" width="300" height="450">'
           : (p.foto ? '<img class="foto-producto" src="' + esc(p.foto) + '" alt="" loading="lazy">'
@@ -178,7 +178,9 @@
         '<span class="carta-marca">' + esc(esAmbiental(p) ? (p.presentacion || "") : p.marca) + '</span>' +
         ((p.precio || CONFIG.precioGeneral) ? '<span class="carta-precio">' + esc(p.precio || CONFIG.precioGeneral) + '</span>' : '') +
         '<span class="carta-notas">' + (p.destacadas || []).slice(0, 4).map(function (n) { return imgNota(n); }).join("") + '</span></span>' +
-        '</button></li>';
+        '</button>' +
+        '<button type="button" class="bruma-card-add" data-cart-add="' + p.num + '"' + (p.disponible === false ? ' disabled' : '') + '>' +
+        (p.disponible === false ? 'Agotado' : '<span aria-hidden="true">＋</span> Agregar al carrito') + '</button></li>';
     }).join("");
     var total = lista.length;
     var deG = deEsteGenero().length, quien = QUIEN[estado.genero] || "";
@@ -270,6 +272,8 @@
   $("#rejilla").addEventListener("click", function (e) {
     var ref = e.target.closest(".referencia-link");
     if (ref) { e.preventDefault(); e.stopPropagation(); if (ref.dataset.refUrl) window.open(ref.dataset.refUrl, "_blank", "noopener"); return; }
+    var add = e.target.closest("[data-cart-add]");
+    if (add) { e.preventDefault(); e.stopPropagation(); agregarAlCarrito(Number(add.dataset.cartAdd)); abrirCarrito(); return; }
     var b = e.target.closest(".carta"); if (b) abrir(b.dataset.num);
   });
   }
