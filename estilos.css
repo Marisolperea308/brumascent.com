@@ -1368,3 +1368,51 @@ body.navidad-season::before{background:#173b32}
  .pasos-pago { padding:18px; }
  .pasos-whatsapp { width:100%; font-size:.94rem; }
 }
+
+/* Experiencia de compra en escritorio: catálogo y carrito mejor organizados */
+@media (min-width: 1100px) {
+  .catalogo { padding-block: 104px 64px; }
+  .cat-cab { align-items: end; }
+  .cat-filtros { grid-template-columns: minmax(280px, 1fr) auto; align-items: end; gap: 28px; }
+  .buscar { max-width: 100%; }
+  .chips { justify-content: flex-end; }
+  .rejilla { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .carta { padding: 24px 22px 26px; gap: 16px; }
+  .carta-img { height: 250px; }
+  .carta-img .frasco { height: 220px; }
+  .carta-nombre { font-size: 1.35rem; }
+  .carta-precio { font-size: 1.25rem; }
+}
+@media (min-width: 1500px) {
+  .rejilla { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+  .bruma-cart-dialog {
+    width: min(1040px, calc(100% - 64px));
+    max-width: 1040px;
+    max-height: min(88vh, 900px);
+    padding: 0 28px 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    column-gap: 30px;
+    align-content: start;
+    overflow-y: auto;
+    border-radius: 18px;
+  }
+  .bruma-cart-head { grid-column: 1 / -1; margin: 0 -28px; padding: 24px 32px 20px; }
+  .bruma-cart-empty, .bruma-cart-items { grid-column: 1; }
+  .bruma-cart-items { max-height: 28vh; padding: 0 8px; }
+  .bruma-shipping-box, .bruma-customer-box { grid-column: 2; margin: 18px 0 0; }
+  .bruma-cart-total, .bruma-cart-whatsapp, .bruma-cart-pay, .bruma-cart-note, .bruma-cart-notice { grid-column: 1 / -1; }
+  .bruma-cart-total { margin: 20px 0 8px; }
+  .bruma-cart-whatsapp, .bruma-cart-pay { width: 100%; margin: 8px 0; min-height: 52px; }
+  .bruma-cart-note, .bruma-cart-notice { margin: 8px 0 0; }
+  .bruma-customer-grid { gap: 14px; }
+  .bruma-customer-grid input, .bruma-delivery-select { min-height: 44px; }
+}
+@media (min-width: 900px) and (max-height: 850px) {
+  .bruma-cart-dialog { max-height: 92vh; }
+  .bruma-cart-items { max-height: 20vh; }
+}
+
