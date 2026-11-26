@@ -1186,3 +1186,32 @@ body.navidad-season::before{background:#173b32}
   .bruma-cart-launcher span { display: none; }
   .bruma-cart-launcher b { min-width: 24px; min-height: 24px; }
 }
+
+
+/* Contraste accesible para portadas claras de colecciones */
+.navidad-season .cat-portada-mujer .cat-portada-sub,
+.navidad-season .cat-portada-mujer .cat-volver,
+.navidad-season .cat-portada-mujer .cat-otro,
+.navidad-season .cat-portada-unisex .cat-portada-sub,
+.navidad-season .cat-portada-unisex .cat-volver,
+.navidad-season .cat-portada-unisex .cat-otro,
+.navidad-season .cat-portada-hogar .cat-portada-sub,
+.navidad-season .cat-portada-hogar .cat-volver,
+.navidad-season .cat-portada-hogar .cat-otro {
+  color: #24483d;
+}
+.navidad-season .cat-portada-mujer .cat-otro a,
+.navidad-season .cat-portada-unisex .cat-otro a,
+.navidad-season .cat-portada-hogar .cat-otro a {
+  color: #173b32;
+  text-decoration-color: #a17c3e;
+  text-underline-offset: 4px;
+}
+@media (max-width: 720px) {
+  .navidad-season .cat-portada-mujer .cat-portada-sub,
+  .navidad-season .cat-portada-mujer .cat-volver,
+  .navidad-season .cat-portada-unisex .cat-portada-sub,
+  .navidad-season .cat-portada-unisex .cat-volver,
+  .navidad-season .cat-portada-hogar .cat-portada-sub,
+  .navidad-season .cat-portada-hogar .cat-volver { opacity: 1; }
+}
