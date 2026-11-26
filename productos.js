@@ -27,11 +27,15 @@ window.CONFIG = {
 
 /* Preguntas frecuentes: agrega, quita o cambia libremente. */
 window.PREGUNTAS = [
-  { p: "¿Qué es un dupe?", r: "Es un perfume inspirado en un aroma de diseñador: busca oler lo más parecido posible al original, con las mismas notas principales, a un precio mucho más accesible." },
-  { p: "¿Cuánto dura en la piel?", r: "Depende de cada aroma y de tu tipo de piel. Los perfumes dulces y orientales suelen durar más; los frescos y cítricos son más ligeros. Aplícalo en cuello y muñecas sin frotar para que rinda mejor." },
-  { p: "¿Cómo hago mi pedido?", r: "Entra al perfume que te guste y toca “Pedir por WhatsApp”. Te llega un mensaje ya escrito con el número y nombre del aroma, y ahí te damos precio, formas de pago y entrega." },
-  { p: "¿Hacen envíos?", r: "Escríbenos con tu ciudad y te decimos las opciones de entrega o envío disponibles." },
-  { p: "No encuentro el perfume que busco", r: "Mándanos el nombre del perfume original. Si no está en el catálogo, te recomendamos el que más se le parece por sus notas." }
+  { p: "¿Cómo hago mi pedido?", r: "Explora el catálogo, abre el perfume que te guste y agrégalo a Mi carrito. Revisa los productos, completa tus datos y elige envío nacional o pickup en Monterrey. Después puedes pagar en línea con Mercado Pago o enviarnos tu pedido por WhatsApp si necesitas ayuda." },
+  { p: "¿Cuánto cuesta el envío?", r: "El envío nacional cuesta $220 MXN por pedido. Es gratis en compras desde $1,999 MXN. Asegúrate de escribir correctamente tu domicilio y código postal." },
+  { p: "¿Puedo recoger mi pedido?", r: "Sí. Pickup / recoger en persona es gratis y está disponible únicamente en Monterrey, Nuevo León. Selecciona esa opción al hacer tu pedido; coordinaremos los detalles de entrega por WhatsApp." },
+  { p: "¿Cómo pago mi compra?", r: "Para pagar en línea, selecciona Pagar con Mercado Pago y completa el proceso en su página segura. Si tienes dudas antes de pagar, puedes contactarnos por WhatsApp. Nunca envíes los datos de tu tarjeta por mensaje." },
+  { p: "¿Qué datos necesito para comprar?", r: "Necesitamos nombre completo, correo electrónico, celular, ciudad y estado. Para envío nacional también debes indicar calle, número, colonia y código postal. Para pickup solo en Monterrey no necesitas capturar domicilio de envío." },
+  { p: "¿Puedo pedir ayuda para elegir un aroma?", r: "¡Claro! Usa Encuentra tu aroma para describir qué tipo de fragancia te gusta, o escríbenos por WhatsApp. También puedes abrir cualquier perfume del catálogo para conocer sus notas." },
+  { p: "¿Qué es un perfume inspirado o dupe?", r: "Es una fragancia inspirada en el perfil olfativo de un perfume conocido. No es el producto original ni está afiliado a la marca mencionada; el nombre se utiliza como referencia del aroma." },
+  { p: "¿Cuánto dura en la piel?", r: "La duración puede variar según la fragancia, el tipo de piel, el clima y la aplicación. Para disfrutar mejor tu perfume, aplícalo sobre la piel limpia e hidratada." },
+  { p: "No encuentro el perfume que busco, ¿qué hago?", r: "Envíanos por WhatsApp el nombre del perfume que tienes en mente. Podemos orientarte y sugerirte opciones disponibles en nuestro catálogo según sus notas y estilo." }
 ];
 
 /* =========================================================
