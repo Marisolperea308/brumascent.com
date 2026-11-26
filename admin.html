@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Pedidos | Bruma Scent</title>
+<style>
+:root{color-scheme:light;--ink:#29231f;--muted:#756d66;--line:#e8e0d8;--paper:#faf8f5;--gold:#9a7447;--green:#28734d}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:#fff;border-bottom:1px solid var(--line);padding:22px max(20px,calc((100% - 1050px)/2))}
+.brand{font-family:Georgia,serif;letter-spacing:.12em;font-size:19px}.sub{color:var(--muted);font-size:13px;margin-top:3px}
+main{max-width:1050px;margin:28px auto;padding:0 18px}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:0 4px 18px #39281708}
+h1{font:28px Georgia,serif;margin:0 0 6px}h2{font-size:17px;margin:0 0 12px}
+p{margin:5px 0;color:var(--muted)}label{display:block;font-weight:600;margin:14px 0 6px}
+input{width:100%;padding:13px;border:1px solid #d8cec4;border-radius:9px;font:inherit}
+button{border:0;border-radius:9px;background:#302820;color:#fff;padding:12px 17px;font:600 14px inherit;cursor:pointer;margin-top:12px}
+button.secondary{background:#eee8e1;color:#302820}button:disabled{opacity:.5}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row input{flex:1;min-width:200px}
+.hidden{display:none!important}.error{color:#a32c2c;margin-top:10px}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.stat{background:#f6f1eb;border-radius:10px;padding:12px 16px;min-width:120px}.stat b{display:block;font-size:22px}.stat span{color:var(--muted);font-size:12px}
+.order{border:1px solid var(--line);border-radius:13px;padding:16px;margin:12px 0}.order-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.status{font-size:12px;font-weight:700;border-radius:20px;padding:5px 10px;background:#f2eee9}.paid{background:#e6f3eb;color:#21633f}
+.meta{font-size:13px;color:var(--muted)}.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+.block{background:#faf8f5;border-radius:9px;padding:11px}.block strong{display:block;font-size:12px;color:var(--muted);margin-bottom:3px}
+ul{padding-left:19px;margin:6px 0} .actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{margin-top:8px}
+@media(max-width:600px){main{margin:18px auto}.panel{padding:17px}h1{font-size:24px}}
+</style>
+</head>
+<body>
+<header><div class="brand">BRUMA SCENT</div><div class="sub">Administración privada · Pedidos</div></header>
+<main>
+<section class="panel" id="login">
+<h1>Panel de pedidos</h1><p>Ingresa la contraseña de administración para consultar las ventas y los datos de entrega.</p>
+<form id="loginForm"><label for="password">Contraseña de administración</label><div class="row"><input id="password" type="password" autocomplete="current-password" required><button id="loginBtn">Entrar</button></div></form>
+<div id="loginError" class="error" role="alert"></div>
+</section>
+<section id="dashboard" class="hidden">
+<div class="panel">
+<div class="row" style="justify-content:space-between"><div><h1>Pedidos</h1><p>Los pedidos pagados están marcados para preparar el envío.</p></div><div class="actions"><button class="secondary" id="refresh">Actualizar</button><button class="secondary" id="logout">Salir</button></div></div>
+<div class="stats"><div class="stat"><b id="totalCount">0</b><span>Pedidos registrados</span></div><div class="stat"><b id="paidCount">0</b><span>Pagados</span></div><div class="stat"><b id="pendingCount">0</b><span>Pendientes</span></div></div>
+<div class="row"><input id="filter" type="search" placeholder="Buscar por nombre, referencia o teléfono"><select id="statusFilter" style="padding:12px;border:1px solid #d8cec4;border-radius:9px;background:white"><option value="todos">Todos los estados</option><option value="pagado">Pagados</option><option value="pendiente">Pendientes</option><option value="cancelado">Cancelados</option><option value="vencido">Vencidos</option></select></div>
+<div id="orders"></div><div id="empty" class="meta hidden">No hay pedidos que coincidan con la búsqueda.</div>
+</div>
+</section>
+</main>
+<script>
+(function(){
+"use strict";
+var password="",orders=[];
+var $=function(id){return document.getElementById(id)};
+function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function money(v){return new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN"}).format(Number(v)||0)}
+function date(v){if(!v)return "Sin fecha";var d=new Date(v);return isNaN(d)?"Sin fecha":d.toLocaleString("es-MX",{dateStyle:"medium",timeStyle:"short"})}
+function products(raw){try{var a=typeof raw==="string"?JSON.parse(raw):raw;if(!Array.isArray(a))return "<p>Detalle de productos no disponible.</p>";return "<ul>"+a.map(function(p){return "<li>"+esc(p.cantidad)+" × "+esc(p.nombre)+" — "+money(p.precio)+" c/u</li>"}).join("")+"</ul>"}catch(e){return "<p>Detalle de productos no disponible.</p>"}}
+async function load(){
+ $("refresh").disabled=true;$("orders").innerHTML="<p>Cargando pedidos…</p>";
+ try{
+  var r=await fetch("/api/admin-orders",{headers:{"x-admin-password":password},cache:"no-store"});
+  var data=await r.json();
+  if(!r.ok)throw new Error(data.error||"No se pudieron cargar los pedidos.");
+  orders=data.pedidos||[];$("login").classList.add("hidden");$("dashboard").classList.remove("hidden");render();
+ }catch(e){$("orders").innerHTML="";$("login").classList.remove("hidden");$("dashboard").classList.add("hidden");$("loginError").textContent=e.message;password="";}
+ finally{$("refresh").disabled=false}
+}
+function render(){
+ var paid=orders.filter(function(o){return o.estado==="pagado"}).length;
+ $("totalCount").textContent=orders.length;$("paidCount").textContent=paid;$("pendingCount").textContent=orders.filter(function(o){return o.estado==="pendiente"}).length;
+ var q=$("filter").value.trim().toLowerCase(),st=$("statusFilter").value;
+ var shown=orders.filter(function(o){var text=[o.nombre,o.referencia,o.telefono,o.correo].join(" ").toLowerCase();return (!q||text.includes(q))&&(st==="todos"||o.estado===st)});
+ $("empty").classList.toggle("hidden",shown.length!==0);
+ $("orders").innerHTML=shown.map(function(o){
+  var address=[o.calle,o.numero_exterior,o.colonia,o.ciudad,o.estado_domicilio,o.codigo_postal].filter(Boolean).join(", ");
+  var isPaid=o.estado==="pagado";
+  var phone=String(o.telefono||"").replace(/\D/g,"");
+  var wa=phone?"https://wa.me/52"+phone+"?text="+encodeURIComponent("Hola "+(o.nombre||"")+", te contactamos de Bruma Scent sobre tu pedido "+(o.referencia||"")+"."):"";
+  return '<article class="order"><div class="order-top"><div><strong>'+esc(o.nombre||"Cliente")+'</strong><div class="meta">'+esc(o.referencia)+' · '+esc(date(o.fecha))+'</div></div><span class="status '+(isPaid?"paid":"")+'">'+esc(String(o.estado||"sin estado").toUpperCase())+'</span></div><div class="cols"><div class="block"><strong>PRODUCTOS</strong>'+products(o.productos)+'</div><div class="block"><strong>TOTAL</strong><b>'+money(o.total)+'</b><p>Envío: '+money(o.envio)+'</p><p>Entrega: '+esc(o.paqueteria||"Por coordinar")+'</p></div><div class="block"><strong>CONTACTO</strong>'+esc(o.telefono)+'<br>'+esc(o.correo)+'</div><div class="block"><strong>DOMICILIO DE ENTREGA</strong>'+esc(address||"Pickup / recoger en persona")+(o.referencias_entrega?'<p>Referencias: '+esc(o.referencias_entrega)+'</p>':"")+'</div></div><div class="actions"><button class="secondary copy" data-copy="'+esc(address||"Pickup / recoger en persona")+'">Copiar domicilio</button>'+(wa?'<button class="secondary" data-wa="'+esc(wa)+'">WhatsApp cliente</button>':"")+'</div>'+(isPaid?'<p class="meta" style="color:#21633f;margin-top:10px">Pago confirmado: puedes preparar este pedido.</p>':'<p class="meta" style="margin-top:10px">No preparar ni enviar hasta confirmar el pago.</p>')+'</article>';
+ }).join("");
+}
+$("loginForm").addEventListener("submit",function(e){e.preventDefault();password=$("password").value;load()});
+$("refresh").addEventListener("click",load);$("logout").addEventListener("click",function(){password="";orders=[];$("password").value="";$("dashboard").classList.add("hidden");$("login").classList.remove("hidden");$("loginError").textContent=""});
+$("filter").addEventListener("input",render);$("statusFilter").addEventListener("change",render);
+$("orders").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;if(b.dataset.copy!==undefined){if(navigator.clipboard)navigator.clipboard.writeText(b.dataset.copy).then(function(){b.textContent="Domicilio copiado"});else b.textContent="Copia no disponible"}if(b.dataset.wa)window.open(b.dataset.wa,"_blank","noopener")});
+})();
+</script>
+</body></html>
