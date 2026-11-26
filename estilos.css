@@ -1431,3 +1431,63 @@ body.navidad-season::before{background:#173b32}
 .bruma-card-add:hover { background: var(--rosa); border-color: var(--rosa); }
 .bruma-card-add:focus-visible { outline: 2px solid var(--rosa); outline-offset: 3px; }
 .bruma-card-add:disabled { opacity: .5; cursor: not-allowed; }
+
+
+/* Botón de compra refinado: acabado editorial Bruma Scent */
+.bruma-card-add {
+  width: calc(100% - 32px);
+  min-height: 48px;
+  margin: 0 16px 16px;
+  padding: 9px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid #b99a61;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #173b32 0%, #214b3e 100%);
+  color: #fffaf0;
+  font-family: var(--f-texto);
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: .015em;
+  line-height: 1.2;
+  box-shadow: 0 4px 12px rgba(23,59,50,.10);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.bruma-card-add > span {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 25px;
+  width: 25px;
+  height: 25px;
+  border: 1px solid rgba(222,197,143,.8);
+  border-radius: 50%;
+  color: #e5cb91;
+  font-size: 17px;
+  line-height: 1;
+}
+.bruma-card-add:hover {
+  background: linear-gradient(135deg, #244d40 0%, #315b4c 100%);
+  border-color: #d8bd82;
+  box-shadow: 0 7px 18px rgba(23,59,50,.16);
+  transform: translateY(-1px);
+}
+.bruma-card-add:active { transform: translateY(0) scale(.985); }
+.bruma-card-add:disabled {
+  background: #e9e3d8;
+  border-color: #d7cfc0;
+  color: #82796b;
+  box-shadow: none;
+}
+@media (max-width: 720px) {
+  .bruma-card-add {
+    width: calc(100% - 24px);
+    min-height: 44px;
+    margin: 0 12px 12px;
+    padding: 7px 8px;
+    gap: 7px;
+    font-size: clamp(11px, 3.2vw, 13px);
+  }
+  .bruma-card-add > span { flex-basis: 22px; width: 22px; height: 22px; font-size: 15px; }
+}
