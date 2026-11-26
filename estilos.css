@@ -1416,3 +1416,18 @@ body.navidad-season::before{background:#173b32}
   .bruma-cart-items { max-height: 20vh; }
 }
 
+
+
+/* Acción directa desde cada producto: no requiere abrir la ficha olfativa */
+.carta-item { display: flex; flex-direction: column; min-width: 0; }
+.carta-item .carta { flex: 1 1 auto; }
+.bruma-card-add {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  width: calc(100% - 36px); margin: 0 18px 18px; padding: 12px 14px;
+  border: 1px solid var(--tinta); border-radius: 2px; background: var(--tinta);
+  color: #fff; font: inherit; font-size: .88rem; cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.bruma-card-add:hover { background: var(--rosa); border-color: var(--rosa); }
+.bruma-card-add:focus-visible { outline: 2px solid var(--rosa); outline-offset: 3px; }
+.bruma-card-add:disabled { opacity: .5; cursor: not-allowed; }
